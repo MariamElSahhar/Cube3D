@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/09 19:19:07 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/09 20:19:27 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 
 # define ROT 45 * (M_PI / 180)
 # define FOV 60 * (M_PI / 180)
+# define SPEED 5
+# define TILE 25
 
 typedef struct s_map {
 	int		floor[3];
@@ -47,5 +49,14 @@ typedef struct s_map {
 	int		pos[2];
 } t_map;
 
+typedef struct s_mlx {
+	void	*mlx;
+	void	*mlx_win;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+} t_mlx;
 
 #endif
