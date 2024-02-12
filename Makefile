@@ -7,15 +7,16 @@ CFLAGS = -Wall -Wextra -Werror
 MLX = minilibx_macos
 LIBFT_DIR = libft/
 LIBFT = libftprintf.a
+MLX_FLAGS = -Lminilibx_macos -lmlx -framework OpenGL -framework AppKit
 
 SRC_DIR = src/
 OBJ_DIR = obj
 
-SRC = $(addprefix $(SRC_DIR), main.c)
+SRC = $(addprefix $(SRC_DIR), main.c parsing.c parsing_utils.c validate_map.c parse_grid.c utils.c)
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
 
 $(NAME): $(LIBFT) $(OBJ) $(OBJ_DIR)
-	$(CC) -L $(MLX) -lmlx -framework OpenGL -framework AppKit $(OBJ) $(LIBFT) -o $(NAME)
+	$(CC) -L $(MLX) $(MLX_FLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 
 all: $(NAME)
 
@@ -38,6 +39,11 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+mac:
+	arch -x86_64 make
+
+macre: fclean mac
 
 norm:
 	norminette *.c *.h -R CheckDefine

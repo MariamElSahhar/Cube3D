@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 13:57:08 by melsahha          #+#    #+#             */
-/*   Updated: 2023/05/05 11:14:31 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/11 23:07:06 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	if (s2[i] && !s1[i] && i < n)
 		return (0 - (unsigned char)s2[i]);
 	return (0);
+}
+
+int	ft_strcmp(const char *s1, const char *s2) {
+	return (ft_strncmp(s1, s2, ft_strlen(s1)) || ft_strncmp(s1, s2, ft_strlen(s2)));
 }
 
 /* #include <stdio.h>
