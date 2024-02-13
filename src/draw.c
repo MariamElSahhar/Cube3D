@@ -1,40 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/12 10:23:47 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/13 21:13:59 by melsahha         ###   ########.fr       */
+/*   Created: 2024/02/13 19:44:14 by melsahha          #+#    #+#             */
+/*   Updated: 2024/02/13 21:14:37 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	free_double_pointer(void **ptr)
+void	put_pixel(t_mlx *mlx, int x, int y, int color)
 {
-	int	i;
+	char	*dst;
 
-	i = 0;
-	while (ptr && ptr[i])
-	{
-        free(ptr[i]);
-		i++;
-	}
-	free(ptr);
+	if (x >= DIM_W || x < 0 || y >= DIM_H || y < 0)
+		return ;
+	dst = mlx->addr + (y * mlx->line_length + x * (mlx->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }
 
-void	free_double_pointer_size(void **ptr, int size)
-{
-	int	i;
-
-	i = 0;
-	while (i < size)
-	{
-        printf("%i ", i);
-        free(ptr[i]);
-		i++;
+void	put_map(t_data *data) {
+	for (int i = 0; i < DIM_H; i++) {
+		for (int j = 0; j < DIM_W; j++)
+			put_pixel(data->mlx, i, j, 0x4B0082);
 	}
-	free(ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/12 11:21:52 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/13 21:14:49 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,11 @@ typedef struct s_mlx {
 	int		endian;
 } t_mlx;
 
+typedef struct s_data {
+	t_mlx	*mlx;
+	t_map	*map;
+} t_data;
+
 t_map* 	parse_map(char *filename);
 int		read_map(t_map *map, int fd);
 int		rows_cols(t_map *map, int fd, char *line);
@@ -77,5 +82,8 @@ void	free_double_pointer_size(void **ptr, int size);
 void	free_double_pointer(void **ptr);
 void    print_grid(t_map* map);
 int		str_isdigits(char *str);
+
+void	put_pixel(t_mlx *mlx, int x, int y, int color);
+void	put_map(t_data *data);
 
 #endif
