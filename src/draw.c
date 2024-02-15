@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:44:14 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/13 21:14:37 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/15 20:34:29 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ void	put_pixel(t_mlx *mlx, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	put_map(t_data *data) {
-	for (int i = 0; i < DIM_H; i++) {
-		for (int j = 0; j < DIM_W; j++)
-			put_pixel(data->mlx, i, j, 0x4B0082);
+void	put_map(t_data *data)
+{
+	for (int i = 0; i < DIM_W; i++) {
+		for (int j = 0; j < DIM_H; j++)
+			put_pixel(&data->mlx, i, j, 0xffffff);
 	}
 }

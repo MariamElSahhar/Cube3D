@@ -30,6 +30,9 @@ $(LIBFT):
 	make -C $(LIBFT_DIR)
 	mv $(addprefix $(LIBFT_DIR), $(LIBFT)) .
 
+linux: $(LIBFT) $(OBJ) $(OBJ_DIR)
+	$(CC) $(OBJ) $(LIBFT) -o $(NAME)
+
 clean:
 	make -C $(LIBFT_DIR) clean
 	rm -f $(LIBFT)
@@ -46,7 +49,7 @@ mac:
 macre: fclean mac
 
 norm:
-	norminette *.c *.h -R CheckDefine
+	norminette $(addprefix $(SRC_DIR), *.c) -R CheckDefine
 	norminette $(addprefix $(PRINTF_DIR), *.c) $(addprefix $(PRINTF_DIR), *.h) -R CheckDefine
 	norminette $(addprefix $(LIBFT_DIR), *.c) $(addprefix $(LIBFT_DIR), *.h) -R CheckDefine
 

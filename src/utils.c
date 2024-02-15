@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:23:47 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/13 21:13:59 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/15 20:44:50 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_double_pointer(void **ptr)
 	i = 0;
 	while (ptr && ptr[i])
 	{
-        free(ptr[i]);
+		free(ptr[i]);
 		i++;
 	}
 	free(ptr);
@@ -30,11 +30,14 @@ void	free_double_pointer_size(void **ptr, int size)
 	int	i;
 
 	i = 0;
+	printf("freeing double pointer: ");
 	while (i < size)
 	{
-        printf("%i ", i);
-        free(ptr[i]);
+		printf("%i ", i);
+		free(ptr[i]);
 		i++;
 	}
+	printf(" | ");
 	free(ptr);
+	printf(" |\n");
 }
