@@ -2,7 +2,7 @@
 NAME = cub3d
 INCL = ./include/
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 MLX = minilibx_macos
 LIBFT_DIR = libft/
@@ -12,7 +12,7 @@ MLX_FLAGS = -Lminilibx_macos -lmlx -framework OpenGL -framework AppKit
 SRC_DIR = src/
 OBJ_DIR = obj
 
-SRC = $(addprefix $(SRC_DIR), main.c parsing.c parsing_utils.c validate_map.c parse_grid.c utils.c draw.c)
+SRC = $(addprefix $(SRC_DIR), main.c parsing.c parsing_utils.c validate_map.c parse_grid.c utils.c render.c)
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
 
 $(NAME): $(LIBFT) $(OBJ) $(OBJ_DIR)

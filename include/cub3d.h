@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/15 20:32:48 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/15 21:30:34 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_map {
 	char	*south;
 	char	*east;
 	char	*west;
-	int		dir;
+	char	dir;
 	int		pos[2];
 	size_t	rows;
 	size_t	cols;
@@ -87,6 +87,6 @@ void	print_grid(t_map *map);
 int		str_isdigits(char *str);
 
 void	put_pixel(t_mlx *mlx, int x, int y, int color);
-void	put_map(t_data *data);
+void	put_map(t_map *map, t_player *player, t_mlx *mlx);
 
 #endif

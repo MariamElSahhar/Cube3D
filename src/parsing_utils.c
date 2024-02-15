@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:29:37 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/15 20:46:06 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/15 20:51:27 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	print_grid(t_map *map)
 	printf("WE %s\n", map->west);
 	printf("F %i,%i,%i\n", map->floor[0], map->floor[1], map->floor[2]);
 	printf("C %i,%i,%i\n", map->ceiling[0], map->ceiling[1], map->ceiling[2]);
+	printf("Dir %c\n", map->dir);
 	i = 0;
 	while (i < map->rows)
 	{

@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:34:48 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/15 20:37:30 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/15 22:26:51 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	init_data(t_data *data, char *filename)
 {
 	if (!parse_map(filename, &data->map))
 		return (0);
-	printf("mlx init\n");
+	/* printf("mlx init\n");
 	data->mlx.mlx = mlx_init();
 	printf("mlx new image\n");
 	data->mlx.img = mlx_new_image(data->mlx.mlx, DIM_W, DIM_H);
@@ -27,11 +27,11 @@ int	init_data(t_data *data, char *filename)
 	printf("mlx new window\n");
 	data->mlx.mlx_win = mlx_new_window(data->mlx.mlx,
 			DIM_W, DIM_H, "Hello World");
-	printf("done data init\n");
+	printf("done data init\n"); */
 	return (1);
 }
 
-void	render(t_data *data)
+/* void	render(t_data *data)
 {
 	if (data->mlx.img != 0)
 		mlx_destroy_image(&data->mlx, data->mlx.img);
@@ -41,13 +41,14 @@ void	render(t_data *data)
 			&(data->mlx.bits_per_pixel),
 			&(data->mlx.line_length),
 			&(data->mlx.endian));
-	put_map(data);
+	put_map(&data->map, &data->player, &data->mlx);
 	mlx_put_image_to_window(data->mlx.mlx,
 		data->mlx.mlx_win, data->mlx.img, 0, 0);
-}
+} */
 
 void	free_data(t_data *data)
 {
+	printf("freeing data\n");
 	if (data->map.north)
 		free(data->map.north);
 	if (data->map.east)
@@ -66,10 +67,12 @@ int	main(int argc, char **argv)
 
 	if (argc == 2)
 	{
-		if (!init_data(&data, argv[1]))
+		if (!init_data(&data, argv[1])) {
+			free_data(&data);
 			return (1);
-		render(&data);
-		mlx_loop(&data.mlx);
+		}
+		// render(&data);
+		// mlx_loop(&data.mlx);
 		free_data(&data);
 	}
 	return (0);

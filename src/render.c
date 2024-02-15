@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:44:14 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/15 20:34:29 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/15 22:09:46 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,46 @@ void	put_pixel(t_mlx *mlx, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	put_map(t_data *data)
+float	get_angle(char dir)
 {
-	for (int i = 0; i < DIM_W; i++) {
-		for (int j = 0; j < DIM_H; j++)
-			put_pixel(&data->mlx, i, j, 0xffffff);
-	}
+	float	angle;
+
+	if (dir == 'N')
+		angle = M_PI / 2;
+	if (dir == 'S')
+		angle = - M_PI / 2;
+	if (dir == 'E')
+		angle = 0;
+	if (dir == 'W')
+		angle = M_PI;
+	return (angle);
 }
+
+/* void	cast_ray(int x, t_map *map, t_mlx *mlx) {
+	(void) map;
+	for (int i = 0; i < DIM_H; i++) {
+		put_pixel(mlx->mlx, x, i, 0x331133);
+	}
+} */
+
+/* void	put_map(t_map *map, t_player *player, t_mlx *mlx)
+{
+	float	start_angle;
+	float	end_angle;
+	int		x;
+	float	angle_increment;
+
+	(void) map;
+	(void) mlx;
+	player->alpha = get_angle(map->dir);
+	printf("player facing %f\n", player->alpha);
+	angle_increment = FOV / DIM_W;
+	start_angle = player->alpha - ((FOV / 2) * (M_PI / 180));
+	end_angle = player->alpha + ((FOV / 2) * (M_PI / 180));
+	x = 0;
+	while (x < DIM_W)
+	{
+		cast_ray(x, map, mlx);
+		x += angle_increment;
+	}
+} */

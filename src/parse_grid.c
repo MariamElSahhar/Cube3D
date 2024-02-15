@@ -6,24 +6,28 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:22:48 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/15 20:47:16 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/15 22:20:47 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	flood_fill(int **grid, int i, int j)
+int	flood_fill(int **grid, t_map *map, size_t i, size_t j)
 {
 	// printf("checking %i,%i\n", i, j);
+	if ((!i && !grid[i][j]) || (!j && !grid[i][j])
+		||( i == map->rows - 1 && !grid[i][j])
+		||( j == map->cols - 1 && !grid[i][j]))
+		return (0);
 	if (grid[i][j] == 3 || grid[i][j] == 1)
 		return (1);
 	if (grid[i][j] == -1)
 		return (0);
 	grid[i][j] = 3;
-	if (flood_fill(grid, i + 1, j)
-		&& flood_fill(grid, i - 1, j)
-		&& flood_fill(grid, i, j + 1)
-		&& flood_fill(grid, i, j - 1)
+	if (flood_fill(grid, map, i + 1, j)
+		&& flood_fill(grid, map, i - 1, j)
+		&& flood_fill(grid, map, i, j + 1)
+		&& flood_fill(grid, map, i, j - 1)
 	)
 		return (1);
 	return (0);
@@ -49,7 +53,7 @@ int	closed_map(t_map *map)
 		}
 		i++;
 	}
-	i = flood_fill(temp, map->pos[1], map->pos[0]);
+	i = flood_fill(temp, map, map->pos[1], map->pos[0]);
 	printf("flood fill result = %li\n", i);
 	free_double_pointer_size((void **) temp, map->rows);
 	printf("closed map done\n");
@@ -66,7 +70,7 @@ int	read_row(t_map *map, char *row, int i)
 		return (0);
 	while (j < map->cols)
 	{
-		printf("  %li\n", j);
+		// printf("  %li\n", j);
 		if (j < ft_strlen(row) && row[j] == '1')
 			map->grid[i][j] = 1;
 		else if (j < ft_strlen(row) && row[j] == '0')
@@ -80,6 +84,7 @@ int	read_row(t_map *map, char *row, int i)
 			map->pos[0] = j;
 			map->pos[1] = i;
 			map->grid[i][j] = 2;
+			map->dir = row[j];
 		}
 		else
 			map->grid[i][j] = -1;
@@ -103,7 +108,7 @@ int	init_grid(t_map *map, char *filename, size_t start)
 	printf("rows: %li, start: %li\n", map->rows, start);
 	while (i < map->rows + start)
 	{
-		printf("%li\n", i);
+		// printf("%li\n", i);
 		if (i >= start && !read_row(map, row, i - start))
 			return (0);
 		i++;
