@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:34:48 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/15 23:04:28 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:42:12 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	init_data(t_data *data, char *filename)
 	printf("mlx new window\n");
 	data->mlx.mlx_win = mlx_new_window(data->mlx.mlx,
 			DIM_W, DIM_H, "Hello World");
+	data->player.pos[0] = (data->map.pos[0] * TILE) + (TILE / 2);
+	data->player.pos[1] = (data->map.pos[1] * TILE) + (TILE / 2);
 	printf("done data init\n");
 	return (1);
 }
@@ -41,8 +43,7 @@ void	render(t_data *data)
 			&(data->mlx.bits_per_pixel),
 			&(data->mlx.line_length),
 			&(data->mlx.endian));
-	put_map(&data->map, &data->player, &data->mlx);
-
+	put_map(data, &data->map, &data->player);
 	mlx_put_image_to_window(data->mlx.mlx,
 		data->mlx.mlx_win, data->mlx.img, 0, 0);
 }
