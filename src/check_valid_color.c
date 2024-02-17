@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:36:06 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/17 17:01:54 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/17 17:26:03 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static char	*color_trim(char **value, int i, char *result)
 	else
 	{
 		printf("Wrong\nCeilling or floor color duplicate\n");
+		free(result);
 		return (NULL);
 	}
 	return (result);

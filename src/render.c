@@ -6,12 +6,12 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:44:14 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/17 17:02:42 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/17 17:08:26 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
+/*
 void	put_pixel(t_mlx *mlx, int x, int y, int color)
 {
 	char	*dst;
@@ -94,7 +94,7 @@ int	v_intersect_dist(float alpha, t_map *map, t_player *player)
 {
 
 } */
-
+/*
 int	distance_to_wall(float alpha, t_map *map, t_player *player)
 {
 	int	v_dist;
@@ -107,8 +107,8 @@ int	distance_to_wall(float alpha, t_map *map, t_player *player)
 	// render_wall(alpha, dist, map);
 	return(v_dist);
 }
-
-void	cast_ray(int x, float alpha, t_data *data)
+ */
+/* void	cast_ray(int x, float alpha, t_data *data)
 {
 	int	dist;
 
@@ -118,7 +118,7 @@ void	cast_ray(int x, float alpha, t_data *data)
 	for (int i = 0; i < DIM_H; i++) {
 		put_pixel(&data->mlx, x, i, 0x4B0082);
 	}
-}
+} */
 
 void	put_map(t_data *data, t_map *map, t_player *player)
 {
@@ -142,3 +142,4 @@ void	put_map(t_data *data, t_map *map, t_player *player)
 	}
 	printf("\n");
 }
+ */

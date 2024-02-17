@@ -6,13 +6,13 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:34:48 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/17 17:01:45 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/17 17:09:01 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	init_data(t_data *data)
+/* int	init_data(t_data *data)
 {
 	printf("mlx init\n");
 	data->mlx.mlx = mlx_init();
@@ -30,8 +30,8 @@ int	init_data(t_data *data)
 	printf("done data init\n");
 	return (1);
 }
-
-void	render(t_data *data)
+ */
+/* void	render(t_data *data)
 {
 	if (data->mlx.img != 0)
 		mlx_destroy_image(&data->mlx, data->mlx.img);
@@ -44,7 +44,7 @@ void	render(t_data *data)
 	put_map(data, &data->map, &data->player);
 	mlx_put_image_to_window(data->mlx.mlx,
 		data->mlx.mlx_win, data->mlx.img, 0, 0);
-}
+} */
 
 void	init_map(t_map *map_data)
 {
@@ -107,28 +107,15 @@ int	main(int argc, char **argv)
 		printf("Error\nInvalid file type\n");
 		return (1);
 	}
-	// data.map = malloc(sizeof(t_map));
 	init_map(&data.map);
 	if (parsing_main_map(argv, &data.map) == false)
 		return (1);
-	if (!init_data(&data)) {
-			free_map(&data.map);
-			return (1);
-	}
-	render(&data);
-	mlx_loop(&data.mlx);
+	// if (!init_data(&data)) {
+	// 		free_map(&data.map);
+	// 		return (1);
+	// }
+	// render(&data);
+	// mlx_loop(&data.mlx);
 	free_map(&data.map);
-
-
-	/* if (argc == 2)
-	{
-		if (!init_data(&data, argv[1])) {
-			free_data(&data);
-			return (1);
-		}
-		render(&data);
-		mlx_loop(&data.mlx);
-		free_data(&data);
-	} */
 	return (0);
 }

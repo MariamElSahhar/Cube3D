@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:27:30 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/17 16:24:31 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/17 17:20:44 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int	read_nbline_file(int fd)
 	close (fd);
 	return (counter + 1);
 }
+
 int	count_nbline_file(char *file)
 {
 	int	fd;
