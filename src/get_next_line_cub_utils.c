@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_cub_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:30:50 by marmoham          #+#    #+#             */
-/*   Updated: 2024/02/17 16:33:49 by marmoham         ###   ########.fr       */
+/*   Updated: 2024/02/17 16:36:36 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
 void	gnl_free(char **save)
 {
@@ -20,7 +20,7 @@ void	gnl_free(char **save)
 		free(*save);
 	*save = 0;
 }
-
+/*
 size_t	ft_strlen(const char *str)
 
 {
@@ -95,3 +95,4 @@ void	*ft_calloc(size_t count, size_t size)
 	}
 	return (memory);
 }
+ */

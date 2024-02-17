@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_valid_map.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 11:54:40 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/12 14:21:25 by marwamostaf      ###   ########.fr       */
+/*   Updated: 2024/02/17 16:24:31 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "cub3d.h"
 
 bool	loop_check_row(t_map *map_data, int i, int j)
 {
@@ -84,7 +84,7 @@ bool	check_wall_vert(t_map *map_info, int i, int nb_row, int j)
 	return (loop_check_colume(map_info, i, j));
 }
 
-//Loop through the map 
+//Loop through the map
 //Verify every direction of a position to check if it colides with a wall.
 bool	check_closed_map(t_map *map_data, int i, int j)
 {

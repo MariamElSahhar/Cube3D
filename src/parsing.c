@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 07:53:07 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/14 10:13:14 by marwamostaf      ###   ########.fr       */
+/*   Updated: 2024/02/17 16:36:52 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ char	**get_content_2darray(char *file, int fd, char **line)
 	if (i <= 0)
 		return (NULL);
 	line = ft_calloc(sizeof(char *), i + 1);
-    if (!line)
+	if (!line)
 		return (NULL);
 	fd = open(file, O_RDONLY);
 	ret = 1;
 	i = 0;
 	while (ret > 0)
 	{
-		ret = get_next_line(fd, line + i);
+		ret = get_next_line_cub(fd, line + i);
 		if (ret < 0)
 		{
 			close (fd);

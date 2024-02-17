@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 22:27:58 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/12 11:47:54 by marwamostaf      ###   ########.fr       */
+/*   Updated: 2024/02/17 16:24:31 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "cub3d.h"
 
 //Alloc for len and fill the string with char c
 char	*ft_fill_map(int len, char c)
@@ -68,7 +68,7 @@ bool	is_valid_content(char **value)
 	return (true);
 }
 
-//Copy map line and add spaces to fill the map up to the len 
+//Copy map line and add spaces to fill the map up to the len
 //of the longest string
 char	*copy_line_dup(const char *str, size_t len)
 {

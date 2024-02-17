@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:27:28 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/13 15:58:10 by marwamostaf      ###   ########.fr       */
+/*   Updated: 2024/02/17 16:38:22 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "cub3d.h"
 
 bool	find_playerpos(t_map *map_data, int i, int j, bool pos)
 {
@@ -54,7 +54,7 @@ bool	loop_parse_map(char **content, t_map *map_data, int i)
 	}
 	if (find_playerpos(map_data, 0, 0, false) == false)
 		return (print_msg("Error\nplayer position invalid\n", 1));
-	return (check_closedmap(map_data, 0, 0));
+	return (check_closed_map(map_data, 0, 0));
 }
 
 //Check if the map is the last info of the file. Return -1 if its not.
@@ -112,7 +112,7 @@ bool	parsing_valid_map_data(char **array, t_map *map_data)
 	i = 0;
 	while (array[i])
 	{
-		ret = cb_line_type(array[i]);
+		ret = determine_line_type(array[i]);
 		if (ret == 1)
 			break ;
 		i++;

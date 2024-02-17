@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 21:50:54 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/17 16:19:18 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/17 16:35:34 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
+# include <stdbool.h>
 # include "../../include/libft.h"
 //# include "mlx/mlx.h"
 //# include "mlx.h"
@@ -82,5 +83,7 @@ void	ft_free_array(char **tab);
 bool	free_color(char **color);
 bool	print_msg(char *msg, int fd);
 void	free_map(t_map *map_data);
+int		get_next_line_cub(int fd, char **line);
+void	gnl_free(char **save);
 
 #endif

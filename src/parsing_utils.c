@@ -5,82 +5,145 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/11 19:29:37 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/15 20:51:27 by melsahha         ###   ########.fr       */
+/*   Created: 2024/02/07 20:27:30 by marwamostaf       #+#    #+#             */
+/*   Updated: 2024/02/17 16:24:31 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "cub3d.h"
 
-void	print_grid(t_map *map)
+int	count_map_size(char **tab)
 {
-	size_t	i;
-	size_t	j;
+	int	size;
 
-	printf("NO %s\n", map->north);
-	printf("SO %s\n", map->south);
-	printf("EA %s\n", map->east);
-	printf("WE %s\n", map->west);
-	printf("F %i,%i,%i\n", map->floor[0], map->floor[1], map->floor[2]);
-	printf("C %i,%i,%i\n", map->ceiling[0], map->ceiling[1], map->ceiling[2]);
-	printf("Dir %c\n", map->dir);
-	i = 0;
-	while (i < map->rows)
-	{
-		j = 0;
-		while (j < map->cols)
-		{
-			if (map->grid[i][j] == -1)
-				printf(" ");
-			else
-				printf("%i", map->grid[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
+	size = 0;
+    if (tab)
+	    while (tab[size])
+		    size++;
+	return (size);
 }
 
-char	*skip_empty_lines(int fd, char *line, int *i)
-{
-	char	*trim;
-	int		empty;
+// int	check_empty_line(char *line)
+// {
+// 	int	i;
 
-	empty = 1;
-	while (line && empty)
-	{
-		trim = ft_strtrim(line, " ");
-		if (trim[0] != '\n')
-			empty = 0;
-		else
-		{
-			*i = *i + 1;
-			free(line);
-			line = get_next_line(fd);
-		}
-		free(trim);
-	}
-	return (line);
-}
+// 	i = 0;
+// 	while (line[i])
+// 	{
+// 		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\v'
+// 			&& line[i] != '\f' && line[i] != '\r' && line[i] != '\n')
+// 			return (0);
+// 		i++;
+// 	}
+// 	return (1);
+// }
 
-int	map_data_complete(t_map *map)
+char	*ft_trim_string(char *str, char c)
 {
-	if (map->floor[0] == -1 || map->ceiling[0] == -1 || !map->north
-		|| !map->south || !map->east || !map->west)
-		return (0);
-	return (1);
-}
-
-int	str_isdigits(char *str)
-{
-	int	i;
+	char	*new_str;
+	int		i;
+	int		len;
 
 	i = 0;
+	len = 0;
 	while (str[i])
 	{
-		if (!ft_isdigit(str[i]))
-			return (0);
+		if (str[i] != c)
+			len++;
 		i++;
 	}
-	return (1);
+	new_str = ft_calloc(sizeof(char), len + 1);
+	i = 0;
+	len = 0;
+	while (str[i])
+	{
+		if (str[i] != c)
+		{
+			new_str[len] = str[i];
+			len++;
+		}
+		i++;
+	}
+	return (new_str);
+}
+
+int	check_valid_file(int fd)
+{
+	char	buf;
+
+	if (read(fd, &buf, 0) == -1)
+	{
+		close(fd);
+		return (1);
+	}
+	return (0);
+}
+
+int	read_nbline_file(int fd)
+{
+	int		counter;
+	char	buf;
+	int		res;
+
+	res = 1;
+	counter = 0;
+	if (check_valid_file(fd) == 1)
+		return (-1);
+	while (res > 0)
+	{
+		res = read(fd, &buf, 1);
+		if (res == 0)
+			break ;
+		if (res < 0)
+		{
+			close(fd);
+			return (-1);
+		}
+		if (buf == '\n')
+			counter++;
+	}
+	close (fd);
+	return (counter + 1);
+}
+int	count_nbline_file(char *file)
+{
+	int	fd;
+	int	nb_line;
+
+	fd = open(file, O_RDONLY);
+	if (fd <= 0)
+		return (-1);
+	nb_line = read_nbline_file(fd);
+	return (nb_line);
+}
+//Tell if a line contains info about map / pos or color.
+//0 for empty line, 1 for map, 2 for pos, 3 for color and 4 for anything else.
+int	determine_line_type(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] == ' ')
+		i++;
+	if (!str[i])
+		return (0);
+	if (str[i] == '1' || str[i] == '0')
+		return (1);
+	if (str[i] == 'N' || str[i] == 'S' || str[i] == 'W'
+		|| str[i] == 'E')
+		return (2);
+	if (str[i] == 'F' || str[i] == 'C')
+		return (3);
+	else
+		return (4);
+}
+
+bool	check_valid_tile(char c)
+{
+	if (c == '\0' || c == '1' || c == 'N' || c == 'S'
+		|| c == 'W' || c == 'W' || c == 'E' || c == 'F'
+		|| c == 'C' || c == '0' || c == ' ')
+		return (true);
+	else
+		return (false);
 }

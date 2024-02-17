@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_valid_color.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:36:06 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/14 10:27:42 by marwamostaf      ###   ########.fr       */
+/*   Updated: 2024/02/17 17:01:54 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "cub3d.h"
 
 static char	*color_trim(char **value, int i, char *result)
 {
@@ -103,7 +103,7 @@ bool	valid_color_parsing(char **content, t_map *map_info, char type)
 	if (type == 'F')
 		map_info->floor = color;
 	else
-		map_info->ceilling = color;
+		map_info->ceiling = color;
 	ft_free_array(numbers);
 	return (true);
 }

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_cub.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 16:18:24 by marmoham          #+#    #+#             */
-/*   Updated: 2024/02/17 16:31:42 by marmoham         ###   ########.fr       */
+/*   Updated: 2024/02/17 16:36:39 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
 int	gnl_nl_chr(const char *str)
 {
@@ -88,7 +88,7 @@ int	gnl_loop(int ret, int fd, char *buf, char **save)
 	return (ret);
 }
 
-int	get_next_line(int fd, char **line)
+int	get_next_line_cub(int fd, char **line)
 {
 	static char	*save[1024];
 	char		*buf;

@@ -3,22 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 09:49:56 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/16 20:40:11 by marwamostaf      ###   ########.fr       */
+/*   Updated: 2024/02/17 16:56:12 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_map(t_map *map_data)
-{
-	map_data->map = NULL;
-	map_data->texture = NULL;
-	map_data->floor = NULL;
-	map_data->ceilling = NULL;
-}
 
 int	main(int argc, char **argv)
 {

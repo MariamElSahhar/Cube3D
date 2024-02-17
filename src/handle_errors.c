@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handel_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 21:55:09 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/14 13:30:58 by marwamostaf      ###   ########.fr       */
+/*   Updated: 2024/02/17 17:04:57 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "cub3d.h"
 
 void	ft_free_array(char **tab)
 {
@@ -52,7 +52,7 @@ void	free_map(t_map *map_data)
 		ft_free_array(map_data->texture);
 	if (map_data->floor)
 		free(map_data->floor);
-	if (map_data->ceilling)
-		free(map_data->ceilling);
-	free(map_data);
+	if (map_data->ceiling)
+		free(map_data->ceiling);
+	// free(map_data);
 }

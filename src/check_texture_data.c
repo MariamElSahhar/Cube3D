@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_texture_data.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:09:53 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/13 16:41:32 by marwamostaf      ###   ########.fr       */
+/*   Updated: 2024/02/17 16:39:02 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ bool	texture_parsing(char **array, t_map *map_data)
 {
 	map_data->texture = ft_calloc(sizeof(char *), 5);
 	(void)array;
-	if (find_texture(array, "NO", map_data->texture, 0) == false
-		|| find_texture(array, "EA", map_data->texture, 1) == false
-		|| find_texture(array, "SO", map_data->texture, 2) == false
-		|| find_texture(array, "WE", map_data->texture, 3) == false)
+	if (find_texture_pos(array, "NO", map_data->texture, 0) == false
+		|| find_texture_pos(array, "EA", map_data->texture, 1) == false
+		|| find_texture_pos(array, "SO", map_data->texture, 2) == false
+		|| find_texture_pos(array, "WE", map_data->texture, 3) == false)
 		return (print_msg("Error\nMissing texture\n", 1));
 	if (check_texture_file(map_data->texture) == false)
 		return (print_msg("Error\nTexture file error\n", 1));
