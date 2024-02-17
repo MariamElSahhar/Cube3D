@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/16 18:42:02 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/17 16:16:43 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define SOUTH 2
 # define WEST 3
 # define EAST 4
+# define DIRECTION "NSEW"
 
 # define DIM_W 1200
 # define DIM_H 1000
@@ -36,18 +37,32 @@
 # define SPEED 5
 # define TILE 25
 
-typedef struct s_map {
-	int		floor[3];
-	int		ceiling[3];
-	int		**grid;
-	char	*north;
-	char	*south;
-	char	*east;
-	char	*west;
-	char	dir;
-	int		pos[2];
-	size_t	rows;
-	size_t	cols;
+// typedef struct s_map {
+// 	int		**grid;
+// 	int		floor[3];
+// 	int		ceiling[3];
+// 	char	*north;
+// 	char	*south;
+// 	char	*east;
+// 	char	*west;
+// 	char	dir;
+// 	int		pos[2];
+// 	size_t	rows;
+// 	size_t	cols;
+// }	t_map;
+
+typedef struct s_map
+{
+	char	**map;
+	char	**texture;
+	char	orientation;
+	int		map_width;
+	int		map_height;
+	int		player_x;
+	int		player_y;
+	int		*floor;
+	int		*ceilling;
+	int		time;
 }	t_map;
 
 typedef struct s_mlx {
