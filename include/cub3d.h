@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/17 17:00:13 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/22 20:24:28 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,5 +147,8 @@ int		str_isdigits(char *str);
 
 void	put_pixel(t_mlx *mlx, int x, int y, int color);
 void	put_map(t_data * data, t_map *map, t_player *player);
+float	normalize_angle(float angle);
+float	cardinal_to_angle(char dir);
+int		hit_wall(float x, float y, t_map *map);
 
 #endif

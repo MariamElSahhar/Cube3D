@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:34:48 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/22 19:44:53 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/22 20:31:40 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	free_data(t_data *data)
 
 void	print_grid(t_map *map)
 {
+	printf("--printing grid--\n");
 	int	i;
 	int	j;
 
@@ -83,11 +84,11 @@ void	print_grid(t_map *map)
 	printf("C %i,%i,%i\n", map->ceiling[0], map->ceiling[1], map->ceiling[2]);
 	printf("Dir %c\n", map->orientation);
 	i = 0;
-	while (i < map->map_width)
+	while (i < map->map_height)
 	{
 		j = 0;
-		while (j < map->map_height)
-			printf("%c", map->map[i][j]);
+		while (j < map->map_width)
+			printf("%c", map->map[i][j++]);
 		printf("\n");
 		i++;
 	}
@@ -110,9 +111,10 @@ int	main(int argc, char **argv)
 	init_map(&data.map);
 	if (parsing_main_map(argv, &data.map) == false)
 		return (1);
+	// print_grid(&data.map);
 	if (!init_data(&data)) {
-			free_map(&data.map);
-			return (1);
+		free_map(&data.map);
+		return (1);
 	}
 	render(&data);
 	// mlx_loop(&data.mlx);

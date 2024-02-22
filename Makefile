@@ -12,7 +12,7 @@ MLX_FLAGS = -Lminilibx_macos -lmlx -framework OpenGL -framework AppKit
 SRC_DIR = src/
 OBJ_DIR = obj
 
-SRC = $(addprefix $(SRC_DIR), main.c parsing.c parsing_utils.c check_texture_data.c check_valid_color.c check_valid_map.c get_next_line_cub.c get_next_line_cub_utils.c handle_errors.c map_utils.c map.c render.c)
+SRC = $(addprefix $(SRC_DIR), main.c parsing.c parsing_utils.c check_texture_data.c check_valid_color.c check_valid_map.c get_next_line_cub.c get_next_line_cub_utils.c handle_errors.c map_utils.c map.c render.c render_utils.c)
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
 
 $(NAME): $(LIBFT) $(OBJ) $(OBJ_DIR)
