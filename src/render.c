@@ -6,12 +6,12 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:44:14 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/17 17:08:26 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/22 20:08:47 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-/*
+
 void	put_pixel(t_mlx *mlx, int x, int y, int color)
 {
 	char	*dst;
@@ -90,25 +90,29 @@ int	v_intersect_dist(float alpha, t_map *map, t_player *player)
 	return (sqrt(pow(x_first + x_incr * i, 2) + pow(y_first + y_incr * i, 2)));
 }
 
-/* void	render_wall(float alpha, int dist, t_map *map)
-{
+// void	render_wall(float alpha, int dist, t_map *map)
+// {
 
-} */
-/*
+// }
+
 int	distance_to_wall(float alpha, t_map *map, t_player *player)
 {
-	int	v_dist;
-	int	h_dist;
-	// int	dist;
+	float	v_dist;
+	float	h_dist;
+	float	dist;
 
 	v_dist = h_intersect_dist(alpha, map, player);
 	h_dist = v_intersect_dist(alpha, map, player);
-	printf("distance to nearest wall is %i\n", v_dist);
+	if (v_dist < h_dist)
+		dist = v_dist;
+	else
+		dist = h_dist;
+	printf("distance to nearest wall is %f\n", dist);
 	// render_wall(alpha, dist, map);
-	return(v_dist);
+	return(dist);
 }
- */
-/* void	cast_ray(int x, float alpha, t_data *data)
+
+void	cast_ray(int x, float alpha, t_data *data)
 {
 	int	dist;
 
@@ -118,7 +122,18 @@ int	distance_to_wall(float alpha, t_map *map, t_player *player)
 	for (int i = 0; i < DIM_H; i++) {
 		put_pixel(&data->mlx, x, i, 0x4B0082);
 	}
-} */
+}
+
+float	normalize_angle(float angle)
+{
+	float norm = fmod(angle, 2 * M_PI);
+
+	if (norm < 0)
+	{
+		norm += 2 * M_PI;
+	}
+	return norm;
+}
 
 void	put_map(t_data *data, t_map *map, t_player *player)
 {
@@ -127,19 +142,21 @@ void	put_map(t_data *data, t_map *map, t_player *player)
 	float	end_angle;
 	int		x;
 	float	angle_increment;
+	(void) data;
 
 	player->alpha = cardinal_to_angle(map->orientation);
 	printf("player facing %c => %f\n", map->orientation, player->alpha);
-	angle_increment = FOV / DIM_W;
+	angle_increment = ((float) FOV / (float) DIM_W ) * (M_PI / 180);
 	start_angle = player->alpha - ((FOV / 2) * (M_PI / 180));
 	end_angle = player->alpha + ((FOV / 2) * (M_PI / 180));
+	printf("increment %f, %f to %f\n", angle_increment, start_angle* (180 / M_PI), end_angle* (180 / M_PI));
 	x = 0;
-	while (x < 1)
+	while (x < DIM_W)
 	{
+		// printf("ray #%d, angle = %f\n", x, normalize_angle(start_angle + (angle_increment * x)) * (180 / M_PI));
 		printf("casting %i\n", x);
 		cast_ray(x, start_angle + (angle_increment * x), data);
 		x ++;
 	}
 	printf("\n");
 }
- */
