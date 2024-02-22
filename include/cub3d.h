@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/22 20:24:28 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/22 21:35:42 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <fcntl.h>
 # include <stdint.h>
 # include <stdbool.h>
+# include <float.h>
 
 # define NORTH 1
 # define SOUTH 2
@@ -78,7 +79,7 @@ typedef struct s_mlx {
 
 typedef struct s_player {
 	int		pos[2];
-	float	alpha;
+	double	alpha;
 }	t_player;
 
 typedef struct s_data {
@@ -147,8 +148,8 @@ int		str_isdigits(char *str);
 
 void	put_pixel(t_mlx *mlx, int x, int y, int color);
 void	put_map(t_data * data, t_map *map, t_player *player);
-float	normalize_angle(float angle);
-float	cardinal_to_angle(char dir);
-int		hit_wall(float x, float y, t_map *map);
+double	normalize_angle(double angle);
+double	cardinal_to_angle(char dir);
+int		hit_wall(double x, double y, t_map *map);
 
 #endif

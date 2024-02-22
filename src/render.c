@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:44:14 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/22 21:25:28 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/22 21:40:36 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,27 @@ void	put_pixel(t_mlx *mlx, int x, int y, int color)
 }
 
 
-float	h_intersect_dist(float alpha, t_map *map, t_player *player)
+double	h_intersect_dist(double alpha, t_map *map, t_player *player)
 {
-	float	x_incr, y_incr;
-	float	x_first, y_first;
+	double	x_incr, y_incr;
+	double	x_first, y_first;
 
 	printf("getting horizontal line intersect\n");
 	y_incr = TILE;
 	x_incr = TILE / tan(alpha);
 	y_first = player->pos[1] - (player->pos[1] % TILE);
 	x_first = ((player->pos[1] - y_first) / tan(alpha)) + player->pos[0];
-	float	i = 0;
+	double	i = 0;
 	while (!hit_wall(x_first + (x_incr * i), y_first + (y_incr * i), map))
 		i++;
 	printf("horizontal intersect at %f, %f\n", x_first + x_incr * i, y_first + y_incr * i);
 	return (sqrt(pow(x_first + x_incr * i, 2) + pow(y_first + y_incr * i, 2)));
 }
 
-float	v_intersect_dist(float alpha, t_map *map, t_player *player)
+double	v_intersect_dist(double alpha, t_map *map, t_player *player)
 {
-	float	x_incr, y_incr;
-	float	x_first, y_first;
+	double	x_incr, y_incr;
+	double	x_first, y_first;
 
 	printf("getting vertical line intersect\n");
 	x_incr = TILE;
@@ -58,20 +58,24 @@ float	v_intersect_dist(float alpha, t_map *map, t_player *player)
 	return (sqrt(pow(x_first + x_incr * i, 2) + pow(y_first + y_incr * i, 2)));
 }
 
-// void	render_wall(float alpha, int dist, t_map *map)
+// void	render_wall(double alpha, int dist, t_map *map)
 // {
 
 // }
 
-int	distance_to_wall(float alpha, t_map *map, t_player *player)
+int	distance_to_wall(double alpha, t_map *map, t_player *player)
 {
-	float	v_dist;
-	float	h_dist;
-	float	dist;
+	double	v_dist;
+	double	h_dist;
+	double	dist;
 
-	printf("getting distance to nearest wall\n");
-	v_dist = h_intersect_dist(alpha, map, player);
-	h_dist = v_intersect_dist(alpha, map, player);
+	v_dist = FLT_MAX;
+	h_dist = FLT_MAX;
+	printf("getting distance to nearest wall alpha = %d\n", alpha == 0.0);
+	if (alpha != M_PI && fabs(alpha) > 0.0005)
+		v_dist = h_intersect_dist(alpha, map, player);
+	if (alpha != (M_PI / 2) && alpha != (3 * M_PI / 2))
+		h_dist = v_intersect_dist(alpha, map, player);
 	if (v_dist < h_dist)
 		dist = v_dist;
 	else
@@ -81,7 +85,7 @@ int	distance_to_wall(float alpha, t_map *map, t_player *player)
 	return(dist);
 }
 
-void	cast_ray(int x, float alpha, t_data *data)
+void	cast_ray(int x, double alpha, t_data *data)
 {
 	int	dist;
 
@@ -97,15 +101,15 @@ void	cast_ray(int x, float alpha, t_data *data)
 void	put_map(t_data *data, t_map *map, t_player *player)
 {
 	printf("----calculating distances-----\n");
-	float	start_angle;
-	float	end_angle;
+	double	start_angle;
+	double	end_angle;
 	int		x;
-	float	angle_increment;
+	double	angle_increment;
 	(void) data;
 
 	player->alpha = cardinal_to_angle(map->orientation);
 	printf("player facing %c => %f\n", map->orientation, player->alpha);
-	angle_increment = ((float) FOV / (float) DIM_W ) * (M_PI / 180);
+	angle_increment = ((double) FOV / (double) DIM_W ) * (M_PI / 180);
 	start_angle = player->alpha - ((FOV / 2) * (M_PI / 180));
 	end_angle = player->alpha + ((FOV / 2) * (M_PI / 180));
 	printf("increment %f, %f to %f\n", angle_increment, start_angle* (180 / M_PI), end_angle* (180 / M_PI));

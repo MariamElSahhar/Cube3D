@@ -6,15 +6,15 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 20:10:15 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/22 21:12:20 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/22 21:35:23 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-float	normalize_angle(float angle)
+double	normalize_angle(double angle)
 {
-	float norm = fmod(angle, 2 * M_PI);
+	double norm = fmod(angle, 2 * M_PI);
 
 	if (norm < 0)
 	{
@@ -23,9 +23,9 @@ float	normalize_angle(float angle)
 	return norm;
 }
 
-float	cardinal_to_angle(char dir)
+double	cardinal_to_angle(char dir)
 {
-	float	angle;
+	double	angle;
 
 	angle = -1.0;
 	if (dir == 'N')
@@ -39,7 +39,7 @@ float	cardinal_to_angle(char dir)
 	return (angle);
 }
 
-int	hit_wall(float x, float y, t_map *map)
+int	hit_wall(double x, double y, t_map *map)
 {
 	int	x_coor;
 	int	y_coor;
