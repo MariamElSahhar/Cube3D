@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:44:14 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/26 20:24:37 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/26 20:35:44 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ void	render_wall(double x, double dist, t_mlx *mlx, char dir)
 void	put_map(t_data *data, t_map *map, t_player *player)
 {
 	// printf("----calculating distances-----\n");
-	double	start_angle;
+	double	curr_angle;
 	double	angle_increment;
 	int		x;
 	double	distance;
@@ -153,15 +153,16 @@ void	put_map(t_data *data, t_map *map, t_player *player)
 	player->alpha = cardinal_to_angle(map->orientation);
 	// printf("player facing %c => %f\n", map->orientation, player->alpha);
 	angle_increment = ((double) FOV / (double) DIM_W ) * (M_PI / 180);
-	start_angle = player->alpha - ((FOV / 2) * (M_PI / 180));
+	curr_angle = normalize_angle(player->alpha - ((FOV / 2) * (M_PI / 180)));
 	x = 0;
 	while (x < DIM_W)
 	{
-		// printf("ray #%d, angle = %f\n", x, normalize_angle(start_angle + (angle_increment * x)) * (180 / M_PI));
-		distance = distance_to_wall(start_angle + (angle_increment * x), map, player, &dir);
+		// printf("ray #%d, angle = %f\n", x, normalize_angle(curr_angle) * (180 / M_PI));
+		distance = distance_to_wall(curr_angle, map, player, &dir);
 		// printf("distance to wall = %f\n\n", distance);
-		distance *= cos(normalize_angle(start_angle + (angle_increment * x) - player->alpha));
+		// distance *= cos(normalize_angle(curr_angle - player->alpha));
 		render_wall(x, distance, &data->mlx, dir);
+		curr_angle = normalize_angle(curr_angle + angle_increment);
 		x ++;
 	}
 	printf("\n");

@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 20:10:15 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/26 19:40:43 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/26 20:29:22 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ double	normalize_angle(double angle)
 
 	norm = fmod(angle, 2 * M_PI);
 	if (norm < 0)
-		norm += 2 * M_PI;
+		norm += (2 * M_PI);
 	return norm;
 }
 
