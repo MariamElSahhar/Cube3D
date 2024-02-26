@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:34:48 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/22 20:31:40 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/26 20:19:57 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,13 +111,12 @@ int	main(int argc, char **argv)
 	init_map(&data.map);
 	if (parsing_main_map(argv, &data.map) == false)
 		return (1);
-	// print_grid(&data.map);
 	if (!init_data(&data)) {
 		free_map(&data.map);
 		return (1);
 	}
 	render(&data);
-	// mlx_loop(&data.mlx);
+	mlx_loop(&data.mlx);
 	free_map(&data.map);
 	return (0);
 }

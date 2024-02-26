@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/22 21:35:42 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/26 20:26:12 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define ROT 45
 # define FOV 60
 # define SPEED 5
-# define TILE 25
+# define TILE 50.0000
 
 // typedef struct s_map {
 // 	int		**grid;
@@ -60,8 +60,8 @@ typedef struct s_map
 	char	orientation;
 	int		map_width;
 	int		map_height;
-	int		player_x;
-	int		player_y;
+	double	player_x;
+	double	player_y;
 	int		*floor;
 	int		*ceiling;
 	int		time;
@@ -78,7 +78,7 @@ typedef struct s_mlx {
 }	t_mlx;
 
 typedef struct s_player {
-	int		pos[2];
+	double		pos[2];
 	double	alpha;
 }	t_player;
 

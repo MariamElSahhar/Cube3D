@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 20:10:15 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/22 21:35:23 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/26 19:40:43 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 double	normalize_angle(double angle)
 {
-	double norm = fmod(angle, 2 * M_PI);
+	double	norm;
 
+	norm = fmod(angle, 2 * M_PI);
 	if (norm < 0)
-	{
 		norm += 2 * M_PI;
-	}
 	return norm;
 }
 
@@ -46,11 +45,12 @@ int	hit_wall(double x, double y, t_map *map)
 
 	x_coor = floor(x / TILE);
 	y_coor = floor(y / TILE);
-	printf("checking map for intersection at %i, %i --> \n", x_coor, y_coor);
-	if (map->map[y_coor][x_coor] == '1') {
-		printf("wall here\n");
+	if (x_coor < 0 || y_coor < 0 ||
+		x_coor >= map->map_width || y_coor >= map->map_height)
 		return (1);
-	}
-	printf("no wall here\n");
+	if (map->map[y_coor][x_coor] &&
+		map->map[y_coor][x_coor] == '1')
+		return (1);
 	return (0);
 }
+
