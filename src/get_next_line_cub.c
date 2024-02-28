@@ -3,106 +3,93 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_cub.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 16:18:24 by marmoham          #+#    #+#             */
-/*   Updated: 2024/02/17 16:36:39 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/22 10:28:00 by marwamostaf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	gnl_nl_chr(const char *str)
+static char	*get_the_line(char *str)
 {
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i] != '\n')
-		i++;
-	if (str[i] != '\n')
-		return (0);
-	return (1);
-}
-
-static int	gnl_line(char **save, char **line)
-{
+	char	*line;
 	int		i;
-	char	*temp;
+	int		j;
 
 	i = 0;
-	while ((*save)[i] != '\n' && (*save)[i] != '\0')
+	j = 0;
+	if (!str[i])
+		return (0);
+	while (str[i] != '\n' && str[i])
 		i++;
-	if ((*save)[i] == '\n')
+	line = (char *) malloc (i + 2);
+	while (j <= i)
 	{
-		*line = ft_substr(*save, 0, i);
-		temp = ft_strdup(&((*save)[i + 1]));
-		free(*save);
-		*save = temp;
-		if ((*save)[0] == '\0')
-			gnl_free(save);
-		return (1);
+		line[j] = str[j];
+		j++;
 	}
-	else
-	{
-		*line = ft_strdup(*save);
-		gnl_free(save);
-		return (0);
-	}
+	line[j] = '\0';
+	return (line);
 }
 
-int	gnl_return(char **save, char **line, int ret, int fd)
+static char	*get_the_remainder(char *str)
 {
-	if (ret < 0)
-		return (-1);
-	else if (!ret && !save[fd])
+	char	*rem;
+	int		i;
+
+	i = 0;
+	rem = 0;
+	if (!str)
 	{
-		*line = ft_strdup("\0");
+		free (str);
 		return (0);
 	}
-	return (gnl_line(&save[fd], line));
+	while (str[i] != '\n' && str[i])
+		i++;
+	if (gnl_strchr(str, '\n'))
+		rem = gnl_strdup(str + i + 1);
+	free (str);
+	return (rem);
 }
 
-int	gnl_loop(int ret, int fd, char *buf, char **save)
+static char	*reading(int fd, char *str)
 {
-	char	*temp;
+	char	*buff;
+	int		rd;
 
-	ret = read(fd, buf, 0);
-	if (ret < 0)
-		return (-1);
-	ret = 1;
-	while (ret > 0)
+	rd = 1;
+	buff = 0;
+	while ((gnl_strchr(str, '\n') == 0 && rd > 0))
 	{
-		ret = read(fd, buf, BUFFER_SIZE);
-		buf[ret] = '\0';
-		if (!save[fd])
-			save[fd] = ft_strdup(buf);
-		else
+		buff = (char *)malloc(BUFFER_SIZE + 1);
+		rd = read(fd, buff, BUFFER_SIZE);
+		if (rd == -1)
 		{
-			temp = ft_strjoin(save[fd], buf);
-			free(save[fd]);
-			save[fd] = temp;
+			free (buff);
+			return (0);
 		}
-		if (gnl_nl_chr(buf))
-			break ;
+		buff[rd] = '\0';
+		str = gnl_strjoin(str, buff);
+		free (buff);
 	}
-	return (ret);
+	return (str);
 }
 
-int	get_next_line_cub(int fd, char **line)
+char	*get_next_line_cube(int fd)
 {
-	static char	*save[1024];
-	char		*buf;
-	int			ret;
+	static char	*str;
+	char		*line;
 
-	if (fd < 0 || !line || BUFFER_SIZE < 1)
-		return (-1);
-	buf = malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (!buf)
-		return (-1);
-	ret = 1;
-	ret = gnl_loop(ret, fd, buf, save);
-	gnl_free(&buf);
-	return (gnl_return(save, line, ret, fd));
+	if (fd < 0 || BUFFER_SIZE < 1)
+		return (0);
+	str = reading(fd, str);
+	if (!str)
+		return (0);
+	line = get_the_line(str);
+	str = get_the_remainder(str);
+	return (line);
 }
 // static char	*ft_join_next(char *buffer)
 // {

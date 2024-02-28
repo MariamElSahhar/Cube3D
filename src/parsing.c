@@ -3,85 +3,97 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 07:53:07 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/17 16:36:52 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/26 12:56:35 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-//check if the file has .cub type
-bool	check_cubfile_extention(char *file)
+void	check_file_extension(char **args, char *file, t_cub *cub)
+{
+	if (!ft_strchr(file, '.')
+		|| ft_strncmp(".xpm", (file + ft_strlen(file) - 4), 4))
+	{
+		free(file);
+		ft_free_array(args);
+		print_error("Texture must be an existing .xpm file", cub);
+	}
+	return ;
+}
+
+static char	*is_valide_texture(char **args, char *iden, t_cub *cub)
+{
+	char	*path;
+
+	if (is_duplicate(iden, cub))
+	{
+		ft_free_array(args);
+		print_error("Duplicate texture ", cub);
+	}
+	check_texture_arg(args, cub);
+	path = ft_strdup(args[1]);
+	if (path[ft_strlen(path) - 1] == '\n')
+		path[ft_strlen(path) - 1] = 0;
+	check_file_extension(args, path, cub);
+	check_texture_file(args, path, cub);
+	return (path);
+}
+
+void	saving_valide_textures(char *line, t_cub *cub)
+{
+	char	**split;
+
+	split = ft_split(line, ' ');
+	if (is_valide_id(split[0], "NO", 2))
+		cub->game.north = is_valide_texture(split, "NO", cub);
+	else if (is_valide_id(split[0], "SO", 2))
+		cub->game.south = is_valide_texture(split, "SO", cub);
+	else if (is_valide_id(split[0], "WE", 2))
+		cub->game.west = is_valide_texture(split, "WE", cub);
+	else if (is_valide_id(split[0], "EA", 2))
+		cub->game.east = is_valide_texture(split, "EA", cub);
+	ft_free_array(split);
+	return ;
+}
+
+void	is_valide_identifier(char *line, t_cub *cub)
+{
+	char	**tmp;
+	int		len;
+
+	if (check_is_map_begininng(line))
+		return ;
+	tmp = ft_split(line, ' ');
+	len = ft_strlen(tmp[0]);
+	if (!is_valide_id(tmp[0], "NO", len) && !is_valide_id(tmp[0], "SO", len)
+		&& !is_valide_id(tmp[0], "WE", len) && !is_valide_id(tmp[0], "EA", len)
+		&& !is_valide_id(tmp[0], "F", len) && !is_valide_id(tmp[0], "C", len)
+		&& !is_valide_id(tmp[0], "\n", len))
+	{
+		ft_free_array(tmp);
+		print_error("Invalid identifier", cub);
+	}
+	ft_free_array(tmp);
+	return ;
+}
+
+void	parse_map_components(t_cub *cub)
 {
 	int	i;
 
 	i = 0;
-	while (file[i])
+	while (cub->game.file.file_2d && cub->game.file.file_2d[i])
 	{
-		if (file[i] == '.')
-		{
-			if (ft_strncmp(file + i, ".cub", 5) == 0)
-				return (true);
-			else
-				return (false);
-		}
+		is_valide_identifier(cub->game.file.file_2d[i], cub);
+		saving_valide_textures(cub->game.file.file_2d[i], cub);
+		saving_parsing_colors(cub->game.file.file_2d[i], cub);
+		saving_validate_map(cub->game.file.file_2d[i], i, cub);
 		i++;
 	}
-	return (false);
-}
-
-//Map file in array of string
-char	**get_content_2darray(char *file, int fd, char **line)
-{
-	int		ret;
-	int		i;
-
-	i = count_nbline_file(file);
-	if (i <= 0)
-		return (NULL);
-	line = ft_calloc(sizeof(char *), i + 1);
-	if (!line)
-		return (NULL);
-	fd = open(file, O_RDONLY);
-	ret = 1;
-	i = 0;
-	while (ret > 0)
-	{
-		ret = get_next_line_cub(fd, line + i);
-		if (ret < 0)
-		{
-			close (fd);
-			return (NULL);
-		}
-		i++;
-	}
-	close (fd);
-	return (line);
-}
-
-//Parsing map file with argv[1]
-bool	parsing_main_map(char **argv, t_map *map_info)
-{
-	char	**content;
-
-	content = get_content_2darray(argv[1], 0, NULL);
-	if (!content)
-	{
-		free(map_info);
-		return (print_msg("Error\nreading map file\n", 1));
-	}
-	if (is_valid_content(content) == false
-		|| parsing_valid_map_data(content, map_info) == false
-		|| texture_parsing(content, map_info) == false
-		|| valid_color_parsing(content, map_info, 'F') == false
-		|| valid_color_parsing(content, map_info, 'C') == false)
-	{
-		ft_free_array(content);
-		free_map(map_info);
-		return (false);
-	}
-	ft_free_array(content);
-	return (true);
+	check_missing(cub);
+	get_map_width(cub);
+	return ;
 }

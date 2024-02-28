@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/17 17:00:13 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/27 14:01:58 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,35 +38,44 @@
 # define SPEED 5
 # define TILE 25
 
-// typedef struct s_map {
-// 	int		**grid;
-// 	int		floor[3];
-// 	int		ceiling[3];
-// 	char	*north;
-// 	char	*south;
-// 	char	*east;
-// 	char	*west;
-// 	char	dir;
-// 	int		pos[2];
-// 	size_t	rows;
-// 	size_t	cols;
-// }	t_map;
-
 typedef struct s_map
 {
-	char	**map;
+	int		map_pos;
+	int		nline;
+	char	**map_2d;
+	char	*line;
 	char	**texture;
-	char	orientation;
+	char	player_dir;
 	int		map_width;
-	int		map_height;
+	//int		height;
 	int		player_x;
 	int		player_y;
 	int		*floor;
 	int		*ceiling;
-	int		time;
 }	t_map;
 
-typedef struct s_mlx {
+typedef struct s_file
+{
+	int		fd;
+	int		nline;
+	char	*line;
+	char	**file_2d;
+}				t_file;
+
+typedef struct s_game
+{
+	t_map	map;
+	t_file	file;
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
+	int		floor;
+	int		ceiling;
+}				t_game;
+
+typedef struct s_mlx
+{
 	void	*mlx;
 	void	*mlx_win;
 	void	*img;
@@ -76,76 +85,81 @@ typedef struct s_mlx {
 	int		endian;
 }	t_mlx;
 
-typedef struct s_player {
+typedef struct s_player
+{
 	int		pos[2];
 	float	alpha;
 }	t_player;
 
-typedef struct s_data {
-	t_mlx		mlx;
-	t_map		map;
+typedef struct s_cub
+{
+	int		i;
+	int		fd;
+	int		j;
+	char	*line;
+	char	**tmp;
+	int		*f_colors;
+	int		*c_colors;
+	//int		move_x;
+	//int		move_y;
+	//double	pi;
+	t_mlx	mlx;
+	t_game	game;
 	t_player	player;
-}	t_data;
-
-// int		parse_map(char *filename, t_map *map);
-/* int		read_map(t_map *map, int fd);
-int		rows_cols(t_map *map, int fd, char *line);
-int		parse_grid(t_map *map, char *filename, int i);
-
-int		read_texture(t_map *map, char *dir, char *data);
-int		read_f_c(t_map *map, char type, char *data);
-
-int		map_data_complete(t_map *map);
-char	*skip_empty_lines(int fd, char *line, int *i);
- */
+}	t_cub;
 
 
-bool	check_cubfile_extention(char *file);
-int	count_map_size(char **tab);
-char	**get_content_2darray(char *file, int fd, char **line);
-bool	parsing_main_map(char **argv, t_map *map_info);
-int	count_map_size(char **tab);
-char	*ft_trim_string(char *str, char c);
-int		check_valid_file(int fd);
-int		read_nbline_file(int fd);
-int		count_nbline_file(char *file);
-int		determine_line_type(char *str);
-bool	check_valid_tile(char c);
-char	*ft_fill_map(int len, char c);
-int		check_valid_mapline(char *str, int i, int start);
-bool	is_valid_content(char **value);
-char	*copy_line_dup(const char *str, size_t len);
-int		get_mapwidth(char **map, int i, int depth);
-bool	loop_check_row(t_map *map_data, int i, int j);
-bool	check_wall_hor(t_map *map_data, int i, int nb_col, int j);
-bool	loop_check_colume(t_map *map_data, int i, int j);
-bool	check_wall_vert(t_map *map_info, int i, int nb_row, int j);
-bool	check_closed_map(t_map *map_data, int i, int j);
-bool	find_playerpos(t_map *map_data, int i, int j, bool pos);
-bool	loop_parse_map(char **content, t_map *map_data, int i);
-int		check_map_order_char(char **array, int start);
-int		get_map_end(char **array, int start, int j, t_map *map_data);
-bool	parsing_valid_map_data(char **array, t_map *map_data);
-bool	is_valid_cube_colorline(char *str);
-bool	color_cube_loop(char **numbers, int *color);
-bool	valid_color_parsing(char **content, t_map *map_info, char type);
-bool	find_texture_pos(char **array, char *ori, char **texture, int x);
-bool	is_texture_file_xpm(char *string);
-bool	check_texture_file(char **texture);
-bool	texture_parsing(char **array, t_map *map_data);
+// typedef struct s_data {
+// 	t_mlx		mlx;
+// 	t_map		map;
+// 	t_player	player;
+	
+// }	t_data;
+
 void	ft_free_array(char **tab);
-bool	free_color(char **color);
-bool	print_msg(char *msg, int fd);
-void	free_map(t_map *map_data);
-int		get_next_line_cub(int fd, char **line);
-void	gnl_free(char **save);
+void	free_cube_map(t_cub *cub);
+void	print_error(char *msg, t_cub *cub);
+char	*new_strtrimchar(char const *str, int const c);
+void	check_map_space(int y, int x, t_cub *cub);
+void	check_map_edge(char *line, t_cub *map);
+void	is_valid_char(int y, int c, t_cub *cub);
+bool	check_is_player(int c);
+void	check_is_space(int c, int y, int x, t_cub *cub);
+char	*copy_and_trim(char *line);
+bool	check_is_map_begininng(char *line);
+char	**create_2darray_dup(char **array, int start, int nline);
+int		get_map_len(char **arrays);
+void	saving_validate_map(char *line, int index, t_cub *cub);
+void	check_is_2_commas(char *line, t_cub *cub);
+void	is_args_valide(char *av, t_cub *cub);
+int		my_atoi(char *str);
+void	check_missing(t_cub *cub);
+void	check_file_extension(char **args, char *file, t_cub *cub);
+void	saving_valide_textures(char *line, t_cub *cub);
+void	is_valide_identifier(char *line, t_cub *cub);
+void	parse_map_components(t_cub *cub);
 
-void	free_double_pointer_size(void **ptr, int size);
-void	free_double_pointer(void **ptr);
-void	print_grid(t_map *map);
-int		str_isdigits(char *str);
-
-void	put_pixel(t_mlx *mlx, int x, int y, int color);
-void	put_map(t_data * data, t_map *map, t_player *player);
-
+bool	is_valide_id(char *iden, char *cmp, int len);
+bool	is_whitespace(int c);
+void	check_texture_file(char **args, char *path, t_cub *cub);
+bool	is_duplicate(char *iden, t_cub *cub);
+void	check_texture_arg(char **arg, t_cub *cub);
+int		saving_clr_content(char *line, char *content, char **color, t_cub *cub);
+int		create_rgb_color(int r, int g, int b);
+int		check_color_args(char *line, t_cub *cub);
+int		checking_color(char *line, char *iden, t_cub *cub);
+void	saving_parsing_colors(char *line, t_cub *cub);
+void	is_valid_zero(int c, int y, int x, t_cub *cub);
+void	get_player_pos(int c, int y, int x, t_cub *cub);
+void	check_map_line(int y, t_cub *cub);
+void	check_map(t_cub *cub);
+void	get_map_width(t_cub *cub);
+char	**file_to_2d(char **pre, char *line, int nline, t_cub *map);
+void	saving_map_file(t_cub *map);
+char	*get_next_line_cube(int fd);
+int		gnl_strlen(char *s);
+char	*gnl_strjoin(char *s1, char *s2);
+char	*gnl_strchr(const char *s, int c);
+char	*gnl_strdup(char *s1);
+int		check_map_wall(char *line);
 #endif

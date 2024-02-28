@@ -3,125 +3,107 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:27:28 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/17 16:38:22 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/27 11:01:32 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool	find_playerpos(t_map *map_data, int i, int j, bool pos)
+char	*copy_and_trim(char *line)
 {
-	while (map_data->map[i])
+	char	*dup;
+	char	*trim;
+
+	dup = ft_strdup(line);
+	if (dup[ft_strlen(dup) - 1] == '\n')
+		dup[ft_strlen(dup) - 1] = 0;
+	if (!dup[0])
 	{
-		j = 0;
-		while (map_data->map[i][j])
-		{
-			if (ft_strchr(DIRECTION, map_data->map[i][j]) != NULL)
-			{
-				if (pos == true)
-					return (false);
-				pos = true;
-				map_data->player_y = i;
-				map_data->player_x = j;
-				map_data->orientation = map_data->map[i][j];
-			}
-			j++;
-		}
-		i++;
+		free (dup);
+		return (NULL);
 	}
-	return (pos);
+	trim = new_strtrimchar(dup, ' ');
+	free(dup);
+	if (!trim)
+	{
+		free(trim);
+		return (NULL);
+	}
+	return (trim);
 }
 
-//Loop through content as soon as we find a 1 as first char.
-//Validate line by line and add string to the map.
-//Return false if an error is encountered.
-bool	loop_parse_map(char **content, t_map *map_data, int i)
+bool	check_is_map_begininng(char *line)
 {
-	int	index;
-
-	index = 0;
-	map_data->map = ft_calloc(sizeof(char *), map_data->map_height + 1);
-	while (index < map_data->map_height)
-	{
-		if (check_valid_mapline(content[index + i], 0, 0) == -1)
-			return (print_msg("Error\nMap has Invalid char\n", 1));
-		map_data->map[index] = copy_line_dup(content[i + index],
-				map_data->map_width);
-		index++;
-	}
-	if (find_playerpos(map_data, 0, 0, false) == false)
-		return (print_msg("Error\nplayer position invalid\n", 1));
-	return (check_closed_map(map_data, 0, 0));
-}
-
-//Check if the map is the last info of the file. Return -1 if its not.
-int	check_map_order_char(char **array, int start)
-{
-	int	j;
-	int	cpy;
-
-	cpy = start;
-	while (array[start])
-	{
-		j = 0;
-		while (array[start][j])
-		{
-			if (array[start][j] != ' ' && array[start][j] != '\n')
-				return (-1);
-			j++;
-		}
-		start++;
-	}
-	return (cpy);
-}
-
-//Return the index representing the end of the map.
-//-1 if an error is encountered.
-int	get_map_end(char **array, int start, int j, t_map *map_data)
-{
-	int	len;
-
-	map_data->map_width = 0;
-	while (array[start])
-	{
-		j = 0;
-		len = ft_strlen(array[start]);
-		if (len >= map_data->map_width)
-			map_data->map_width = len;
-		while (array[start][j] == ' ')
-			j++;
-		if (check_valid_tile(array[start][j]) == false)
-			return (-1);
-		if (array[start][j] != '1')
-			break ;
-		start++;
-	}
-	return (check_map_order_char(array, start));
-}
-
-//Trim spaces, skip positions, parse map file and validate.
-//Return false if an error is encountered.
-bool	parsing_valid_map_data(char **array, t_map *map_data)
-{
-	int	i;
-	int	ret;
+	int		i;
+	char	*tmp;
 
 	i = 0;
-	while (array[i])
+	tmp = copy_and_trim(line);
+	if (!tmp)
 	{
-		ret = determine_line_type(array[i]);
-		if (ret == 1)
-			break ;
+		free(tmp);
+		return (false);
+	}
+	while (tmp[i])
+	{
+		if (tmp[i] != '1' && tmp[i] != ' ' && tmp[i] != '0' && tmp[i] != 'N'
+			&& tmp[i] != 'S' && tmp[i] != 'W' && tmp[i] != 'E')
+		{
+			free(tmp);
+			return (false);
+		}
 		i++;
 	}
-	if (ret != 1)
-		return (print_msg("Error\nInvalid Map\n", 1));
-	ret = get_map_end(array, i, 0, map_data);
-	map_data->map_height = ret - i;
-	if (map_data->map_height < 3)
-		return (print_msg("Error\nInvalid Map\n", 1));
-	return (loop_parse_map(array, map_data, i));
+	free(tmp);
+	return (true);
+}
+
+char	**create_2darray_dup(char **array, int start, int nline)
+{
+	char	**copy;
+	int		i;
+
+	copy = (char **)malloc(sizeof(char *) * (nline + 1));
+	if (!copy)
+		return (NULL);
+	i = 0;
+	while (array && array[start])
+		copy[i++] = ft_strdup(array[start++]);
+	copy[i] = 0;
+	return (copy);
+}
+
+int	get_map_len(char **arrays)
+{
+	int	i;
+
+	if (!arrays)
+		return (0);
+	i = 0;
+	while (arrays && arrays[i])
+		i++;
+	return (i);
+}
+
+void	saving_validate_map(char *line, int index, t_cub *cub)
+{
+	if (!check_is_map_begininng(line) && cub->game.map.map_pos == -1)
+		return ;
+	if (cub->game.map.map_pos != -1)
+		return ;
+	// if (!cub->game.north || !cub->game.south || !cub->game.west
+	// 	|| !cub->game.east || cub->game.floor == -1 || cub->game.ceiling == -1)
+	// 	print_error("Map should be the last", cub);
+	if (cub->game.map.map_pos == -1)
+	{
+		cub->game.map.map_pos = index;
+		cub->game.map.map_2d = create_2darray_dup(cub->game.file.file_2d, index,
+				(cub->game.file.nline - index));
+	}
+	cub->game.map.nline = get_map_len(cub->game.map.map_2d);
+	check_map(cub);
+	return ;
 }

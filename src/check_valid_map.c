@@ -3,106 +3,115 @@
 /*                                                        :::      ::::::::   */
 /*   check_valid_map.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 11:54:40 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/17 16:24:31 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/27 12:41:09 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool	loop_check_row(t_map *map_data, int i, int j)
+void	is_valid_zero(int c, int y, int x, t_cub *cub)
 {
-	while (j < map_data->map_width)
-	{
-		if (map_data->map[i][j] == '1')
-			return (true);
-		if (map_data->map[i][j] == '-')
-			return (false);
-		j++;
-	}
-	return (false);
-}
+	char	*pre;
+	char	*next;
 
-bool	check_wall_hor(t_map *map_data, int i, int nb_col, int j)
-{
-	bool	res;
-
-	res = false;
-	while (nb_col >= 0)
+	pre = ft_strdup(cub->game.map.map_2d[y - 1]);
+	next = ft_strdup(cub->game.map.map_2d[y + 1]);
+	if (pre[ft_strlen(pre) - 1] == '\n')
+		pre[ft_strlen(pre) - 1] = 0;
+	if (next[ft_strlen(next) - 1] == '\n')
+		next[ft_strlen(next) - 1] = 0;
+	if (c == '0')
 	{
-		if (map_data->map[i][nb_col] == '1')
+		if ((x + 1) > ft_strlen(pre) || (x + 1) > ft_strlen(next))
 		{
-			res = true;
-			break ;
+			free(pre);
+			free(next);
+			print_error("Invalid map", cub);
 		}
-		if (map_data->map[i][nb_col] == '-')
-			return (false);
-		if (nb_col == 0)
-			break ;
-		nb_col--;
 	}
-	if (res == false)
-		return (false);
-	return (loop_check_row(map_data, i, j));
+	free(pre);
+	free(next);
+	return ;
 }
 
-bool	loop_check_colume(t_map *map_data, int i, int j)
+void	get_player_pos(int c, int y, int x, t_cub *cub)
 {
-	while (i < map_data->map_height)
+	char		*pre;
+	char		*next;
+	static int	err;
+
+	pre = ft_strdup(cub->game.map.map_2d[y - 1]);
+	next = ft_strdup(cub->game.map.map_2d[y + 1]);
+	if (pre[ft_strlen(pre) - 1] == '\n')
+		pre[ft_strlen(pre) - 1] = 0;
+	if (next[ft_strlen(next) - 1] == '\n')
+		next[ft_strlen(next) - 1] = 0;
+	if (cub->game.map.player_dir)
+		err = -1;
+	cub->game.map.player_x = x;
+	if (x + 1 > ft_strlen(pre) || x + 1 > ft_strlen(next))
+		err = -2;
+	if (err == -1 || err == -2)
 	{
-		if (map_data->map[i][j] == '1')
-			return (true);
-		if (map_data->map[i][j] == '-')
-			return (false);
-		i++;
+		free(pre);
+		free(next);
+		print_error("Invalid player", cub);
 	}
-	return (false);
+	cub->game.map.player_y = y;
+	cub->game.map.player_dir = c;
+	free(pre);
+	free(next);
 }
 
-bool	check_wall_vert(t_map *map_info, int i, int nb_row, int j)
+void	check_map_line(int y, t_cub *cub)
 {
-	bool	ret;
+	int	x;
 
-	ret = false;
-	while (nb_row >= 0)
+	x = 0;
+	// if (y != 0 || y != cub->game.map.nline - 1)
+	// 	check_map_edge(cub->game.map.map_2d[y], cub);
+	while (cub->game.map.map_2d && cub->game.map.map_2d[y][x])
 	{
-		if (map_info->map[nb_row][j] == '1')
-		{
-			ret = true;
-			break ;
-		}
-		if (map_info->map[nb_row][j] == '-')
-			return (false);
-		if (nb_row == 0)
-			break ;
-		nb_row--;
+		is_valid_char(y, cub->game.map.map_2d[y][x], cub);
+		check_map_edge(cub->game.map.map_2d[y], cub);
+		if (y == cub->game.map.nline - 1)
+			check_map_edge(cub->game.map.map_2d[y], cub);
+		if (y != 0 && y != cub->game.map.nline - 1)
+			is_valid_zero(cub->game.map.map_2d[y][x], y, x, cub);
+		check_is_space(cub->game.map.map_2d[y][x], y, x, cub);
+		if (check_is_player(cub->game.map.map_2d[y][x]))
+			get_player_pos(cub->game.map.map_2d[y][x], y, x, cub);
+		x++;
 	}
-	if (ret == false)
-		return (false);
-	return (loop_check_colume(map_info, i, j));
+	return ;
 }
 
-//Loop through the map
-//Verify every direction of a position to check if it colides with a wall.
-bool	check_closed_map(t_map *map_data, int i, int j)
+void	check_map(t_cub *cub)
 {
-	while (map_data->map[i])
+	int	y;
+
+	y = 0;
+	while (cub->game.map.map_2d && cub->game.map.map_2d[y])
 	{
-		j = 0;
-		while (map_data->map[i][j])
-		{
-			if (map_data->map[i][j] != '1' && map_data->map[i][j] != '-')
-			{
-				if (check_wall_vert(map_data, i, i, j) == false
-					|| check_wall_hor(map_data, i, j, j) == false)
-					return (print_msg("Error\nMap is not closed by walls\n", 1));
-			}
-			j++;
-		}
-		i++;
+		check_map_line(y, cub);
+		y++;
 	}
-	return (true);
+	return ;
 }
 
+void	get_map_width(t_cub *cub)
+{
+	int	y;
+
+	y = 0;
+	while (cub->game.map.map_2d[y])
+	{
+		if (ft_strlen(cub->game.map.map_2d[y]) > cub->game.map.map_width)
+			cub->game.map.map_width = ft_strlen(cub->game.map.map_2d[y]);
+		y++;
+	}
+	return ;
+}

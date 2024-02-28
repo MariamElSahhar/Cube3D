@@ -3,85 +3,94 @@
 /*                                                        :::      ::::::::   */
 /*   check_texture_data.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:09:53 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/17 16:39:02 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/26 10:22:53 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool	find_texture_pos(char **array, char *ori, char **texture, int x)
+bool	is_valide_id(char *iden, char *cmp, int len)
+{
+	int	res;
+
+	res = ft_strlen(cmp);
+	if (res != len)
+		return (false);
+	if (!ft_strncmp(iden, cmp, len))
+		return (true);
+	return (false);
+}
+
+bool	is_whitespace(int c)
+{
+	if (c == '\t' || c == '\r' || c == '\v' || c == '\f')
+		return (true);
+	return (false);
+}
+
+void	check_texture_file(char **args, char *path, t_cub *cub)
+{
+	int	fd;
+
+	fd = open(path, O_DIRECTORY);
+	if (fd > 0)
+	{
+		close(fd);
+		free(path);
+		ft_free_array(args);
+		print_error("Texture cannot be a directory", cub);
+	}
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+	{
+		free(path);
+		ft_free_array(args);
+		print_error("Texture file edoes not exist", cub);
+	}
+	close (fd);
+	return ;
+}
+
+bool	is_duplicate(char *iden, t_cub *cub)
+{
+	if ((is_valide_id(iden, "NO", 2) && cub->game.north)
+		|| (is_valide_id(iden, "SO", 2) && cub->game.south)
+		|| (is_valide_id(iden, "WE", 2) && cub->game.west)
+		|| (is_valide_id(iden, "EA", 2) && cub->game.east)
+		|| (is_valide_id(iden, "F", 1) && cub->game.floor != -1)
+		|| (is_valide_id(iden, "C", 1) && cub->game.ceiling != -1))
+		return (true);
+	return (false);
+}
+
+void	check_texture_arg(char **arg, t_cub *cub)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (array[i])
+	j = 0;
+	if (arg[2] && arg[2][0] != '\n')
 	{
-		j = 0;
-		while (array[i][j] == ' ')
-			j++;
-		if (ft_strncmp(array[i] + j, ori, 2) == 0)
-		{
-			if (texture[x] == NULL)
-				texture[x] = ft_strtrim(array[i] + j + 2, " ");
-			else
-				return (false);
-		}
-		i++;
+		ft_free_array(arg);
+		print_error("Invalid texture ", cub);
 	}
-	if (texture[x] == NULL)
-		return (false);
-	return (true);
-}
-
-bool	is_texture_file_xpm(char *string)
-{
-	int	i;
-
-	i = 0;
-	while (string[i])
+	while (arg && arg[i])
 	{
-		if (string[i] == '.')
+		if (is_whitespace(arg[i][j]))
 		{
-			if (ft_strncmp(string + i, ".xpm", 4) == 0)
-				return (true);
+			ft_free_array(arg);
+			print_error("Invalid white space", cub);
 		}
-		i++;
+		j++;
+		if (!arg[i][j])
+		{
+			j = 0;
+			i++;
+		}
 	}
-	return (false);
-}
-
-//check if the file can be opened and if its the right type (.xpm)
-bool	check_texture_file(char **texture)
-{
-	if (open(texture[0], O_RDONLY) == -1
-		|| is_texture_file_xpm(texture[0]) == false)
-		return (false);
-	if (open(texture[1], O_RDONLY) == -1
-		|| is_texture_file_xpm(texture[1]) == false)
-		return (false);
-	if (open(texture[2], O_RDONLY) == -1
-		|| is_texture_file_xpm(texture[2]) == false)
-		return (false);
-	if (open(texture[3], O_RDONLY) == -1
-		|| is_texture_file_xpm(texture[3]) == false)
-		return (false);
-	return (true);
-}
-
-bool	texture_parsing(char **array, t_map *map_data)
-{
-	map_data->texture = ft_calloc(sizeof(char *), 5);
-	(void)array;
-	if (find_texture_pos(array, "NO", map_data->texture, 0) == false
-		|| find_texture_pos(array, "EA", map_data->texture, 1) == false
-		|| find_texture_pos(array, "SO", map_data->texture, 2) == false
-		|| find_texture_pos(array, "WE", map_data->texture, 3) == false)
-		return (print_msg("Error\nMissing texture\n", 1));
-	if (check_texture_file(map_data->texture) == false)
-		return (print_msg("Error\nTexture file error\n", 1));
-	return (true);
+	return ;
 }

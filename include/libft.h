@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 13:35:04 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/11 22:57:41 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/22 10:25:17 by marwamostaf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-size_t	ft_strlen(const char *s);
+int		ft_strlen(const char *s);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);

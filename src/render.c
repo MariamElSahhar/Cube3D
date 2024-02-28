@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:44:14 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/17 17:08:26 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/22 13:35:25 by marwamostaf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,26 +120,25 @@ int	distance_to_wall(float alpha, t_map *map, t_player *player)
 	}
 } */
 
-void	put_map(t_data *data, t_map *map, t_player *player)
-{
-	printf("----calculating distances-----\n");
-	float	start_angle;
-	float	end_angle;
-	int		x;
-	float	angle_increment;
+// //void	put_map(t_data *data, t_map *map, t_player *player)
+// {
+// 	printf("----calculating distances-----\n");
+// 	float	start_angle;
+// 	float	end_angle;
+// 	int		x;
+// 	float	angle_increment;
 
-	player->alpha = cardinal_to_angle(map->orientation);
-	printf("player facing %c => %f\n", map->orientation, player->alpha);
-	angle_increment = FOV / DIM_W;
-	start_angle = player->alpha - ((FOV / 2) * (M_PI / 180));
-	end_angle = player->alpha + ((FOV / 2) * (M_PI / 180));
-	x = 0;
-	while (x < 1)
-	{
-		printf("casting %i\n", x);
-		cast_ray(x, start_angle + (angle_increment * x), data);
-		x ++;
-	}
-	printf("\n");
-}
- */
+// 	player->alpha = cardinal_to_angle(map->orientation);
+// 	printf("player facing %c => %f\n", map->orientation, player->alpha);
+// 	angle_increment = FOV / DIM_W;
+// 	start_angle = player->alpha - ((FOV / 2) * (M_PI / 180));
+// 	end_angle = player->alpha + ((FOV / 2) * (M_PI / 180));
+// 	x = 0;
+// 	while (x < 1)
+// 	{
+// 		printf("casting %i\n", x);
+// 		cast_ray(x, start_angle + (angle_increment * x), data);
+// 		x ++;
+// 	}
+// 	printf("\n");
+// }//

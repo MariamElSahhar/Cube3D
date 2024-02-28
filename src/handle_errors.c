@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handel_errors.c                                    :+:      :+:    :+:   */
+/*   handle_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 21:55:09 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/17 17:04:57 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/27 11:03:53 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,42 +17,35 @@ void	ft_free_array(char **tab)
 	int	i;
 
 	i = 0;
+	while (tab && tab[i])
+		free(tab[i++]);
 	if (tab)
-	{
-		while (tab[i])
-		{
-			if (tab[i] != NULL)
-				free(tab[i]);
-			i++;
-		}
-		free (tab);
-	}
+		free(tab);
 	return ;
 }
 
-
-bool	free_color(char **color)
+void	free_cube_map(t_cub *cub)
 {
-	ft_free_array(color);
-	printf("Invalid Color\n");
-	return (false);
+	ft_free_array(cub->game.file.file_2d);
+	ft_free_array(cub->game.map.map_2d);
+	if (cub->game.file.line)
+		free(cub->game.file.line);
+	if (cub->game.north)
+		free(cub->game.north);
+	if (cub->game.south)
+		free(cub->game.south);
+	if (cub->game.west)
+		free(cub->game.west);
+	if (cub->game.east)
+		free(cub->game.east);
 }
 
-bool	print_msg(char *msg, int fd)
+void	print_error(char *msg, t_cub *cub)
 {
-	ft_putstr_fd(msg, fd);
-	return (false);
-}
-
-void	free_map(t_map *map_data)
-{
-	if (map_data->map)
-		ft_free_array(map_data->map);
-	if (map_data->texture)
-		ft_free_array(map_data->texture);
-	if (map_data->floor)
-		free(map_data->floor);
-	if (map_data->ceiling)
-		free(map_data->ceiling);
-	// free(map_data);
+	printf("Error\n");
+	printf("%s\n", msg);
+	if (cub->game.file.fd > 0)
+		close(cub->game.file.fd);
+	free_cube_map(cub);
+	exit (1);
 }

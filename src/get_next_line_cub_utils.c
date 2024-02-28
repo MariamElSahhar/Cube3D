@@ -3,23 +3,105 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_cub_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:30:50 by marmoham          #+#    #+#             */
-/*   Updated: 2024/02/17 16:36:36 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:13:27 by marwamostaf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	gnl_free(char **save)
+int	gnl_strlen(char *s)
 {
-	if (save == 0)
-		return ;
-	if (*save)
-		free(*save);
-	*save = 0;
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+		i++;
+	return (i);
 }
+
+char	*gnl_strjoin(char *s1, char *s2)
+{
+	int		i;
+	int		j;
+	char	*joint;
+
+	i = 0;
+	j = 0;
+	if (s1 == 0)
+	{
+		s1 = malloc(1);
+		s1[0] = '\0';
+	}
+	if (s2 == 0)
+		return (0);
+	joint = (char *)malloc(gnl_strlen(s1) + gnl_strlen(s2) + 1);
+	if (joint == 0)
+		return (0);
+	while (s1[i])
+		joint[j++] = s1[i++];
+	i = 0;
+	while (s2[i])
+		joint[j++] = s2[i++];
+	joint[j] = '\0';
+	free(s1);
+	return (joint);
+}
+
+char	*gnl_strchr(const char *s, int c)
+{
+	unsigned int	i;
+	unsigned char	*dest;
+
+	i = 0;
+	if (!s)
+		return (0);
+	dest = (unsigned char *)s;
+	while (dest[i])
+	{
+		if (dest[i] == (unsigned char )c)
+			return (&((char *)dest)[i]);
+		i++;
+	}
+	if (c == '\0')
+		return (&((char *)dest)[i]);
+	return (0);
+}
+
+char	*gnl_strdup(char *s1)
+{
+	int		i;
+	char	*dest;
+
+	i = 0;
+	if (!s1)
+		return (0);
+	while (s1[i])
+		i++;
+	dest = (char *)malloc(i + 1);
+	i = 0;
+	if (dest == 0)
+		return (0);
+	while (s1[i])
+	{
+		dest[i] = s1[i];
+		i++;
+	}
+	dest[i] = 0;
+	return (dest);
+}
+// void	gnl_free(char **save)
+// {
+// 	if (save == 0)
+// 		return ;
+// 	if (*save)
+// 		free(*save);
+// 	*save = 0;
+// }
 /*
 size_t	ft_strlen(const char *str)
 

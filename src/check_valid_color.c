@@ -3,108 +3,84 @@
 /*                                                        :::      ::::::::   */
 /*   check_valid_color.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:36:06 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/17 17:26:03 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/27 13:10:04 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static char	*color_trim(char **value, int i, char *result)
+int	saving_clr_content(char *line, char *content, char **color, t_cub *cub)
 {
-	if (result == NULL)
-		result = ft_trim_string(value[i], ' ');
-	else
+	int	res;
+
+	res = my_atoi(content);
+	if (res < 0)
 	{
-		printf("Wrong\nCeilling or floor color duplicate\n");
-		free(result);
-		return (NULL);
+		free(line);
+		ft_free_array(color);
+		print_error("Invalid color numbers", cub);
 	}
-	return (result);
+	return (res);
 }
 
-static char	*find_cube_color(char **array, char type)
+int	create_rgb_color(int r, int g, int b)
 {
-	int		i;
-	int		j;
-	char	*save;
-
-	i = 0;
-	save = NULL;
-	while (array[i])
-	{
-		j = 0;
-		while (array[i][j] == ' ')
-			j++;
-		if (array[i][j] == type)
-		{
-			save = color_trim(array, i, save);
-			if (save == NULL)
-				return (NULL);
-		}
-		i++;
-	}
-	if (save == NULL)
-		printf("Wrong\nCeilling or floor color not found\n");
-	return (save);
+	return (r << 16 | g << 8 | b);
 }
 
-bool	is_valid_cube_colorline(char *str)
+int	check_color_args(char *line, t_cub *cub)
 {
-	int	i;
+	char	**split;
+	int		r;
+	int		g;
+	int		b;
 
-	i = 0;
-	while (str[i])
+	line[0] = ' ';
+	if (line[ft_strlen(line) - 1] == '\n')
+		line[ft_strlen(line) - 1] = 0;
+	split = ft_split(line, ',');
+	if (!split[1] || !split[2])
 	{
-		if (ft_isdigit(str[i]) != 1)
-			return (false);
-		i++;
+		free(line);
+		ft_free_array(split);
+		print_error("Invalid color args", cub);
 	}
-	return (true);
+	r = saving_clr_content(line, split[0], split, cub);
+	g = saving_clr_content(line, split[1], split, cub);
+	b = saving_clr_content(line, split[2], split, cub);
+	ft_free_array(split);
+	return (create_rgb_color(r, g, b));
 }
 
-bool	color_cube_loop(char **numbers, int *color)
+int	checking_color(char *line, char *iden, t_cub *cub)
 {
-	int	i;
-
-	i = 0;
-	while (numbers[i])
+	if (is_duplicate(iden, cub))
 	{
-		if (is_valid_cube_colorline(numbers[i]) == false)
-			return (false);
-		color[i] = ft_atoi(numbers[i]);
-		if (color[i] < 0 || color[i] > 255)
-			return (false);
-		i++;
+		free(line);
+		print_error("Duplicate color", cub);
 	}
-	return (true);
+	check_is_2_commas(line, cub);
+	return (check_color_args(line, cub));
 }
 
-bool	valid_color_parsing(char **content, t_map *map_info, char type)
+void	saving_parsing_colors(char *line, t_cub *cub)
 {
-	char	*line;
-	char	**numbers;
-	int		*color;
+	char	*res;
 
-	line = find_cube_color(content, type);
-	if (!line)
-		return (false);
-	numbers = ft_split(line + 1, ',');
-	free(line);
-	if (count_map_size(numbers) != 3)
-		return (free_color(numbers));
-	color = malloc(sizeof(int) * 3);
-	if (color_cube_loop(numbers, color) == false)
+	res = new_strtrimchar(line, ' ');
+	if (res[0] == 'F' && res[1] == ' ')
+		cub->game.floor = checking_color(res, "F", cub);
+	else if (res[0] == 'C' && res[1] == ' ')
+		cub->game.ceiling = checking_color(res, "C", cub);
+	else if ((res[0] == 'F' && res[1] != ' ')
+		|| (res[0] == 'C' && res[1] != ' '))
 	{
-		free(color);
-		return (free_color(numbers));
+		free(res);
+		print_error("Invalid color ", cub);
 	}
-	if (type == 'F')
-		map_info->floor = color;
-	else
-		map_info->ceiling = color;
-	ft_free_array(numbers);
-	return (true);
+	free(res);
+	return ;
 }
