@@ -6,7 +6,7 @@
 /*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/28 09:32:24 by marmoham         ###   ########.fr       */
+/*   Updated: 2024/02/28 09:50:25 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,4 +166,5 @@ int		check_map_wall(char *line);
 double	normalize_angle(double angle);
 double	cardinal_to_angle(char dir);
 int		hit_wall(double x, double y, t_map *map);
+void	put_map(t_cub *data, t_map *map, t_player *player);
 #endif

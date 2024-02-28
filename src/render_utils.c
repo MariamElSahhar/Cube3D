@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 20:10:15 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/26 20:29:22 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/02/28 09:50:41 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int	hit_wall(double x, double y, t_map *map)
 	x_coor = floor(x / TILE);
 	y_coor = floor(y / TILE);
 	if (x_coor < 0 || y_coor < 0 ||
-		x_coor >= map->map_width || y_coor >= map->map_height)
+		x_coor >= map->map_width || y_coor >= map->nline)
 		return (1);
-	if (map->map[y_coor][x_coor] &&
-		map->map[y_coor][x_coor] == '1')
+	if (map->map_2d[y_coor][x_coor] &&
+		map->map_2d[y_coor][x_coor] == '1')
 		return (1);
 	return (0);
 }

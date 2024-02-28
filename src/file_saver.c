@@ -6,7 +6,7 @@
 /*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:03:28 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/28 09:42:01 by marmoham         ###   ########.fr       */
+/*   Updated: 2024/02/28 09:42:20 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	saving_map_file(t_cub *map)
 		map->game.file.file_2d = file_to_2d(map->game.file.file_2d,
 				map->game.file.line, map->game.file.nline, map);
 		map->game.file.line = get_next_line(map->game.file.fd);
-		// jlfksdfjlksdf
 	}
 	return ;
 }

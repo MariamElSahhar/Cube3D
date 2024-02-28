@@ -6,7 +6,7 @@
 /*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:44:14 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/28 09:36:26 by marmoham         ###   ########.fr       */
+/*   Updated: 2024/02/28 09:46:15 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ double	v_intersect_dist(double alpha, t_map *map, t_player *player)
 		y_first + (y_incr * i), map))
 		i++;
 	// printf("dist = %f\n", sqrt(pow((player->pos[0] - x_first) + x_incr * i, 2) + pow((y_first - player->pos[1]) + y_incr * i, 2)));
-	return (sqrt(pow((player->pos[0] - x_first) + x_incr * i, 2) + pow((y_first - player->pos[1]) + y_incr * i, 2)));
+	return (sqrt(pow((player->pos[0] - x_first) + x_incr * i, 2) + pow((y_first - player->pos[1]) + y_incr * i, 2))); 
 }
 
 double	distance_to_wall(double alpha, t_map *map, t_player *player, char *dir)
@@ -106,7 +106,7 @@ double	distance_to_wall(double alpha, t_map *map, t_player *player, char *dir)
 
 void	wall_height(double dist, double *wall, double *top, double *bottom)
 {
-	*wall = (TILE / dist) * ((DIM_W / 2) / tan(FOV *M_PI / 180 / 2));
+	*wall = (TILE / dist) * ((DIM_W / 2) / tan(FOV * M_PI / 180 / 2));
 	printf("wall height = %f\n", *wall);
 	*top = (DIM_H / 2) - (*wall / 2);
 	*bottom = (DIM_H / 2) + (*wall / 2);
@@ -140,7 +140,7 @@ void	render_wall(double x, double dist, t_mlx *mlx, char dir)
 		put_pixel(mlx, x, y++, 0xF0FFFF);
 }
 
-void	put_map(t_data *data, t_map *map, t_player *player)
+void	put_map(t_cub *data, t_map *map, t_player *player)
 {
 	// printf("----calculating distances-----\n");
 	double	curr_angle;
@@ -150,7 +150,7 @@ void	put_map(t_data *data, t_map *map, t_player *player)
 	char	dir;
 
 
-	player->alpha = cardinal_to_angle(map->orientation);
+	player->alpha = cardinal_to_angle(map->player_dir);
 	// printf("player facing %c => %f\n", map->orientation, player->alpha);
 	angle_increment = ((double) FOV / (double) DIM_W ) * (M_PI / 180);
 	curr_angle = normalize_angle(player->alpha - ((FOV / 2) * (M_PI / 180)));

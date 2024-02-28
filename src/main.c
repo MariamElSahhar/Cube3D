@@ -6,13 +6,13 @@
 /*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:34:48 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/28 09:35:55 by marmoham         ###   ########.fr       */
+/*   Updated: 2024/02/28 09:49:11 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	init_data(t_data *data)
+int	init_data(t_cub *data)
 {
 	printf("mlx init\n");
 	data->mlx.mlx = mlx_init();
@@ -25,13 +25,13 @@ int	init_data(t_data *data)
 	printf("mlx new window\n");
 	data->mlx.mlx_win = mlx_new_window(data->mlx.mlx,
 			DIM_W, DIM_H, "Hello World");
-	data->player.pos[0] = (data->map.player_x * TILE) + (TILE / 2);
-	data->player.pos[1] = (data->map.player_y * TILE) + (TILE / 2);
+	data->player.pos[0] = (data->game.map.player_x * TILE) + (TILE / 2);
+	data->player.pos[1] = (data->game.map.player_y * TILE) + (TILE / 2);
 	printf("done data init\n");
 	return (1);
 }
 
-void	render(t_data *data)
+void	render(t_cub *data)
 {
 	if (data->mlx.img != 0)
 		mlx_destroy_image(&data->mlx, data->mlx.img);
@@ -41,7 +41,7 @@ void	render(t_data *data)
 			&(data->mlx.bits_per_pixel),
 			&(data->mlx.line_length),
 			&(data->mlx.endian));
-	put_map(data, &data->map, &data->player);
+	put_map(data, &data->game.map, &data->player);
 	mlx_put_image_to_window(data->mlx.mlx,
 		data->mlx.mlx_win, data->mlx.img, 0, 0);
 }
@@ -95,13 +95,13 @@ void	print_grid(t_map *map)
 	printf("WE %s\n", map->texture[3]);
 	printf("F %i,%i,%i\n", map->floor[0], map->floor[1], map->floor[2]);
 	printf("C %i,%i,%i\n", map->ceiling[0], map->ceiling[1], map->ceiling[2]);
-	printf("Dir %c\n", map->orientation);
+	printf("Dir %c\n", map->player_dir);
 	i = 0;
-	while (i < map->map_height)
+	while (i < map->nline)
 	{
 		j = 0;
 		while (j < map->map_width)
-			printf("%c", map->map[i][j++]);
+			printf("%c", map->map_2d[i][j++]);
 		printf("\n");
 		i++;
 	}
@@ -121,12 +121,13 @@ int	main(int argc, char **argv)
 	is_args_valide(argv[1], &cub_data);
 	saving_map_file(&cub_data);
 	parse_map_components(&cub_data);
-	if (!init_data(&data)) {
-			free_map(&data.map);
-			return (1);
+	if (!init_data(&cub_data)) 
+	{
+		free_cube_map(&cub_data);
+		return (1);
 	}
-	render(&data);
-	mlx_loop(&data.mlx);
+	render(&cub_data);
+	mlx_loop(&cub_data.mlx);
 	free_cube_map(&cub_data);
 	close (cub_data.game.file.fd);
 	return (0);
