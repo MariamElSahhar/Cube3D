@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:44:14 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/28 09:46:15 by marmoham         ###   ########.fr       */
+/*   Updated: 2024/02/28 09:56:50 by marwamostaf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	wall_height(double dist, double *wall, double *top, double *bottom)
 		*top = 0;
 	if (*bottom > DIM_H)
 		*bottom = DIM_H;
+		// test change
 }
 
 void	render_wall(double x, double dist, t_mlx *mlx, char dir)
