@@ -67,7 +67,7 @@ MLX_FLAGS = $(shell pkg-config --cflags --libs $(MLX))
 SRC_DIR = src/
 OBJ_DIR = obj
 
-SRC = $(addprefix $(SRC_DIR), main.c parsing.c parsing_utils.c file_saver.c check_texture_data.c check_valid_color.c check_valid_map.c get_next_line_cub.c get_next_line_cub_utils.c handle_errors.c map_utils.c map.c map_utils2.c)
+SRC = $(addprefix $(SRC_DIR), main.c parsing.c parsing_utils.c file_saver.c check_texture_data.c check_valid_color.c check_valid_map.c get_next_line_cub.c get_next_line_cub_utils.c handle_errors.c map_utils.c map.c map_utils2.c render.c render_utils.c)
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
 
 $(NAME): $(LIBFT) $(OBJ) $(OBJ_DIR)

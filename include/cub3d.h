@@ -6,7 +6,7 @@
 /*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/27 14:01:58 by marmoham         ###   ########.fr       */
+/*   Updated: 2024/02/28 09:32:24 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <fcntl.h>
 # include <stdint.h>
 # include <stdbool.h>
+# include <float.h>
 
 # define NORTH 1
 # define SOUTH 2
@@ -36,7 +37,7 @@
 # define ROT 45
 # define FOV 60
 # define SPEED 5
-# define TILE 25
+# define TILE 50.0000
 
 typedef struct s_map
 {
@@ -162,4 +163,7 @@ char	*gnl_strjoin(char *s1, char *s2);
 char	*gnl_strchr(const char *s, int c);
 char	*gnl_strdup(char *s1);
 int		check_map_wall(char *line);
+double	normalize_angle(double angle);
+double	cardinal_to_angle(char dir);
+int		hit_wall(double x, double y, t_map *map);
 #endif
