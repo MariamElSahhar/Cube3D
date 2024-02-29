@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   file_saver.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:03:28 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/28 09:42:20 by marmoham         ###   ########.fr       */
+/*   Updated: 2024/02/28 21:33:04 by marwamostaf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 char	**file_to_2d(char **pre, char *line, int nline, t_cub *map)
 {

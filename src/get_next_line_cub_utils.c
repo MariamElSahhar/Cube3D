@@ -6,11 +6,11 @@
 /*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:30:50 by marmoham          #+#    #+#             */
-/*   Updated: 2024/02/21 16:13:27 by marwamostaf      ###   ########.fr       */
+/*   Updated: 2024/02/28 21:32:46 by marwamostaf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 int	gnl_strlen(char *s)
 {

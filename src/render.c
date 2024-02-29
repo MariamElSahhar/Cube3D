@@ -6,7 +6,7 @@
 /*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:44:14 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/28 09:56:50 by marwamostaf      ###   ########.fr       */
+/*   Updated: 2024/02/29 09:01:47 by marwamostaf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ void	wall_height(double dist, double *wall, double *top, double *bottom)
 		*top = 0;
 	if (*bottom > DIM_H)
 		*bottom = DIM_H;
-		// test change
 }
 
 void	render_wall(double x, double dist, t_mlx *mlx, char dir)
@@ -127,6 +126,15 @@ void	render_wall(double x, double dist, t_mlx *mlx, char dir)
 	y = 0;
 
 	wall_height(dist, &wall, &top, &bottom);
+	// y = (int)top;
+	// while (y < bottom) 
+	// {
+    //     if (dir == 'N' || dir == 'S')
+    //         put_pixel(mlx, x, y, 0xFFC300); // Adjust color based on wall direction
+    //     else
+    //         put_pixel(mlx, x, y, 0xDAF7A6); // Adjust color based on wall direction
+    //     y++;
+    // }
 	printf("ray %f, top at %f, bottom at %f\n", x, top, bottom);
 	while (y < top)
 		put_pixel(mlx, x, y++, 0xF0FFFF);

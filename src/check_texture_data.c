@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_texture_data.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:09:53 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/26 10:22:53 by marmoham         ###   ########.fr       */
+/*   Updated: 2024/02/28 21:33:27 by marwamostaf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 bool	is_valide_id(char *iden, char *cmp, int len)
 {

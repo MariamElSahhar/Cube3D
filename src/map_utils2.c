@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 08:02:20 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/27 13:01:47 by marmoham         ###   ########.fr       */
+/*   Updated: 2024/02/28 21:31:56 by marwamostaf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 void	check_map_space(int y, int x, t_cub *cub)
 {

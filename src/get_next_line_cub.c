@@ -6,11 +6,11 @@
 /*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 16:18:24 by marmoham          #+#    #+#             */
-/*   Updated: 2024/02/22 10:28:00 by marwamostaf      ###   ########.fr       */
+/*   Updated: 2024/02/28 21:32:31 by marwamostaf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 static char	*get_the_line(char *str)
 {

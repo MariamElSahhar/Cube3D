@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_valid_map.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 11:54:40 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/27 12:41:09 by marmoham         ###   ########.fr       */
+/*   Updated: 2024/02/28 21:33:17 by marwamostaf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 void	is_valid_zero(int c, int y, int x, t_cub *cub)
 {
