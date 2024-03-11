@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:34:48 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/11 21:40:33 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/11 21:49:40 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,22 +97,35 @@ int	destroy_cub(t_cub *data)
 	exit(0);
 }
 
+/* void	move_player(t_player *player, int key)
+{
+	double	x_incr;
+	double	y_incr;
+
+	x_incr = SPEED / cos(player->alpha);
+	y_incr = SPEED / sin(player->alpha);
+
+} */
+
 int	key_down(int keycode, t_cub *data)
 {
 	if (keycode == ESC)
 		destroy_cub(data);
-	// if (keycode == DOWN || keycode == UP)
-	// 	movement(data, keycode);
-	if (keycode == LEFT)
+	if (keycode == DOWN)
 	{
+		data->player.pos[0] -= SPEED * cos(data->player.alpha);
+		data->player.pos[1] -= SPEED * sin(data->player.alpha);
+	}
+	else if (keycode == UP)
+	{
+		data->player.pos[0] += SPEED * cos(data->player.alpha);
+		data->player.pos[1] += SPEED * sin(data->player.alpha);
+	}
+	else if (keycode == LEFT)
 		data->player.alpha -= (ROT * M_PI / 180);
-	 	render(data);
-	}
 	else if (keycode == RIGHT)
-	{
 		data->player.alpha += (ROT * M_PI / 180);
-		render(data);
-	}
+	render(data);
 	return (0);
 }
 
