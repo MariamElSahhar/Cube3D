@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_valid_map.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 11:54:40 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/28 21:33:17 by marwamostaf      ###   ########.fr       */
+/*   Updated: 2024/03/11 20:42:10 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,6 @@ void	get_map_width(t_cub *cub)
 			cub->game.map.map_width = ft_strlen(cub->game.map.map_2d[y]);
 		y++;
 	}
+	cub->game.map.nline = y;
 	return ;
 }

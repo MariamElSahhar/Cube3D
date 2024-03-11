@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:44:14 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/11 20:14:24 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/11 21:12:43 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,18 @@ double	h_intersect_dist(double alpha, t_map *map, t_player *player)
 	y_first = floor(player->pos[1] / TILE) * TILE;
 	pix = inter_check(alpha, &y_first, &y_incr, 1);
 	x_first = ((y_first - player->pos[1]) / tan(alpha)) + player->pos[0];
-	if ((alpha > (M_PI / 2) && alpha < (3 * M_PI) / 2 && x_incr > 0)
-		|| (!(alpha > (M_PI / 2) && alpha < (3 * M_PI) / 2) && x_incr < 0)) // check x_step value
+	if ((alpha > (M_PI / 2) && (alpha < (3 * M_PI / 2)) && x_incr > 0)
+		|| (!(alpha > (M_PI / 2) && alpha < (3 * M_PI) / 2) && x_incr < 0))
   		x_incr *= -1;
 	while (!hit_wall(x_first, y_first - pix, map))
 	{
 		x_first += x_incr;
 		y_first += y_incr;
 	}
-
 	printf("h_inter at (%f, %f)\n", floor(x_first / TILE), floor(y_first / TILE));
 	// printf("h_inter: dist = %f\n",sqrt(pow((player->pos[0] - x_first) + x_incr * i, 2) + pow((y_first - player->pos[1]) + y_incr * i, 2)));
-	return (sqrt(pow(player->pos[0] - x_first, 2)
-			+ pow(player->pos[1] - y_first, 2)));
+	return (sqrt(pow(x_first - player->pos[0], 2)
+			+ pow(y_first - player->pos[1], 2)));
 }
 
 double	v_intersect_dist(double alpha, t_map *map, t_player *player)
@@ -79,18 +78,16 @@ double	v_intersect_dist(double alpha, t_map *map, t_player *player)
 	double	y_incr;
 	double	x_first;
 	double	y_first;
-	double	i;
 	double	pix;
 
 	x_incr = TILE;
 	y_incr = TILE * tan(alpha);
 	x_first = floor(player->pos[0] / TILE) * TILE;
 	pix = inter_check(alpha, &x_first, &x_incr, 0);
-	y_first = ((player->pos[0] - x_first) * tan(alpha)) + player->pos[1];
+	y_first = ((x_first - player->pos[0]) * tan(alpha)) + player->pos[1];
 	if ((alpha < M_PI && alpha > 0 && y_incr < 0)
 		|| (!(alpha < M_PI && alpha > 0) && y_incr > 0))
   		y_incr *= -1;
-	i = 0;
 	while (!hit_wall(x_first - pix, y_first, map))
 	{
 		x_first += x_incr;
@@ -98,8 +95,8 @@ double	v_intersect_dist(double alpha, t_map *map, t_player *player)
 	}
 	printf("v_inter at (%f, %f)\n", floor(x_first / TILE), floor(y_first / TILE));
 	// printf("v_inter: dist = %f\n", sqrt(pow((player->pos[0] - x_first) + x_incr * i, 2) + pow((y_first - player->pos[1]) + y_incr * i, 2)));
-	return (sqrt(pow(player->pos[0] - x_first, 2)
-			+ pow(player->pos[1] - y_first, 2)));
+	return (sqrt(pow(x_first - player->pos[0], 2)
+			+ pow(y_first - player->pos[1], 2)));
 }
 
 double	distance_to_wall(double alpha, t_map *map, t_player *player, char *dir)
@@ -142,7 +139,7 @@ void	wall_height(double dist, double *wall, double *top, double *bottom)
 		*bottom = DIM_H;
 }
 
-void	render_wall(double x, double dist, t_mlx *mlx, char dir)
+void	render_wall(double x, double dist, t_cub *data, char dir)
 {
 	int		y;
 	double	wall;
@@ -153,7 +150,7 @@ void	render_wall(double x, double dist, t_mlx *mlx, char dir)
 
 	wall_height(dist, &wall, &top, &bottom);
 	while (y < top)
-		put_pixel(mlx, x, y++, 0xF0FFFF);
+		put_pixel(&data->mlx, x, y++, data->game.ceiling);
 	if (dir == 'N' || dir == 'S')
 		printf("N/S facing\n");
 	if (dir == 'E' || dir == 'W')
@@ -161,12 +158,12 @@ void	render_wall(double x, double dist, t_mlx *mlx, char dir)
 	while (y < top + wall)
 	{
 		if (dir == 'N' || dir == 'S')
-			put_pixel(mlx, x, y++, 0xFFC300);
+			put_pixel(&data->mlx, x, y++, 0xFFC300);
 		else
-			put_pixel(mlx, x, y++, 0xDAF7A6);
+			put_pixel(&data->mlx, x, y++, 0xDAF7A6);
 	}
 	while (y < DIM_H)
-		put_pixel(mlx, x, y++, 0xF0FFFF);
+		put_pixel(&data->mlx, x, y++, data->game.floor);
 }
 
 void	put_map(t_cub *data, t_map *map, t_player *player)
@@ -190,7 +187,7 @@ void	put_map(t_cub *data, t_map *map, t_player *player)
 		distance = distance_to_wall(curr_angle, map, player, &dir);
 		printf("distance to wall = %f\n\n", distance);
 		// distance *= cos(normalize_angle(curr_angle - player->alpha));
-		render_wall(x, distance, &data->mlx, dir);
+		render_wall(x, distance, data, dir);
 		curr_angle = normalize_angle(curr_angle + angle_increment);
 		x ++;
 	}

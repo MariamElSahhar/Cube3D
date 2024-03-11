@@ -3,6 +3,20 @@ mlx new image
 mlx get data addr
 mlx new window
 done data init
+--printing grid--
+NO greystone.xpm
+SO greystone.xpm
+EA greystone.xpm
+WE greystone.xpm
+F = dc6408, C = e11e00
+Player facing E, at (12,3)
+1111111111111111111111111
+1000000000000000000000001
+1000000000000000000010001
+100000000000E000000000001
+1000000000000000000000001
+1000000000000000000010001
+1111111111111111111111111
 ray #0, angle = 330.000000
 h_inter at (16.000000, 1.000000)
 v_inter at (18.000000, 0.000000)
@@ -8291,15 +8305,4 @@ h_inter = 256.622026, v_inter = 302.279531
 distance to wall = 256.622026
 
 N/S facing
-ray #1184, angle = 29.200000
-h_inter at (16.000000, 6.000000)
-v_inter at (18.000000, 6.000000)
-h_inter = 256.221226, v_inter = 302.386544
-distance to wall = 256.221226
-
-N/S facing
-ray #1185, angle = 29.250000
-h_inter at (16.000000, 6.000000)
-v_inter at (18.000000, 6.000000)
-h_inter = 255.821871, v_inter = 302.493844
-dist
+ray 

@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:34:48 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/11 19:07:49 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/11 20:48:46 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,17 @@ void	render(t_cub *data)
 		data->mlx.mlx_win, data->mlx.img, 0, 0);
 }
 
-void	print_grid(t_map *map)
+void	print_grid(t_map *map, t_game *game)
 {
 	printf("--printing grid--\n");
 	int	i;
 	int	j;
 
-	printf("NO %s\n", map->texture[0]);
-	printf("SO %s\n", map->texture[1]);
-	printf("EA %s\n", map->texture[2]);
-	printf("WE %s\n", map->texture[3]);
-	printf("F %i,%i,%i\n", map->floor[0], map->floor[1], map->floor[2]);
-	printf("C %i,%i,%i\n", map->ceiling[0], map->ceiling[1], map->ceiling[2]);
+	printf("NO %s\n", game->north);
+	printf("SO %s\n", game->south);
+	printf("EA %s\n", game->east);
+	printf("WE %s\n", game->west);
+	printf("F = %x, C = %x\n", game->floor, game->ceiling);
 	printf("Player facing %c, at (%i,%i)\n", map->player_dir, map->player_x, map->player_y);
 	i = 0;
 	while (i < map->nline)
@@ -65,7 +64,6 @@ void	print_grid(t_map *map)
 		j = 0;
 		while (j < map->map_width)
 			printf("%c", map->map_2d[i][j++]);
-		printf("\n");
 		i++;
 	}
 }
@@ -82,6 +80,10 @@ void	parse(int argc, char **argv, t_cub* data)
 	is_args_valide(argv[1], data);
 	saving_map_file(data);
 	parse_map_components(data);
+	int	i = 0;
+	while (data->game.map.map_2d[i])
+		i++;
+	data->game.map.nline = i;
 }
 
 int	main(int argc, char **argv)
@@ -91,6 +93,7 @@ int	main(int argc, char **argv)
 	parse(argc, argv, &data);
 	if (!init_mlx(&data))
 		print_error("Error allocating memory", &data);
+	print_grid(&data.game.map, &data.game);
 	render(&data);
 	mlx_loop(&data.mlx);
 	free_cube_map(&data);

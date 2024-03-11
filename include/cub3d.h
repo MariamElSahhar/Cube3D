@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/11 19:10:14 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/11 20:43:59 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,9 @@ typedef struct s_map
 	int		map_pos;
 	char	**map_2d;
 	char	*line;
-	char	**texture;
 	char	player_dir;
 	int		player_x;
 	int		player_y;
-	int		*floor;
-	int		*ceiling;
 }	t_map;
 
 typedef struct s_file

@@ -30,7 +30,7 @@ $(OBJ_DIR):
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
-	mv $(addprefix $(LIBFT_DIR), $(LIBFT))
+	mv $(addprefix $(LIBFT_DIR), $(LIBFT)) .
 
 linux: $(LIBFT) $(OBJ) $(OBJ_DIR)
 	$(CC) $(OBJ) $(LIBFT) -o $(NAME)

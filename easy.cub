@@ -2,14 +2,11 @@ NO greystone.xpm
 WE greystone.xpm
 
 
-
-
-F 220,100,8
-C 225,30,0
+F 240,255,220
+C 220,240,255
 
 SO greystone.xpm
 EA greystone.xpm
-
 
 1111111111111111111111111
 1000000000000000000000001
