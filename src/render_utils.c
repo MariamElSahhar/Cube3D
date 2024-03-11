@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 20:10:15 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/11 21:08:01 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/11 21:20:19 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ double	cardinal_to_angle(char dir)
 	if (dir == 'N')
 		angle = M_PI / 2;
 	else if (dir == 'S')
-		angle = - M_PI / 2;
+		angle = 3 * M_PI / 2;
 	else if (dir == 'E')
 		angle = 0;
 	else if (dir == 'W')

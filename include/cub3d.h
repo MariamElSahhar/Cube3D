@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/11 20:43:59 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/11 21:32:35 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define DIM_W 1200
 # define DIM_H 1000
 
-# define ROT 45
+# define ROT 8
 # define FOV 60
 # define SPEED 5
 # define TILE 50.0000
@@ -102,6 +102,14 @@ typedef struct s_cub
 	t_player	player;
 }	t_cub;
 
+typedef enum e_keycodes
+{
+	ESC = 53,
+	LEFT = 123,
+	RIGHT = 124,
+	DOWN = 125,
+	UP = 126,
+}	t_keycodes;
 
 // typedef struct s_data {
 // 	t_mlx		mlx;

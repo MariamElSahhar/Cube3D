@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:34:48 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/11 20:48:46 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/11 21:40:33 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	render(t_cub *data)
 {
 	if (data->mlx.img != 0)
 		mlx_destroy_image(&data->mlx.mlx, data->mlx.img);
+	else
+		data->player.alpha = cardinal_to_angle(data->game.map.player_dir);
 	mlx_clear_window(&data->mlx.mlx, data->mlx.mlx_win);
 	data->mlx.img = mlx_new_image(&data->mlx, DIM_W, DIM_H);
 	data->mlx.addr = mlx_get_data_addr(data->mlx.img,
@@ -86,6 +88,35 @@ void	parse(int argc, char **argv, t_cub* data)
 	data->game.map.nline = i;
 }
 
+int	destroy_cub(t_cub *data)
+{
+	mlx_destroy_image(data->mlx.mlx, data->mlx.img);
+	mlx_destroy_window(data->mlx.mlx, data->mlx.mlx_win);
+	free(data->mlx.mlx);
+	free_cube_map(data);
+	exit(0);
+}
+
+int	key_down(int keycode, t_cub *data)
+{
+	if (keycode == ESC)
+		destroy_cub(data);
+	// if (keycode == DOWN || keycode == UP)
+	// 	movement(data, keycode);
+	if (keycode == LEFT)
+	{
+		data->player.alpha -= (ROT * M_PI / 180);
+	 	render(data);
+	}
+	else if (keycode == RIGHT)
+	{
+		data->player.alpha += (ROT * M_PI / 180);
+		render(data);
+	}
+	return (0);
+}
+
+
 int	main(int argc, char **argv)
 {
 	t_cub	data;
@@ -95,6 +126,8 @@ int	main(int argc, char **argv)
 		print_error("Error allocating memory", &data);
 	print_grid(&data.game.map, &data.game);
 	render(&data);
+	mlx_hook(data.mlx.mlx_win, 2, 1L << 0, &key_down, &data);
+	mlx_hook(data.mlx.mlx_win, 17, 0, &destroy_cub, &data);
 	mlx_loop(&data.mlx);
 	free_cube_map(&data);
 	close (data.game.file.fd);
