@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:34:48 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/11 21:49:40 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/11 21:58:59 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,10 @@ int	key_down(int keycode, t_cub *data)
 	}
 	else if (keycode == UP)
 	{
-		data->player.pos[0] += SPEED * cos(data->player.alpha);
-		data->player.pos[1] += SPEED * sin(data->player.alpha);
+		if (data->player.pos[0] + SPEED * cos(data->player.alpha) < data->game.map.map_width)
+			data->player.pos[0] += SPEED * cos(data->player.alpha);
+		if (data->player.pos[1] + SPEED * sin(data->player.alpha) < data->game.map.nline)
+			data->player.pos[1] += SPEED * sin(data->player.alpha);
 	}
 	else if (keycode == LEFT)
 		data->player.alpha -= (ROT * M_PI / 180);
