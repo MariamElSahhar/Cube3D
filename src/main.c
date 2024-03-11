@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:34:48 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/28 21:32:13 by marwamostaf      ###   ########.fr       */
+/*   Updated: 2024/03/11 14:15:58 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	init_data(t_cub *data)
 void	render(t_cub *data)
 {
 	if (data->mlx.img != 0)
-		mlx_destroy_image(&data->mlx, data->mlx.img);
-	mlx_clear_window(&data->mlx, data->mlx.mlx_win);
+		mlx_destroy_image(&data->mlx.mlx, data->mlx.img);
+	mlx_clear_window(&data->mlx.mlx, data->mlx.mlx_win);
 	data->mlx.img = mlx_new_image(&data->mlx, DIM_W, DIM_H);
 	data->mlx.addr = mlx_get_data_addr(data->mlx.img,
 			&(data->mlx.bits_per_pixel),
@@ -95,7 +95,7 @@ void	print_grid(t_map *map)
 	printf("WE %s\n", map->texture[3]);
 	printf("F %i,%i,%i\n", map->floor[0], map->floor[1], map->floor[2]);
 	printf("C %i,%i,%i\n", map->ceiling[0], map->ceiling[1], map->ceiling[2]);
-	printf("Dir %c\n", map->player_dir);
+	printf("Player facing %c, at (%i,%i)\n", map->player_dir, map->player_x, map->player_y);
 	i = 0;
 	while (i < map->nline)
 	{

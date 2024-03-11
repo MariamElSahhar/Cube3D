@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/28 09:50:25 by marmoham         ###   ########.fr       */
+/*   Updated: 2024/03/11 14:00:08 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,13 @@
 
 typedef struct s_map
 {
-	int		map_pos;
 	int		nline;
+	int		map_width;
+	int		map_pos;
 	char	**map_2d;
 	char	*line;
 	char	**texture;
 	char	player_dir;
-	int		map_width;
-	//int		height;
 	int		player_x;
 	int		player_y;
 	int		*floor;
@@ -101,9 +100,6 @@ typedef struct s_cub
 	char	**tmp;
 	int		*f_colors;
 	int		*c_colors;
-	//int		move_x;
-	//int		move_y;
-	//double	pi;
 	t_mlx	mlx;
 	t_game	game;
 	t_player	player;
