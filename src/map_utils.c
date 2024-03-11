@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 22:27:58 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/28 21:32:07 by marwamostaf      ###   ########.fr       */
+/*   Updated: 2024/03/11 19:06:04 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,27 @@ char	*new_strtrimchar(char const *str, int const c)
 		trim[i++] = str[start++];
 	trim[i] = 0;
 	return (trim);
+}
+
+
+void	init_map(t_cub *map_data)
+{
+	map_data->game.north = NULL;
+	map_data->game.south = NULL;
+	map_data->game.west = NULL;
+	map_data->game.east = NULL;
+	map_data->game.floor = -1;
+	map_data->game.ceiling = -1;
+	map_data->game.file.fd = 0;
+	map_data->game.file.nline = 0;
+	map_data->game.file.line = NULL;
+	map_data->game.file.file_2d = NULL;
+	map_data->game.map.map_2d = NULL;
+	map_data->game.map.map_pos = -1;
+	map_data->game.map.nline = 0;
+	map_data->game.map.player_x = -1;
+	map_data->game.map.player_y = -1;
+	map_data->game.map.player_dir = 0;
+	map_data->game.map.map_width = 0;
+	return ;
 }

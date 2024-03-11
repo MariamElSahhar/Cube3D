@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/11 14:00:08 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/11 19:10:14 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ typedef struct s_cub
 // 	t_mlx		mlx;
 // 	t_map		map;
 // 	t_player	player;
-	
+
 // }	t_data;
 
 void	ft_free_array(char **tab);
@@ -153,14 +153,18 @@ void	check_map(t_cub *cub);
 void	get_map_width(t_cub *cub);
 char	**file_to_2d(char **pre, char *line, int nline, t_cub *map);
 void	saving_map_file(t_cub *map);
+void	init_map(t_cub *map_data);
 char	*get_next_line_cube(int fd);
 int		gnl_strlen(char *s);
 char	*gnl_strjoin(char *s1, char *s2);
 char	*gnl_strchr(const char *s, int c);
 char	*gnl_strdup(char *s1);
+
+// RENDERING
 int		check_map_wall(char *line);
 double	normalize_angle(double angle);
 double	cardinal_to_angle(char dir);
 int		hit_wall(double x, double y, t_map *map);
 void	put_map(t_cub *data, t_map *map, t_player *player);
+
 #endif

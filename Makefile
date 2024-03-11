@@ -1,61 +1,61 @@
 
-# NAME = cub3D
-# INCL = ./include/
-# CC = cc
-# CFLAGS = -Wall -Wextra -Werror -g
+NAME = cub3D
+INCL = ./include/
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -g
 
-# MLX = minilibx_macos
-# LIBFT_DIR = libft/
-# LIBFT = libftprintf.a
-# MLX_FLAGS = -Lminilibx_macos -lmlx -framework OpenGL -framework AppKit
-# MLX_FLAGS = -L$(MLX) -lmlx -framework OpenGL -framework AppKit
+MLX = minilibx_macos
+LIBFT_DIR = libft/
+LIBFT = libftprintf.a
+MLX_FLAGS = -Lminilibx_macos -lmlx -framework OpenGL -framework AppKit
+MLX_FLAGS = -L$(MLX) -lmlx -framework OpenGL -framework AppKit
 
-# SRC_DIR = src/
-# OBJ_DIR = obj
+SRC_DIR = src/
+OBJ_DIR = obj
 
-# SRC = $(addprefix $(SRC_DIR), main.c parsing.c parsing_utils.c file_saver.c check_texture_data.c check_valid_color.c check_valid_map.c get_next_line_cub.c get_next_line_cub_utils.c handle_errors.c map_utils.c map.c map_utils2.c render.c render_utils.c)
+SRC = $(addprefix $(SRC_DIR), main.c parsing.c parsing_utils.c file_saver.c check_texture_data.c check_valid_color.c check_valid_map.c get_next_line_cub.c get_next_line_cub_utils.c handle_errors.c map_utils.c map.c map_utils2.c render.c render_utils.c)
 
-# OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
+OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
 
-# $(NAME): $(LIBFT) $(OBJ) $(OBJ_DIR)
-# 	$(CC)  -L $(MLX) $(MLX_FLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+$(NAME): $(LIBFT) $(OBJ) $(OBJ_DIR)
+	$(CC)  -L $(MLX) $(MLX_FLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 
-# all: $(NAME)
+all: $(NAME)
 
-# $(OBJ_DIR)/%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
-# 	$(CC) -c $(CFLAGS) -I$(INCL) -I $(MLX) $< -o $@
+$(OBJ_DIR)/%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
+	$(CC) -c $(CFLAGS) -I$(INCL) -I $(MLX) $< -o $@
 
-# $(OBJ_DIR):
-# 	mkdir -p $@
+$(OBJ_DIR):
+	mkdir -p $@
 
-# $(LIBFT):
-# 	make -C $(LIBFT_DIR)
-# 	mv $(addprefix $(LIBFT_DIR), $(LIBFT)) .
+$(LIBFT):
+	make -C $(LIBFT_DIR)
+	mv $(addprefix $(LIBFT_DIR), $(LIBFT))
 
-# linux: $(LIBFT) $(OBJ) $(OBJ_DIR)
-# 	$(CC) $(OBJ) $(LIBFT) -o $(NAME)
+linux: $(LIBFT) $(OBJ) $(OBJ_DIR)
+	$(CC) $(OBJ) $(LIBFT) -o $(NAME)
 
-# clean:
-# 	make -C $(LIBFT_DIR) clean
-# 	rm -f $(LIBFT)
-# 	rm -rf $(OBJ_DIR)
+clean:
+	make -C $(LIBFT_DIR) clean
+	rm -f $(LIBFT)
+	rm -rf $(OBJ_DIR)
 
-# fclean: clean
-# 	rm -f $(NAME)
+fclean: clean
+	rm -f $(NAME)
 
-# re: fclean all
+re: fclean all
 
-# mac:
-# 	arch -x86_64 make
+mac:
+	arch -x86_64 make
 
-# macre: fclean mac
+macre: fclean mac
 
-# norm:
-# 	norminette $(addprefix $(SRC_DIR), *.c) -R CheckDefine
-# 	norminette $(addprefix $(PRINTF_DIR), *.c) $(addprefix $(PRINTF_DIR), *.h) -R CheckDefine
-# 	norminette $(addprefix $(LIBFT_DIR), *.c) $(addprefix $(LIBFT_DIR), *.h) -R CheckDefine
+norm:
+	norminette $(addprefix $(SRC_DIR), *.c) -R CheckDefine
+	norminette $(addprefix $(PRINTF_DIR), *.c) $(addprefix $(PRINTF_DIR), *.h) -R CheckDefine
+	norminette $(addprefix $(LIBFT_DIR), *.c) $(addprefix $(LIBFT_DIR), *.h) -R CheckDefine
 
-# .phony: re clean fclean all norm
+.phony: re clean fclean all norm
 
 # NAME = cub3d
 # INCL = ./include/
@@ -157,58 +157,59 @@
 # 	norminette $(LIBFT_DIR)*.c $(LIBFT_DIR)*.h
 
 # .PHONY: all clean fclean re norm
-NAME = cub3d
-INCL = ./include/
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
 
-MLX = minilibx_macos
-LIBFT_DIR = libft/
-LIBFT = libftprintf.a
-MLX_FLAGS = -L$(MLX) -lmlx -framework OpenGL -framework AppKit
+# NAME = cub3d
+# INCL = ./include/
+# CC = cc
+# CFLAGS = -Wall -Wextra -Werror -g
 
-SRC_DIR = src/
-OBJ_DIR = obj
+# MLX = minilibx_macos
+# LIBFT_DIR = libft/
+# LIBFT = libftprintf.a
+# MLX_FLAGS = -L$(MLX) -lmlx -framework OpenGL -framework AppKit
 
-SRC = $(addprefix $(SRC_DIR), main.c parsing.c parsing_utils.c file_saver.c check_texture_data.c check_valid_color.c check_valid_map.c get_next_line_cub.c get_next_line_cub_utils.c handle_errors.c map_utils.c map.c map_utils2.c render.c render_utils.c)
-OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
+# SRC_DIR = src/
+# OBJ_DIR = obj
 
-$(NAME): $(LIBFT) $(OBJ) | $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -L$(MLX) $(MLX_FLAGS) -o $(NAME)
+# SRC = $(addprefix $(SRC_DIR), main.c parsing.c parsing_utils.c file_saver.c check_texture_data.c check_valid_color.c check_valid_map.c get_next_line_cub.c get_next_line_cub_utils.c handle_errors.c map_utils.c map.c map_utils2.c render.c render_utils.c)
+# OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
 
-all: $(NAME)
+# $(NAME): $(LIBFT) $(OBJ) | $(OBJ_DIR)
+# 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -L$(MLX) $(MLX_FLAGS) -o $(NAME)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
-	$(CC) -c $(CFLAGS) -I$(INCL) -I$(MLX) $< -o $@
+# all: $(NAME)
 
-$(OBJ_DIR):
-	mkdir -p $@
+# $(OBJ_DIR)/%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
+# 	$(CC) -c $(CFLAGS) -I$(INCL) -I$(MLX) $< -o $@
 
-$(LIBFT):
-	make -C $(LIBFT_DIR)
-	cp $(addprefix $(LIBFT_DIR), $(LIBFT)) .
+# $(OBJ_DIR):
+# 	mkdir -p $@
 
-linux: $(LIBFT) $(OBJ) $(OBJ_DIR)
-	$(CC) $(OBJ) $(LIBFT) -o $(NAME)
+# $(LIBFT):
+# 	make -C $(LIBFT_DIR)
+# 	cp $(addprefix $(LIBFT_DIR), $(LIBFT)) .
 
-clean:
-	make -C $(LIBFT_DIR) clean
-	rm -f $(LIBFT)
-	rm -rf $(OBJ_DIR)
+# linux: $(LIBFT) $(OBJ) $(OBJ_DIR)
+# 	$(CC) $(OBJ) $(LIBFT) -o $(NAME)
 
-fclean: clean
-	rm -f $(NAME)
+# clean:
+# 	make -C $(LIBFT_DIR) clean
+# 	rm -f $(LIBFT)
+# 	rm -rf $(OBJ_DIR)
 
-re: fclean all
+# fclean: clean
+# 	rm -f $(NAME)
 
-mac:
-	arch -x86_64 make
+# re: fclean all
 
-macre: fclean mac
+# mac:
+# 	arch -x86_64 make
 
-norm:
-	norminette $(addprefix $(SRC_DIR), *.c) -R CheckDefine
-	norminette $(addprefix $(PRINTF_DIR), *.c) $(addprefix $(PRINTF_DIR), *.h) -R CheckDefine
-	norminette $(addprefix $(LIBFT_DIR), *.c) $(addprefix $(LIBFT_DIR), *.h) -R CheckDefine
+# macre: fclean mac
 
-.PHONY: re clean fclean all norm
+# norm:
+# 	norminette $(addprefix $(SRC_DIR), *.c) -R CheckDefine
+# 	norminette $(addprefix $(PRINTF_DIR), *.c) $(addprefix $(PRINTF_DIR), *.h) -R CheckDefine
+# 	norminette $(addprefix $(LIBFT_DIR), *.c) $(addprefix $(LIBFT_DIR), *.h) -R CheckDefine
+
+# .PHONY: re clean fclean all norm

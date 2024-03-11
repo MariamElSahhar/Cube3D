@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 21:55:09 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/28 21:32:19 by marwamostaf      ###   ########.fr       */
+/*   Updated: 2024/03/11 19:02:27 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

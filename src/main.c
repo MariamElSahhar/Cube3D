@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:34:48 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/11 14:15:58 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/11 19:07:49 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	init_data(t_cub *data)
+int	init_mlx(t_cub *data)
 {
 	printf("mlx init\n");
 	data->mlx.mlx = mlx_init();
@@ -46,43 +46,6 @@ void	render(t_cub *data)
 		data->mlx.mlx_win, data->mlx.img, 0, 0);
 }
 
-void	init_map(t_cub *map_data)
-{
-	map_data->game.north = NULL;
-	map_data->game.south = NULL;
-	map_data->game.west = NULL;
-	map_data->game.east = NULL;
-	map_data->game.floor = -1;
-	map_data->game.ceiling = -1;
-	map_data->game.file.fd = 0;
-	map_data->game.file.nline = 0;
-	map_data->game.file.line = NULL;
-	map_data->game.file.file_2d = NULL;
-	map_data->game.map.map_2d = NULL;
-	map_data->game.map.map_pos = -1;
-	map_data->game.map.nline = 0;
-	map_data->game.map.player_x = -1;
-	map_data->game.map.player_y = -1;
-	map_data->game.map.player_dir = 0;
-	map_data->game.map.map_width = 0;
-	return ;
-}
-/*
-void	free_data(t_data *data)
-{
-	printf("freeing data\n");
-	if (data->map.north)
-		free(data->map.north);
-	if (data->map.east)
-		free(data->map.east);
-	if (data->map.south)
-		free(data->map.south);
-	if (data->map.west)
-		free(data->map.west);
-	if (data->map.grid)
-		free_double_pointer_size((void **) data->map.grid, data->map.rows);
-} */
-
 void	print_grid(t_map *map)
 {
 	printf("--printing grid--\n");
@@ -107,28 +70,30 @@ void	print_grid(t_map *map)
 	}
 }
 
+void	parse(int argc, char **argv, t_cub* data)
+{
+	init_map(data);
+	if (argc != 2)
+		print_error("Invalid number of arguments", data);
+	data->game.file.fd = open(argv[1], O_DIRECTORY);
+	if (data->game.file.fd > 0)
+		print_error("Argument cannot be a directory", data);
+	data->game.file.fd = open(argv[1], O_RDONLY);
+	is_args_valide(argv[1], data);
+	saving_map_file(data);
+	parse_map_components(data);
+}
+
 int	main(int argc, char **argv)
 {
-	t_cub	cub_data;
+	t_cub	data;
 
-	init_map(&cub_data);
-	if (argc != 2)
-		print_error("Invalid number of arguments", &cub_data);
-	cub_data.game.file.fd = open(argv[1], O_DIRECTORY);
-	if (cub_data.game.file.fd > 0)
-		print_error("Argument cannot be a directory", &cub_data);
-	cub_data.game.file.fd = open(argv[1], O_RDONLY);
-	is_args_valide(argv[1], &cub_data);
-	saving_map_file(&cub_data);
-	parse_map_components(&cub_data);
-	if (!init_data(&cub_data)) 
-	{
-		free_cube_map(&cub_data);
-		return (1);
-	}
-	render(&cub_data);
-	mlx_loop(&cub_data.mlx);
-	free_cube_map(&cub_data);
-	close (cub_data.game.file.fd);
+	parse(argc, argv, &data);
+	if (!init_mlx(&data))
+		print_error("Error allocating memory", &data);
+	render(&data);
+	mlx_loop(&data.mlx);
+	free_cube_map(&data);
+	close (data.game.file.fd);
 	return (0);
 }
