@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:31:43 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/12 19:17:34 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/12 20:11:11 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ void	put_pixel(t_mlx *mlx, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+void	put_texture(t_cub *data, double x, int y, char d)
+{
+}
+
 void	render_wall(double x, double dist, t_cub *data, char dir)
 {
 	int		y;
@@ -53,12 +57,9 @@ void	render_wall(double x, double dist, t_cub *data, char dir)
 	wall_height(dist, &wall, &top, &bottom);
 	while (y < top)
 		put_pixel(&data->mlx, x, y++, data->game.ceiling);
-	/* if (dir == 'N' || dir == 'S')
-		printf("N/S facing\n");
-	if (dir == 'E' || dir == 'W')
-		printf("E/W facing\n"); */
 	while (y < top + wall)
 	{
+		put_texture(data, x, y, dir);
 		if (dir == 'N' || dir == 'S')
 			put_pixel(&data->mlx, x, y++, 0xFFC300); // green
 		else

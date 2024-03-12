@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:34:48 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/12 19:19:50 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/12 20:06:35 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 void	render(t_cub *data)
 {
+	printf("render\n");
 	if (data->mlx.img != 0)
+	{
+		printf("destroy\n");
 		mlx_destroy_image(&data->mlx.mlx, data->mlx.img);
+	}
 	mlx_clear_window(&data->mlx.mlx, data->mlx.mlx_win);
 	data->mlx.img = mlx_new_image(&data->mlx, DIM_W, DIM_H);
 	data->mlx.addr = mlx_get_data_addr(data->mlx.img,
@@ -27,6 +31,7 @@ void	render(t_cub *data)
 		data->mlx.mlx_win, data->mlx.img, 0, 0);
 }
 
+/*
 void	print_grid(t_map *map, t_game *game)
 {
 	printf("--printing grid--\n");
@@ -49,7 +54,7 @@ void	print_grid(t_map *map, t_game *game)
 		i++;
 	}
 }
-
+ */
 void	parse(int argc, char **argv, t_cub *data)
 {
 	int	i;
@@ -86,7 +91,7 @@ int	main(int argc, char **argv)
 	parse(argc, argv, &data);
 	if (!init_mlx(&data))
 		print_error("Error allocating memory", &data);
-	print_grid(&data.game.map, &data.game);
+	// print_grid(&data.game.map, &data.game);
 	render(&data);
 	mlx_hook(data.mlx.mlx_win, 2, 1L << 0, &key_down, &data);
 	mlx_hook(data.mlx.mlx_win, 17, 0, &destroy_cub, &data);
