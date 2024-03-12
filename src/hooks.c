@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:34:41 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/12 19:01:16 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:05:54 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,17 @@
 
 void	movement(int keycode, t_player *player, t_map *map)
 {
-	if (keycode == DOWN)
+	if (keycode == DOWN && !hit_wall(player->pos[0] - SPEED * cos(player->alpha),
+		player->pos[1] - SPEED * sin(player->alpha), map))
 	{
-		if (player->pos[0] - SPEED * cos(player->alpha) > 0)
-			player->pos[0] -= SPEED * cos(player->alpha);
-		if (player->pos[1] - SPEED * sin(player->alpha) > 0)
-			player->pos[1] -= SPEED * sin(player->alpha);
+		player->pos[0] -= SPEED * cos(player->alpha);
+		player->pos[1] -= SPEED * sin(player->alpha);
 	}
-	else if (keycode == UP)
+	else if (keycode == UP && !hit_wall(player->pos[0] + SPEED * cos(player->alpha),
+		player->pos[1] + SPEED * sin(player->alpha), map))
 	{
-		if (player->pos[0] + SPEED * cos(player->alpha) < map->map_width * TILE)
-			player->pos[0] += SPEED * cos(player->alpha);
-		if (player->pos[1] + SPEED * sin(player->alpha) < map->nline * TILE)
-			player->pos[1] += SPEED * sin(player->alpha);
+		player->pos[0] += SPEED * cos(player->alpha);
+		player->pos[1] += SPEED * sin(player->alpha);
 	}
 }
 

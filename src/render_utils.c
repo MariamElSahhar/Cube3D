@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 20:10:15 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/12 18:54:45 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:19:32 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,16 @@ double	cardinal_to_angle(char dir)
 {
 	double	angle;
 
-	angle = -1.0;
-	if (dir == 'N')
-		angle = M_PI / 2;
-	else if (dir == 'S')
-		angle = 3 * M_PI / 2;
+	angle = 0.0;
+	if (dir == 'S')
+		angle = M_PI / 2.0;
+	else if (dir == 'N')
+		angle = 3.0 * M_PI / 2.0;
 	else if (dir == 'E')
 		angle = 0;
 	else if (dir == 'W')
 		angle = M_PI;
+	printf("card %c = %f deg\n", dir, angle);
 	return (angle);
 }
 

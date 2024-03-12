@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:31:43 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/12 19:01:35 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:17:34 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	init_mlx(t_cub *data)
 			DIM_W, DIM_H, "Hello World");
 	data->player.pos[0] = (data->game.map.player_x * TILE) + (TILE / 2);
 	data->player.pos[1] = (data->game.map.player_y * TILE) + (TILE / 2);
+	data->player.alpha = cardinal_to_angle(data->game.map.player_dir);
 	printf("done data init\n");
 	return (1);
 }
@@ -52,16 +53,16 @@ void	render_wall(double x, double dist, t_cub *data, char dir)
 	wall_height(dist, &wall, &top, &bottom);
 	while (y < top)
 		put_pixel(&data->mlx, x, y++, data->game.ceiling);
-	if (dir == 'N' || dir == 'S')
+	/* if (dir == 'N' || dir == 'S')
 		printf("N/S facing\n");
 	if (dir == 'E' || dir == 'W')
-		printf("E/W facing\n");
+		printf("E/W facing\n"); */
 	while (y < top + wall)
 	{
 		if (dir == 'N' || dir == 'S')
-			put_pixel(&data->mlx, x, y++, 0xFFC300);
+			put_pixel(&data->mlx, x, y++, 0xFFC300); // green
 		else
-			put_pixel(&data->mlx, x, y++, 0xDAF7A6);
+			put_pixel(&data->mlx, x, y++, 0xDAF7A6); // yellow
 	}
 	while (y < DIM_H)
 		put_pixel(&data->mlx, x, y++, data->game.floor);

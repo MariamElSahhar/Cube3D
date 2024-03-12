@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/12 18:52:19 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:14:45 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef struct s_mlx
 typedef struct s_player
 {
 	int		pos[2];
-	float	alpha;
+	double	alpha;
 }	t_player;
 
 typedef struct s_cub
