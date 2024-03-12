@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 22:27:58 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/03/11 19:06:04 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:59:49 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ char	*new_strtrimchar(char const *str, int const c)
 	trim[i] = 0;
 	return (trim);
 }
-
 
 void	init_map(t_cub *map_data)
 {

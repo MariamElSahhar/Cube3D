@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 11:54:40 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/03/11 20:42:10 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:01:28 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ void	check_map_line(int y, t_cub *cub)
 	int	x;
 
 	x = 0;
-	// if (y != 0 || y != cub->game.map.nline - 1)
-	// 	check_map_edge(cub->game.map.map_2d[y], cub);
 	while (cub->game.map.map_2d && cub->game.map.map_2d[y][x])
 	{
 		is_valid_char(y, cub->game.map.map_2d[y][x], cub);

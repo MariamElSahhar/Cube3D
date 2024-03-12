@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/12 10:35:50 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:52:19 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,8 @@ double	normalize_angle(double angle);
 int		hit_wall(double x, double y, t_map *map);
 void	wall_height(double dist, double *wall, double *top, double *bottom);
 void	render_wall(double x, double dist, t_cub *data, char dir);
+void	render(t_cub *data);
+int		destroy_cub(t_cub *data);
 
 // HOOKS
 int		key_down(int keycode, t_cub *data);

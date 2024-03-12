@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:34:48 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/12 10:34:56 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:01:00 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void	render(t_cub *data)
 	printf("EA %s\n", game->east);
 	printf("WE %s\n", game->west);
 	printf("F = %x, C = %x\n", game->floor, game->ceiling);
-	printf("Player facing %c, at (%i,%i)\n", map->player_dir, map->player_x, map->player_y);
+	printf("Player facing %c, at (%i,%i)\n",
+		map->player_dir, map->player_x, map->player_y);
 	i = 0;
 	while (i < map->nline)
 	{
@@ -51,8 +52,10 @@ void	render(t_cub *data)
 	}
 } */
 
-void	parse(int argc, char **argv, t_cub* data)
+void	parse(int argc, char **argv, t_cub *data)
 {
+	int	i;
+
 	init_map(data);
 	if (argc != 2)
 		print_error("Invalid number of arguments", data);
@@ -63,7 +66,7 @@ void	parse(int argc, char **argv, t_cub* data)
 	is_args_valide(argv[1], data);
 	saving_map_file(data);
 	parse_map_components(data);
-	int	i = 0;
+	i = 0;
 	while (data->game.map.map_2d[i])
 		i++;
 	data->game.map.nline = i;
@@ -85,7 +88,6 @@ int	main(int argc, char **argv)
 	parse(argc, argv, &data);
 	if (!init_mlx(&data))
 		print_error("Error allocating memory", &data);
-	print_grid(&data.game.map, &data.game);
 	render(&data);
 	mlx_hook(data.mlx.mlx_win, 2, 1L << 0, &key_down, &data);
 	mlx_hook(data.mlx.mlx_win, 17, 0, &destroy_cub, &data);

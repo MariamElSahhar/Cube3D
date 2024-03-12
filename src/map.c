@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:27:28 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/28 21:31:49 by marwamostaf      ###   ########.fr       */
+/*   Updated: 2024/03/12 18:59:59 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,6 @@ void	saving_validate_map(char *line, int index, t_cub *cub)
 		return ;
 	if (cub->game.map.map_pos != -1)
 		return ;
-	// if (!cub->game.north || !cub->game.south || !cub->game.west
-	// 	|| !cub->game.east || cub->game.floor == -1 || cub->game.ceiling == -1)
-	// 	print_error("Map should be the last", cub);
 	if (cub->game.map.map_pos == -1)
 	{
 		cub->game.map.map_pos = index;

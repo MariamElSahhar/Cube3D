@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 20:10:15 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/12 10:30:58 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:54:45 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ double	normalize_angle(double angle)
 	norm = fmod(angle, 2 * M_PI);
 	if (norm < 0)
 		norm += (2 * M_PI);
-	return norm;
+	return (norm);
 }
 
 double	cardinal_to_angle(char dir)
@@ -45,10 +45,11 @@ int	hit_wall(double x, double y, t_map *map)
 
 	x_coor = floor(x / TILE);
 	y_coor = floor(y / TILE);
-	if (x_coor < 0 || y_coor < 0 ||
-		x_coor >= map->map_width || y_coor >= map->nline ||
-		!map->map_2d[y_coor] ||
-		x_coor >= (int) ft_strlen(map->map_2d[y_coor]))
+	if (x_coor < 0 || y_coor < 0
+		|| x_coor >= map->map_width
+		|| y_coor >= map->nline
+		|| !map->map_2d[y_coor]
+		|| x_coor >= (int) ft_strlen(map->map_2d[y_coor]))
 		return (1);
 	if (map->map_2d[y_coor][x_coor] &&
 		map->map_2d[y_coor][x_coor] == '1')
@@ -59,7 +60,6 @@ int	hit_wall(double x, double y, t_map *map)
 void	wall_height(double dist, double *wall, double *top, double *bottom)
 {
 	*wall = (TILE / dist) * ((DIM_W / 2) / tan(FOV * M_PI / 180 / 2));
-	// printf("wall height = %f\n", *wall);
 	*top = (DIM_H / 2) - (*wall / 2);
 	*bottom = (DIM_H / 2) + (*wall / 2);
 	if (*top < 0)

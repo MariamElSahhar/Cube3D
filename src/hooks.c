@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:34:41 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/12 12:04:02 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:01:16 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	movement(int keycode, t_player* player, t_map *map)
+void	movement(int keycode, t_player *player, t_map *map)
 {
-	if (keycode == DOWN) {
+	if (keycode == DOWN)
+	{
 		if (player->pos[0] - SPEED * cos(player->alpha) > 0)
 			player->pos[0] -= SPEED * cos(player->alpha);
 		if (player->pos[1] - SPEED * sin(player->alpha) > 0)

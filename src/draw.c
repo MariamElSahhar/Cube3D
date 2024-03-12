@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:31:43 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/12 10:33:53 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:01:35 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	render_wall(double x, double dist, t_cub *data, char dir)
 	double	bottom;
 
 	y = 0;
-
 	wall_height(dist, &wall, &top, &bottom);
 	while (y < top)
 		put_pixel(&data->mlx, x, y++, data->game.ceiling);
