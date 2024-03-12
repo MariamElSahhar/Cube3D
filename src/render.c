@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:44:14 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/11 21:29:04 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:32:12 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-void	put_pixel(t_mlx *mlx, int x, int y, int color)
-{
-	char	*dst;
-
-	if (x >= DIM_W || x < 0 || y >= DIM_H || y < 0)
-		return ;
-	dst = mlx->addr + (y * mlx->line_length + x * (mlx->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
-}
 
 int inter_check(double angle, double *inter, double *step, int is_horizon) // check the intersection
 {
@@ -125,45 +115,6 @@ double	distance_to_wall(double alpha, t_map *map, t_player *player, char *dir)
 			*dir = 'W';
 	}
 	return (dist);
-}
-
-void	wall_height(double dist, double *wall, double *top, double *bottom)
-{
-	*wall = (TILE / dist) * ((DIM_W / 2) / tan(FOV * M_PI / 180 / 2));
-	// printf("wall height = %f\n", *wall);
-	*top = (DIM_H / 2) - (*wall / 2);
-	*bottom = (DIM_H / 2) + (*wall / 2);
-	if (*top < 0)
-		*top = 0;
-	if (*bottom > DIM_H)
-		*bottom = DIM_H;
-}
-
-void	render_wall(double x, double dist, t_cub *data, char dir)
-{
-	int		y;
-	double	wall;
-	double	top;
-	double	bottom;
-
-	y = 0;
-
-	wall_height(dist, &wall, &top, &bottom);
-	while (y < top)
-		put_pixel(&data->mlx, x, y++, data->game.ceiling);
-	if (dir == 'N' || dir == 'S')
-		printf("N/S facing\n");
-	if (dir == 'E' || dir == 'W')
-		printf("E/W facing\n");
-	while (y < top + wall)
-	{
-		if (dir == 'N' || dir == 'S')
-			put_pixel(&data->mlx, x, y++, 0xFFC300);
-		else
-			put_pixel(&data->mlx, x, y++, 0xDAF7A6);
-	}
-	while (y < DIM_H)
-		put_pixel(&data->mlx, x, y++, data->game.floor);
 }
 
 void	put_map(t_cub *data, t_map *map, t_player *player)

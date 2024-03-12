@@ -3,33 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:34:48 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/11 21:58:59 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:34:56 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-int	init_mlx(t_cub *data)
-{
-	printf("mlx init\n");
-	data->mlx.mlx = mlx_init();
-	printf("mlx new image\n");
-	data->mlx.img = mlx_new_image(data->mlx.mlx, DIM_W, DIM_H);
-	printf("mlx get data addr\n");
-	data->mlx.addr = mlx_get_data_addr(data->mlx.img,
-			&(data->mlx.bits_per_pixel), &(data->mlx.line_length),
-			&(data->mlx.endian));
-	printf("mlx new window\n");
-	data->mlx.mlx_win = mlx_new_window(data->mlx.mlx,
-			DIM_W, DIM_H, "Hello World");
-	data->player.pos[0] = (data->game.map.player_x * TILE) + (TILE / 2);
-	data->player.pos[1] = (data->game.map.player_y * TILE) + (TILE / 2);
-	printf("done data init\n");
-	return (1);
-}
 
 void	render(t_cub *data)
 {
@@ -48,7 +29,7 @@ void	render(t_cub *data)
 		data->mlx.mlx_win, data->mlx.img, 0, 0);
 }
 
-void	print_grid(t_map *map, t_game *game)
+/* void	print_grid(t_map *map, t_game *game)
 {
 	printf("--printing grid--\n");
 	int	i;
@@ -68,7 +49,7 @@ void	print_grid(t_map *map, t_game *game)
 			printf("%c", map->map_2d[i][j++]);
 		i++;
 	}
-}
+} */
 
 void	parse(int argc, char **argv, t_cub* data)
 {
@@ -96,41 +77,6 @@ int	destroy_cub(t_cub *data)
 	free_cube_map(data);
 	exit(0);
 }
-
-/* void	move_player(t_player *player, int key)
-{
-	double	x_incr;
-	double	y_incr;
-
-	x_incr = SPEED / cos(player->alpha);
-	y_incr = SPEED / sin(player->alpha);
-
-} */
-
-int	key_down(int keycode, t_cub *data)
-{
-	if (keycode == ESC)
-		destroy_cub(data);
-	if (keycode == DOWN)
-	{
-		data->player.pos[0] -= SPEED * cos(data->player.alpha);
-		data->player.pos[1] -= SPEED * sin(data->player.alpha);
-	}
-	else if (keycode == UP)
-	{
-		if (data->player.pos[0] + SPEED * cos(data->player.alpha) < data->game.map.map_width)
-			data->player.pos[0] += SPEED * cos(data->player.alpha);
-		if (data->player.pos[1] + SPEED * sin(data->player.alpha) < data->game.map.nline)
-			data->player.pos[1] += SPEED * sin(data->player.alpha);
-	}
-	else if (keycode == LEFT)
-		data->player.alpha -= (ROT * M_PI / 180);
-	else if (keycode == RIGHT)
-		data->player.alpha += (ROT * M_PI / 180);
-	render(data);
-	return (0);
-}
-
 
 int	main(int argc, char **argv)
 {

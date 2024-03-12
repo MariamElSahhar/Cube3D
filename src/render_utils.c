@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 20:10:15 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/11 21:20:19 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:30:58 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,3 +56,14 @@ int	hit_wall(double x, double y, t_map *map)
 	return (0);
 }
 
+void	wall_height(double dist, double *wall, double *top, double *bottom)
+{
+	*wall = (TILE / dist) * ((DIM_W / 2) / tan(FOV * M_PI / 180 / 2));
+	// printf("wall height = %f\n", *wall);
+	*top = (DIM_H / 2) - (*wall / 2);
+	*bottom = (DIM_H / 2) + (*wall / 2);
+	if (*top < 0)
+		*top = 0;
+	if (*bottom > DIM_H)
+		*bottom = DIM_H;
+}

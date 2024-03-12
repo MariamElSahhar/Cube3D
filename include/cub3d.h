@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/11 21:32:35 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:35:50 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,12 +164,18 @@ int		gnl_strlen(char *s);
 char	*gnl_strjoin(char *s1, char *s2);
 char	*gnl_strchr(const char *s, int c);
 char	*gnl_strdup(char *s1);
+int		check_map_wall(char *line);
 
 // RENDERING
-int		check_map_wall(char *line);
-double	normalize_angle(double angle);
+int		init_mlx(t_cub *data);
 double	cardinal_to_angle(char dir);
-int		hit_wall(double x, double y, t_map *map);
 void	put_map(t_cub *data, t_map *map, t_player *player);
+double	normalize_angle(double angle);
+int		hit_wall(double x, double y, t_map *map);
+void	wall_height(double dist, double *wall, double *top, double *bottom);
+void	render_wall(double x, double dist, t_cub *data, char dir);
+
+// HOOKS
+int		key_down(int keycode, t_cub *data);
 
 #endif
