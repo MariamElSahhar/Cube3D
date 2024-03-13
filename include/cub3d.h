@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/13 16:09:05 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:06:12 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 
 # define ROT 8
 # define FOV 60
-# define SPEED 5
+# define SPEED 7
 # define TILE 50.0000
 
 typedef struct s_map
