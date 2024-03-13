@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:44:14 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/13 16:30:49 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:34:10 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,19 +95,19 @@ double	distance_to_wall(double alpha, t_map *map, t_player *player, t_ray *ray)
 	{
 		ray->wall_x = ray->wall_v;
 		dist = v_dist;
-		if (alpha > 0 && alpha < M_PI)
-			ray->dir = 'S';
+		if (alpha > M_PI / 2 && alpha < 3 * M_PI / 2)
+			ray->dir = 'E';
 		else
-			ray->dir = 'N';
+			ray->dir = 'W';
 	}
 	else
 	{
 		ray->wall_x = ray->wall_h;
 		dist = h_dist;
-		if (alpha > M_PI / 2 && alpha < 3 * M_PI / 2)
-			ray->dir = 'E';
+		if (alpha > 0 && alpha < M_PI)
+			ray->dir = 'S';
 		else
-			ray->dir = 'W';
+			ray->dir = 'N';
 	}
 	return (dist);
 }

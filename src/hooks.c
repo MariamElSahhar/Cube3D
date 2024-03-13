@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:34:41 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/12 19:30:02 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:40:28 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ void	movement(int keycode, t_player *player, t_map *map)
 {
 	printf("\n%li movement\n", time(NULL));
 	if (keycode == DOWN
-		&& !hit_wall(player->pos[0] - SPEED * cos(player->alpha),
-			player->pos[1] - SPEED * sin(player->alpha), map))
+		&& !hit_wall(player->pos[0] - SPEED * cos(player->alpha) - 20,
+			player->pos[1] - SPEED * sin(player->alpha) - 20, map))
 	{
 		player->pos[0] -= SPEED * cos(player->alpha);
 		player->pos[1] -= SPEED * sin(player->alpha);
 	}
 	else if (keycode == UP
-		&& !hit_wall(player->pos[0] + SPEED * cos(player->alpha),
-			player->pos[1] + SPEED * sin(player->alpha), map))
+		&& !hit_wall(player->pos[0] + SPEED * cos(player->alpha) + 20,
+			player->pos[1] + SPEED * sin(player->alpha) + 20, map))
 	{
 		player->pos[0] += SPEED * cos(player->alpha);
 		player->pos[1] += SPEED * sin(player->alpha);
