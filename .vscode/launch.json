@@ -1,17 +1,27 @@
 {
   "version": "0.2.0",
   "configurations": [
-	{
-		"name": "(lldb) Launch",
-		"type": "cppdbg",
-		"request": "launch",
-		"program": "/Users/melsahha/Desktop/cube3d/cub3D",
-		"args": ["test.cub"],
-		"stopAtEntry": false,
-		"cwd": "/Users/melsahha/Desktop/cube3d/",
-		"environment": [],
-		"externalConsole": false,
-		"MIMode": "lldb"
-	}
+    {
+      "name": "(lldb) Launch",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "/Users/melsahha/Desktop/cube3d/cub3D",
+      "args": [
+        "test.cub"
+      ],
+      "stopAtEntry": false,
+      "cwd": "/Users/melsahha/Desktop/cube3d/",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "lldb"
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/marwamostafa/Desktop/cub2m/src",
+      "program": "/Users/marwamostafa/Desktop/cub2m/src/build/Debug/outDebug"
+    }
   ]
 }

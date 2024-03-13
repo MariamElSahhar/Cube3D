@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:34:41 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/13 18:26:59 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/13 21:11:17 by marwamostaf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	movement(int keycode, t_player *player, t_map *map)
 {
-	if (keycode == DOWN
+	if ((keycode == DOWN || keycode == 1)
 		&& !hit_wall(player->pos[0] - SPEED * cos(player->alpha) - 20,
 			player->pos[1] - SPEED * sin(player->alpha) - 20, map))
 	{
 		player->pos[0] -= SPEED * cos(player->alpha);
 		player->pos[1] -= SPEED * sin(player->alpha);
 	}
-	else if (keycode == UP
+	else if ((keycode == UP || keycode == 13)
 		&& !hit_wall(player->pos[0] + SPEED * cos(player->alpha) + 20,
 			player->pos[1] + SPEED * sin(player->alpha) + 20, map))
 	{
