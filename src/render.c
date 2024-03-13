@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:44:14 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/12 19:25:58 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:07:20 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	inter_check(double angle, double *inter, double *step, int is_horizon)
 	}
 }
 
-double	h_intersect_dist(double alpha, t_map *map, t_player *player)
+double	h_intersect_dist(double alpha, t_map *map, t_player *player, t_ray *ray)
 {
 	double	x_incr;
 	double	y_incr;
@@ -52,11 +52,12 @@ double	h_intersect_dist(double alpha, t_map *map, t_player *player)
 		x_first += x_incr;
 		y_first += y_incr;
 	}
+	ray->wall_h = (int) fmod(x_first, TILE);
 	return (sqrt(pow(x_first - player->pos[0], 2)
 			+ pow(y_first - player->pos[1], 2)));
 }
 
-double	v_intersect_dist(double alpha, t_map *map, t_player *player)
+double	v_intersect_dist(double alpha, t_map *map, t_player *player, t_ray *ray)
 {
 	double	x_incr;
 	double	y_incr;
@@ -77,33 +78,36 @@ double	v_intersect_dist(double alpha, t_map *map, t_player *player)
 		x_first += x_incr;
 		y_first += y_incr;
 	}
+	ray->wall_v = (int) fmod(y_first, TILE);
 	return (sqrt(pow(x_first - player->pos[0], 2)
 			+ pow(y_first - player->pos[1], 2)));
 }
 
-double	distance_to_wall(double alpha, t_map *map, t_player *player, char *dir)
+double	distance_to_wall(double alpha, t_map *map, t_player *player, t_ray *ray)
 {
 	double	v_dist;
 	double	h_dist;
 	double	dist;
 
-	v_dist = h_intersect_dist(alpha, map, player);
-	h_dist = v_intersect_dist(alpha, map, player);
+	h_dist = h_intersect_dist(alpha, map, player, ray);
+	v_dist = v_intersect_dist(alpha, map, player, ray);
 	if (v_dist < h_dist)
 	{
+		ray->wall_x = ray->wall_v;
 		dist = v_dist;
 		if (alpha > 0 && alpha < M_PI)
-			*dir = 'S';
+			ray->dir = 'S';
 		else
-			*dir = 'N';
+			ray->dir = 'N';
 	}
 	else
 	{
+		ray->wall_x = ray->wall_h;
 		dist = h_dist;
 		if (alpha > M_PI / 2 && alpha < 3 * M_PI / 2)
-			*dir = 'E';
+			ray->dir = 'E';
 		else
-			*dir = 'W';
+			ray->dir = 'W';
 	}
 	return (dist);
 }
@@ -113,16 +117,15 @@ void	put_map(t_cub *data, t_map *map, t_player *player)
 	double	curr_angle;
 	double	angle_increment;
 	int		x;
-	double	distance;
-	char	dir;
+	t_ray	ray;
 
 	angle_increment = ((double) FOV / (double) DIM_W) * (M_PI / 180);
 	curr_angle = normalize_angle(player->alpha - ((FOV / 2) * (M_PI / 180)));
 	x = 0;
 	while (x < DIM_W)
 	{
-		distance = distance_to_wall(curr_angle, map, player, &dir);
-		render_wall(x, distance, data, dir);
+		ray.dist = distance_to_wall(curr_angle, map, player, &ray);
+		render_wall(x, data, &ray);
 		curr_angle = normalize_angle(curr_angle + angle_increment);
 		x ++;
 	}

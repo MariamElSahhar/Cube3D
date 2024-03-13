@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/12 19:14:45 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:09:05 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,31 @@ typedef struct s_file
 	char	**file_2d;
 }				t_file;
 
+typedef struct s_textures
+{
+	char	*path;
+	void	*img;
+	int		width;
+	int		height;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+} t_textures;
+
+typedef struct s_ray{
+	char	dir;
+	double	dist;
+	int		wall_x;
+	int		wall_v;
+	int		wall_h;
+} t_ray;
+
 typedef struct s_game
 {
 	t_map	map;
 	t_file	file;
+	t_textures	textures[4];
 	char	*north;
 	char	*south;
 	char	*west;
@@ -173,9 +194,10 @@ void	put_map(t_cub *data, t_map *map, t_player *player);
 double	normalize_angle(double angle);
 int		hit_wall(double x, double y, t_map *map);
 void	wall_height(double dist, double *wall, double *top, double *bottom);
-void	render_wall(double x, double dist, t_cub *data, char dir);
+void	render_wall(double x, t_cub *data, t_ray *ray);
 void	render(t_cub *data);
 int		destroy_cub(t_cub *data);
+int		ft_getIndex(char *str, char c);
 
 // HOOKS
 int		key_down(int keycode, t_cub *data);

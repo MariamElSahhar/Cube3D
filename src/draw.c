@@ -6,29 +6,44 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:31:43 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/12 20:11:11 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:23:04 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
+void	load_textures(t_textures textures[4], t_mlx *mlx)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		textures[i].width = (int) TILE;
+		textures[i].height = (int) TILE;
+		textures[i].img = mlx_xpm_file_to_image(mlx->mlx, textures[i].path, &textures[i].width, &textures[i].height);
+		textures[i].addr = mlx_get_data_addr(textures[i].img, &textures[i].bits_per_pixel, &textures[i].line_length, &textures[i].endian);
+		i++;
+	}
+}
+
 int	init_mlx(t_cub *data)
 {
-	printf("mlx init\n");
 	data->mlx.mlx = mlx_init();
-	printf("mlx new image\n");
 	data->mlx.img = mlx_new_image(data->mlx.mlx, DIM_W, DIM_H);
-	printf("mlx get data addr\n");
 	data->mlx.addr = mlx_get_data_addr(data->mlx.img,
 			&(data->mlx.bits_per_pixel), &(data->mlx.line_length),
 			&(data->mlx.endian));
-	printf("mlx new window\n");
 	data->mlx.mlx_win = mlx_new_window(data->mlx.mlx,
 			DIM_W, DIM_H, "Hello World");
 	data->player.pos[0] = (data->game.map.player_x * TILE) + (TILE / 2);
 	data->player.pos[1] = (data->game.map.player_y * TILE) + (TILE / 2);
 	data->player.alpha = cardinal_to_angle(data->game.map.player_dir);
-	printf("done data init\n");
+	data->game.textures[0].path = data->game.north;
+	data->game.textures[1].path = data->game.east;
+	data->game.textures[2].path = data->game.south;
+	data->game.textures[3].path = data->game.west;
+	load_textures(data->game.textures, &data->mlx);
 	return (1);
 }
 
@@ -42,28 +57,39 @@ void	put_pixel(t_mlx *mlx, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	put_texture(t_cub *data, double x, int y, char d)
+int	put_texture(t_cub *data, int x, int y, char d)
 {
+	t_textures	*texture;
+	char	*dir;
+	char	rgb[3];
+	int		index;
+
+	dir = "NESW";
+	texture = &data->game.textures[ ft_getIndex(dir, d) ];
+	index = ((x % texture->width) * (texture->bits_per_pixel / 8) + ((y % texture->height) * texture->width * (texture->bits_per_pixel / 8)));
+	rgb[0] = texture->addr[index];
+	rgb[1] = texture->addr[index + 1];
+	rgb[2] = texture->addr[index + 2];
+	index = (rgb[0] << 16) | (rgb[1] << 8) | (rgb[2]);
+	return (index);
 }
 
-void	render_wall(double x, double dist, t_cub *data, char dir)
+void	render_wall(double x, t_cub *data, t_ray *ray)
 {
 	int		y;
 	double	wall;
 	double	top;
 	double	bottom;
+	int		color;
 
 	y = 0;
-	wall_height(dist, &wall, &top, &bottom);
+	wall_height(ray->dist, &wall, &top, &bottom);
 	while (y < top)
 		put_pixel(&data->mlx, x, y++, data->game.ceiling);
 	while (y < top + wall)
 	{
-		put_texture(data, x, y, dir);
-		if (dir == 'N' || dir == 'S')
-			put_pixel(&data->mlx, x, y++, 0xFFC300); // green
-		else
-			put_pixel(&data->mlx, x, y++, 0xDAF7A6); // yellow
+		color = put_texture(data, ray->wall_x, y - top, ray->dir);
+		put_pixel(&data->mlx, x, y++, color);
 	}
 	while (y < DIM_H)
 		put_pixel(&data->mlx, x, y++, data->game.floor);

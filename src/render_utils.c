@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 20:10:15 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/12 19:19:32 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/13 15:17:23 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ double	cardinal_to_angle(char dir)
 		angle = 0;
 	else if (dir == 'W')
 		angle = M_PI;
-	printf("card %c = %f deg\n", dir, angle);
 	return (angle);
 }
 
@@ -67,4 +66,14 @@ void	wall_height(double dist, double *wall, double *top, double *bottom)
 		*top = 0;
 	if (*bottom > DIM_H)
 		*bottom = DIM_H;
+}
+
+int	ft_getIndex(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (i < ft_strlen(str) && str[i] != c)
+		i++;
+	return (i);
 }
