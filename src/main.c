@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:34:48 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/12 20:06:35 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/13 19:34:50 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,8 @@
 
 void	render(t_cub *data)
 {
-	printf("render\n");
 	if (data->mlx.img != 0)
-	{
-		printf("destroy\n");
 		mlx_destroy_image(&data->mlx.mlx, data->mlx.img);
-	}
 	mlx_clear_window(&data->mlx.mlx, data->mlx.mlx_win);
 	data->mlx.img = mlx_new_image(&data->mlx, DIM_W, DIM_H);
 	data->mlx.addr = mlx_get_data_addr(data->mlx.img,
@@ -31,30 +27,6 @@ void	render(t_cub *data)
 		data->mlx.mlx_win, data->mlx.img, 0, 0);
 }
 
-/*
-void	print_grid(t_map *map, t_game *game)
-{
-	printf("--printing grid--\n");
-	int	i;
-	int	j;
-
-	printf("NO %s\n", game->north);
-	printf("SO %s\n", game->south);
-	printf("EA %s\n", game->east);
-	printf("WE %s\n", game->west);
-	printf("F = %x, C = %x\n", game->floor, game->ceiling);
-	printf("Player facing %c, at (%i,%i)\n",
-		map->player_dir, map->player_x, map->player_y);
-	i = 0;
-	while (i < map->nline)
-	{
-		j = 0;
-		while (j < map->map_width)
-			printf("%c", map->map_2d[i][j++]);
-		i++;
-	}
-}
- */
 void	parse(int argc, char **argv, t_cub *data)
 {
 	int	i;
@@ -73,13 +45,31 @@ void	parse(int argc, char **argv, t_cub *data)
 	while (data->game.map.map_2d[i])
 		i++;
 	data->game.map.nline = i;
+	close (data->game.file.fd);
 }
 
 int	destroy_cub(t_cub *data)
 {
-	mlx_destroy_image(data->mlx.mlx, data->mlx.img);
-	mlx_destroy_window(data->mlx.mlx, data->mlx.mlx_win);
-	free(data->mlx.mlx);
+	printf("destroying\n");
+
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (data->game.textures[i].img != 0)
+			mlx_destroy_image(data->mlx.mlx, data->game.textures[i].img);
+		if (data->game.textures[i].path)
+			free(data->game.textures[i].path);
+		i++;
+	}
+	printf("done destroying\n");
+	if (data->mlx.mlx && data->mlx.img)
+		mlx_destroy_image(data->mlx.mlx, data->mlx.img);
+	if (data->mlx.mlx && data->mlx.mlx_win)
+		mlx_destroy_window(data->mlx.mlx, data->mlx.mlx_win);
+	if (data->mlx.mlx)
+		free(data->mlx.mlx);
 	free_cube_map(data);
 	exit(0);
 }
@@ -91,12 +81,10 @@ int	main(int argc, char **argv)
 	parse(argc, argv, &data);
 	if (!init_mlx(&data))
 		print_error("Error allocating memory", &data);
-	// print_grid(&data.game.map, &data.game);
 	render(&data);
 	mlx_hook(data.mlx.mlx_win, 2, 1L << 0, &key_down, &data);
 	mlx_hook(data.mlx.mlx_win, 17, 0, &destroy_cub, &data);
 	mlx_loop(&data.mlx);
 	free_cube_map(&data);
-	close (data.game.file.fd);
 	return (0);
 }

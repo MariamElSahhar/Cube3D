@@ -6,16 +6,14 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:34:41 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/13 17:40:28 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:26:59 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-#include <time.h>
 
 void	movement(int keycode, t_player *player, t_map *map)
 {
-	printf("\n%li movement\n", time(NULL));
 	if (keycode == DOWN
 		&& !hit_wall(player->pos[0] - SPEED * cos(player->alpha) - 20,
 			player->pos[1] - SPEED * sin(player->alpha) - 20, map))

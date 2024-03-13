@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:31:43 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/13 18:04:00 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:39:54 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ void	load_textures(t_textures textures[4], t_mlx *mlx)
 	{
 		textures[i].width = TILE;
 		textures[i].height = TILE;
-		textures[i].img = mlx_xpm_file_to_image(mlx->mlx, textures[i].path, &textures[i].width, &textures[i].height);
-		textures[i].addr = mlx_get_data_addr(textures[i].img, &textures[i].bits_per_pixel, &textures[i].line_length, &textures[i].endian);
+		textures[i].img = mlx_xpm_file_to_image(mlx->mlx, textures[i].path,
+			&textures[i].width, &textures[i].height);
+		textures[i].addr = mlx_get_data_addr(textures[i].img,
+			&textures[i].bits_per_pixel, &textures[i].line_length,
+			&textures[i].endian);
 		i++;
 	}
 }
@@ -39,10 +42,10 @@ int	init_mlx(t_cub *data)
 	data->player.pos[0] = (data->game.map.player_x * TILE) + (TILE / 2);
 	data->player.pos[1] = (data->game.map.player_y * TILE) + (TILE / 2);
 	data->player.alpha = cardinal_to_angle(data->game.map.player_dir);
-	data->game.textures[0].path = data->game.north;
-	data->game.textures[1].path = data->game.east;
-	data->game.textures[2].path = data->game.south;
-	data->game.textures[3].path = data->game.west;
+	data->game.textures[0].path = ft_strdup(data->game.north);
+	data->game.textures[1].path = ft_strdup(data->game.east);
+	data->game.textures[2].path = ft_strdup(data->game.south);
+	data->game.textures[3].path = ft_strdup(data->game.west);
 	load_textures(data->game.textures, &data->mlx);
 	return (1);
 }

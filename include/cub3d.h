@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/13 18:06:12 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:57:12 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ typedef struct s_textures
 	int		endian;
 } t_textures;
 
-typedef struct s_ray{
+typedef struct s_ray
+{
 	char	dir;
 	double	dist;
 	int		wall_x;
@@ -81,15 +82,15 @@ typedef struct s_ray{
 
 typedef struct s_game
 {
-	t_map	map;
-	t_file	file;
+	t_map		map;
+	t_file		file;
 	t_textures	textures[4];
-	char	*north;
-	char	*south;
-	char	*west;
-	char	*east;
-	int		floor;
-	int		ceiling;
+	char		*north;
+	char		*south;
+	char		*west;
+	char		*east;
+	int			floor;
+	int			ceiling;
 }				t_game;
 
 typedef struct s_mlx
@@ -111,15 +112,15 @@ typedef struct s_player
 
 typedef struct s_cub
 {
-	int		i;
-	int		fd;
-	int		j;
-	char	*line;
-	char	**tmp;
-	int		*f_colors;
-	int		*c_colors;
-	t_mlx	mlx;
-	t_game	game;
+	int			i;
+	int			fd;
+	int			j;
+	char		*line;
+	char		**tmp;
+	int			*f_colors;
+	int			*c_colors;
+	t_mlx		mlx;
+	t_game		game;
 	t_player	player;
 }	t_cub;
 
