@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:44:14 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/13 16:07:20 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:30:49 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void	put_map(t_cub *data, t_map *map, t_player *player)
 	while (x < DIM_W)
 	{
 		ray.dist = distance_to_wall(curr_angle, map, player, &ray);
+		ray.dist *= cos(normalize_angle(curr_angle - player->alpha));
 		render_wall(x, data, &ray);
 		curr_angle = normalize_angle(curr_angle + angle_increment);
 		x ++;

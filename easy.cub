@@ -1,12 +1,13 @@
-NO greystone.xpm
-WE greystone.xpm
+NO textures/redbrick.xpm
+SO textures/greystone.xpm
+
+WE textures/wood.xpm
+EA textures/purplestonetextures/.xpm
 
 
 F 240,255,220
 C 220,240,255
 
-SO greystone.xpm
-EA greystone.xpm
 
 1111111111111111111111111
 1000000000000000000000001
