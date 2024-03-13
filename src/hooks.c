@@ -34,11 +34,13 @@ int	key_down(int keycode, t_cub *data)
 {
 	if (keycode == ESC)
 		destroy_cub(data);
-	else if (keycode == DOWN || keycode == UP)
+	else if (keycode == DOWN || keycode == 1)
 		movement(keycode, &data->player, &data->game.map);
-	else if (keycode == LEFT)
+	else if (keycode == UP || keycode == 13)
+		movement(keycode, &data->player, &data->game.map);
+	else if (keycode == LEFT || keycode == 0)
 		data->player.alpha -= (ROT * M_PI / 180);
-	else if (keycode == RIGHT)
+	else if (keycode == RIGHT || keycode == 2)
 		data->player.alpha += (ROT * M_PI / 180);
 	render(data);
 	return (0);
