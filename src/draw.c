@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:31:43 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/13 17:26:03 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:04:00 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	render_wall(double x, t_cub *data, t_ray *ray)
 	wall_height(ray->dist, &wall, &top, &bottom);
 	while (y < top)
 		put_pixel(&data->mlx, x, y++, data->game.ceiling);
-	while (y < top + wall)
+	while (y < bottom)
 	{
 		color = put_texture(data, ray->wall_x, (y - top) * (TILE / wall), ray->dir);
 		put_pixel(&data->mlx, x, y++, color);
