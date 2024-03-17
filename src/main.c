@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:34:48 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/13 19:34:50 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/17 19:09:40 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,17 @@
 void	render(t_cub *data)
 {
 	if (data->mlx.img != 0)
-		mlx_destroy_image(&data->mlx.mlx, data->mlx.img);
-	mlx_clear_window(&data->mlx.mlx, data->mlx.mlx_win);
+		mlx_destroy_image(data->mlx.mlx, data->mlx.img);
+	mlx_clear_window(data->mlx.mlx, data->mlx.mlx_win);
 	data->mlx.img = mlx_new_image(&data->mlx, DIM_W, DIM_H);
+	if (!data->mlx.img)
+		print_error("Error allocating memory", data);
 	data->mlx.addr = mlx_get_data_addr(data->mlx.img,
 			&(data->mlx.bits_per_pixel),
 			&(data->mlx.line_length),
 			&(data->mlx.endian));
+	if (!data->mlx.addr)
+		print_error("Error allocating memory", data);
 	put_map(data, &data->game.map, &data->player);
 	mlx_put_image_to_window(data->mlx.mlx,
 		data->mlx.mlx_win, data->mlx.img, 0, 0);
@@ -50,28 +54,16 @@ void	parse(int argc, char **argv, t_cub *data)
 
 int	destroy_cub(t_cub *data)
 {
-	printf("destroying\n");
-
 	int	i;
 
 	i = 0;
 	while (i < 4)
-	{
-		if (data->game.textures[i].img != 0)
-			mlx_destroy_image(data->mlx.mlx, data->game.textures[i].img);
-		if (data->game.textures[i].path)
-			free(data->game.textures[i].path);
-		i++;
-	}
-	printf("done destroying\n");
-	if (data->mlx.mlx && data->mlx.img)
-		mlx_destroy_image(data->mlx.mlx, data->mlx.img);
-	if (data->mlx.mlx && data->mlx.mlx_win)
-		mlx_destroy_window(data->mlx.mlx, data->mlx.mlx_win);
-	if (data->mlx.mlx)
-		free(data->mlx.mlx);
+		mlx_destroy_image(data->mlx.mlx, data->game.textures[i++].img);
+	mlx_destroy_image(data->mlx.mlx, data->mlx.img);
+	mlx_destroy_window(data->mlx.mlx, data->mlx.mlx_win);
+	free(data->mlx.mlx);
 	free_cube_map(data);
-	exit(0);
+	exit(1);
 }
 
 int	main(int argc, char **argv)

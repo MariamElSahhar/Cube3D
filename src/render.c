@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:44:14 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/13 17:34:10 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/17 19:05:58 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ void	put_map(t_cub *data, t_map *map, t_player *player)
 {
 	double	curr_angle;
 	double	angle_increment;
-	int		x;
 	t_ray	ray;
+	int x;
 
 	angle_increment = ((double) FOV / (double) DIM_W) * (M_PI / 180);
 	curr_angle = normalize_angle(player->alpha - ((FOV / 2) * (M_PI / 180)));

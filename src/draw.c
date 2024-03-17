@@ -3,29 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:31:43 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/13 18:39:54 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/17 19:05:33 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	load_textures(t_textures textures[4], t_mlx *mlx)
+void	load_textures(t_textures textures[4], t_mlx *mlx, t_cub *data)
 {
 	int	i;
 
-	i = 0;
+	data->game.textures[0].path = ft_strdup(data->game.north);
+	data->game.textures[1].path = ft_strdup(data->game.east);
+	data->game.textures[2].path = ft_strdup(data->game.south);
+	data->game.textures[3].path = ft_strdup(data->game.west);i = 0;
 	while (i < 4)
 	{
 		textures[i].width = TILE;
 		textures[i].height = TILE;
 		textures[i].img = mlx_xpm_file_to_image(mlx->mlx, textures[i].path,
 			&textures[i].width, &textures[i].height);
+		if (!textures[i].img)
+			print_error("Error allocating memory", data);
 		textures[i].addr = mlx_get_data_addr(textures[i].img,
 			&textures[i].bits_per_pixel, &textures[i].line_length,
 			&textures[i].endian);
+		if (!textures[i].addr)
+			print_error("Error allocating memory", data);
 		i++;
 	}
 }
@@ -33,20 +40,20 @@ void	load_textures(t_textures textures[4], t_mlx *mlx)
 int	init_mlx(t_cub *data)
 {
 	data->mlx.mlx = mlx_init();
+	if (!data->mlx.mlx)
+		print_error("Error allocating memory", data);
 	data->mlx.img = mlx_new_image(data->mlx.mlx, DIM_W, DIM_H);
 	data->mlx.addr = mlx_get_data_addr(data->mlx.img,
 			&(data->mlx.bits_per_pixel), &(data->mlx.line_length),
 			&(data->mlx.endian));
 	data->mlx.mlx_win = mlx_new_window(data->mlx.mlx,
-			DIM_W, DIM_H, "Hello World");
+			DIM_W, DIM_H, "Cub3d");
+	if (!data->mlx.mlx_win)
+		print_error("Error allocating memory", data);
 	data->player.pos[0] = (data->game.map.player_x * TILE) + (TILE / 2);
 	data->player.pos[1] = (data->game.map.player_y * TILE) + (TILE / 2);
 	data->player.alpha = cardinal_to_angle(data->game.map.player_dir);
-	data->game.textures[0].path = ft_strdup(data->game.north);
-	data->game.textures[1].path = ft_strdup(data->game.east);
-	data->game.textures[2].path = ft_strdup(data->game.south);
-	data->game.textures[3].path = ft_strdup(data->game.west);
-	load_textures(data->game.textures, &data->mlx);
+	load_textures(data->game.textures, &data->mlx, data);
 	return (1);
 }
 

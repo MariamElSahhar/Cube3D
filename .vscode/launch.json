@@ -1,16 +1,17 @@
 {
   "version": "0.2.0",
   "configurations": [
+
     {
       "name": "(lldb) Launch",
       "type": "cppdbg",
       "request": "launch",
-      "program": "/Users/melsahha/Desktop/cube3d/cub3D",
+      "program": "/Users/mariamelsahhar/Desktop/Cube3D/cub3d",
       "args": [
         "test.cub"
       ],
       "stopAtEntry": false,
-      "cwd": "/Users/melsahha/Desktop/cube3d/",
+      "cwd": "/Users/mariamelsahhar/Desktop/Cube3D/",
       "environment": [],
       "externalConsole": false,
       "MIMode": "lldb"

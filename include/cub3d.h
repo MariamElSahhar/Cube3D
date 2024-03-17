@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/14 10:16:20 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/17 19:00:15 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ typedef struct s_file
 typedef struct s_textures
 {
 	char	*path;
+	char	*addr;
 	void	*img;
 	int		width;
 	int		height;
-	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
@@ -137,12 +137,6 @@ typedef enum e_keycodes
 	KEY_D = 2,
 }	t_keycodes;
 
-// typedef struct s_data {
-// 	t_mlx		mlx;
-// 	t_map		map;
-// 	t_player	player;
-
-// }	t_data;
 
 void	ft_free_array(char **tab);
 void	free_cube_map(t_cub *cub);
@@ -203,6 +197,7 @@ void	render_wall(double x, t_cub *data, t_ray *ray);
 void	render(t_cub *data);
 int		destroy_cub(t_cub *data);
 int		ft_getIndex(char *str, char c);
+void	put_pixel(t_mlx *mlx, int x, int y, int color);
 
 // HOOKS
 int		key_down(int keycode, t_cub *data);
