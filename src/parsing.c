@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 07:53:07 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/28 21:31:31 by marwamostaf      ###   ########.fr       */
+/*   Updated: 2024/03/18 14:42:44 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	is_valide_identifier(char *line, t_cub *cub)
 		return ;
 	tmp = ft_split(line, ' ');
 	len = ft_strlen(tmp[0]);
-	if (!is_valide_id(tmp[0], "NO", len) && !is_valide_id(tmp[0], "SO", len)
+	if (!len && !is_valide_id(tmp[0], "NO", len) && !is_valide_id(tmp[0], "SO", len)
 		&& !is_valide_id(tmp[0], "WE", len) && !is_valide_id(tmp[0], "EA", len)
 		&& !is_valide_id(tmp[0], "F", len) && !is_valide_id(tmp[0], "C", len)
 		&& !is_valide_id(tmp[0], "\n", len))
