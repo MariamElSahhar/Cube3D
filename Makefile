@@ -6,7 +6,6 @@ CFLAGS = -Wall -Wextra -Werror -g
 MLX = minilibx_macos
 LIBFT_DIR = libft/
 LIBFT = libftprintf.a
-# MLX_FLAGS = -Lminilibx_macos framework OpenGL -framework AppKit
 MLX_FLAGS = -L$(MLX) -lmlx -framework OpenGL -framework AppKit
 
 SRC_DIR = src/
