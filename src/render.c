@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:44:14 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/18 10:35:52 by marmoham         ###   ########.fr       */
+/*   Updated: 2024/03/18 12:59:05 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ double	distance_to_wall(double alpha, t_map *map, t_player *player, t_ray *ray)
 		ray->wall_x = ray->wall_h;
 		dist = h_dist;
 		if (alpha > 0 && alpha < M_PI)
-			ray->dir = 'S';
-		else
 			ray->dir = 'N';
+		else
+			ray->dir = 'S';
 	}
 	return (dist);
 }

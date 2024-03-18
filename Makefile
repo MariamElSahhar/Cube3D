@@ -17,7 +17,8 @@ SRC = $(addprefix $(SRC_DIR), main.c \
 	check_texture_data.c check_valid_color.c check_valid_map.c \
 	get_next_line_cub.c get_next_line_cub_utils.c handle_errors.c \
 	map_utils.c map.c map_utils2.c \
-	render.c render_utils.c draw.c hooks.c )
+	render.c render_utils.c draw.c hooks.c \
+	tiny_map.c)
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
 

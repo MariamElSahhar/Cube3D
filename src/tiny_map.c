@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tiny_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 09:15:18 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/03/18 12:56:05 by marwamostaf      ###   ########.fr       */
+/*   Updated: 2024/03/18 13:05:11 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	draw_tiny_map(t_cub *mlx)
 	{
 		x = 0;
 		x_p = 0;
-		while (mlx->game.map.map_2d[y][x])
+		while (mlx->game.map.map_2d[y][x] && mlx->game.map.map_2d[y][x] != '\n')
 		{
 			if (mlx->game.map.map_2d[y][x] == '1')
 				draw_small_win(mlx, x_p, y_p, 0x808080);

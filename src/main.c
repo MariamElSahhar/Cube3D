@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:34:48 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/17 19:09:40 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/18 13:03:10 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	render(t_cub *data)
 	if (!data->mlx.addr)
 		print_error("Error allocating memory", data);
 	put_map(data, &data->game.map, &data->player);
+	draw_tiny_map(data);
 	mlx_put_image_to_window(data->mlx.mlx,
 		data->mlx.mlx_win, data->mlx.img, 0, 0);
 }

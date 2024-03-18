@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/18 11:48:39 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/18 13:03:41 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "mlx.h"
 # include "ft_printf.h"
 # include "libft.h"
+
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -23,7 +24,6 @@
 # include <fcntl.h>
 # include <stdint.h>
 # include <stdbool.h>
-# include <float.h>
 
 # define NORTH 1
 # define SOUTH 2
@@ -38,6 +38,7 @@
 # define FOV 60
 # define SPEED 7
 # define TILE 50.0000
+# define TILE_SIZE_R 16
 
 typedef struct s_map
 {
@@ -69,7 +70,7 @@ typedef struct s_textures
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-} t_textures;
+}	t_textures;
 
 typedef struct s_ray
 {
@@ -78,7 +79,7 @@ typedef struct s_ray
 	int		wall_x;
 	int		wall_v;
 	int		wall_h;
-} t_ray;
+}	t_ray;
 
 typedef struct s_game
 {
@@ -136,7 +137,6 @@ typedef enum e_keycodes
 	KEY_A = 0,
 	KEY_D = 2,
 }	t_keycodes;
-
 
 void	ft_free_array(char **tab);
 void	free_cube_map(t_cub *cub);
@@ -198,6 +198,7 @@ void	render(t_cub *data);
 int		destroy_cub(t_cub *data);
 int		ft_getindex(char *str, char c);
 void	put_pixel(t_mlx *mlx, int x, int y, int color);
+void	draw_tiny_map(t_cub *mlx);
 
 // HOOKS
 int		key_down(int keycode, t_cub *data);

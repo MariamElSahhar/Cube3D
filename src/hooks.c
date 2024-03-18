@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:34:41 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/18 12:25:35 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/18 12:33:30 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ int	key_down(int keycode, t_cub *data)
 	else if (keycode == DOWN || keycode == 1 || keycode == UP || keycode == 13)
 		movement(keycode, &data->player, &data->game.map);
 	else if (keycode == LEFT)
-		data->player.alpha = normalize_angle(data->player.alpha - (ROT * M_PI / 180));
+		data->player.alpha = normalize_angle(data->player.alpha
+				- (ROT * M_PI / 180));
 	else if (keycode == RIGHT)
-		data->player.alpha = normalize_angle(data->player.alpha + (ROT * M_PI / 180));
+		data->player.alpha = normalize_angle(data->player.alpha
+				+ (ROT * M_PI / 180));
 	else if (keycode == KEY_A || keycode == KEY_D)
 		side_movement(keycode, &data->player, &data->game.map);
 	render(data);
