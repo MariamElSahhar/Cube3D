@@ -4,6 +4,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 
 MLX = minilibx_macos
+LIB_MLX = libmlx.a
 LIBFT_DIR = libft/
 LIBFT = libftprintf.a
 MLX_FLAGS = -L$(MLX) -lmlx -framework OpenGL -framework AppKit
@@ -20,7 +21,7 @@ SRC = $(addprefix $(SRC_DIR), main.c \
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
 
-$(NAME): $(LIBFT) $(OBJ) $(OBJ_DIR)
+$(NAME): $(LIBFT) $(OBJ) $(OBJ_DIR) $(LIB_MLX)
 	$(CC)  -L $(MLX) $(MLX_FLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 
 all: $(NAME)
@@ -31,6 +32,9 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
 $(OBJ_DIR):
 	mkdir -p $@
 
+$(LIB_MLX):
+	make -C $(MLX)/
+
 $(LIBFT):
 	make -C $(LIBFT_DIR)
 	mv $(addprefix $(LIBFT_DIR), $(LIBFT)) .
@@ -40,6 +44,7 @@ linux: $(LIBFT) $(OBJ) $(OBJ_DIR)
 
 clean:
 	make -C $(LIBFT_DIR) clean
+	make -C $(MLX)/ clean
 	rm -f $(LIBFT)
 	rm -rf $(OBJ_DIR)
 
