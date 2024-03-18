@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:31:43 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/18 12:43:44 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/18 13:53:01 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,10 @@ int	init_mlx(t_cub *data)
 	data->player.pos[1] = (data->game.map.player_y * TILE) + (TILE / 2);
 	data->player.alpha = cardinal_to_angle(data->game.map.player_dir);
 	load_textures(data->game.textures, &data->mlx, data);
+	if (data->game.map.nline > data->game.map.map_width)
+		data->game.mini_tile = MINIMAP / data->game.map.nline;
+	else
+		data->game.mini_tile = MINIMAP / data->game.map.map_width;
 	return (1);
 }
 

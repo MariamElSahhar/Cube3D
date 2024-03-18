@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 09:15:18 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/03/18 13:05:11 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/18 13:53:41 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ static void	draw_small_win(t_cub *mlx, int x, int y, int color)
 
 	y_m = y;
 	x_m = x;
-	while (y_m < (y + TILE_SIZE_R))
+	while (y_m < (y + mlx->game.mini_tile))
 	{
-		while (x_m < (x + TILE_SIZE_R))
+		while (x_m < (x + mlx->game.mini_tile))
 			my_mlx_pixel_put(&mlx->mlx, x_m++, y_m, color);
 		y_m++;
 		x_m = x;
@@ -47,7 +47,7 @@ static void	draw_player_pos(t_cub *mlx, int x_p, int y_p, int color)
 	int		y;
 	int		r;
 
-	r = TILE_SIZE_R / 3;
+	r = mlx->game.mini_tile / 3;
 	y = -r;
 	while (y <= r)
 	{
@@ -82,10 +82,10 @@ void	draw_tiny_map(t_cub *mlx)
 			else
 				draw_small_win(mlx, x_p, y_p, 0xFFFFFF);
 			x++;
-			x_p += TILE_SIZE_R;
+			x_p += mlx->game.mini_tile;
 		}
 		y++;
-		y_p += TILE_SIZE_R;
+		y_p += mlx->game.mini_tile;
 	}
-	draw_player_pos(mlx, mlx->player.pos[0] / TILE * TILE_SIZE_R, mlx->player.pos[1] / TILE * TILE_SIZE_R, 0xFF9300FF);
+	draw_player_pos(mlx, mlx->player.pos[0] / TILE * mlx->game.mini_tile, mlx->player.pos[1] / TILE * mlx->game.mini_tile, 0xFF9300FF);
 }

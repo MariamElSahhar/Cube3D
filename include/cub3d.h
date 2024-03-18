@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/18 13:03:41 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/18 13:51:49 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define SPEED 7
 # define TILE 50.0000
 # define TILE_SIZE_R 16
+# define MINIMAP 400
 
 typedef struct s_map
 {
@@ -92,6 +93,7 @@ typedef struct s_game
 	char		*east;
 	int			floor;
 	int			ceiling;
+	int			mini_tile;
 }				t_game;
 
 typedef struct s_mlx
