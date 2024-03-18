@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:27:28 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/03/12 18:59:59 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/18 14:37:14 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	**create_2darray_dup(char **array, int start, int nline)
 	if (!copy)
 		return (NULL);
 	i = 0;
-	while (array && array[start])
+	while (i < nline)
 		copy[i++] = ft_strdup(array[start++]);
 	copy[i] = 0;
 	return (copy);
@@ -88,8 +88,37 @@ int	get_map_len(char **arrays)
 	return (i);
 }
 
+int	is_empty(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (is_whitespace(str[i]) || str[i] == '\n')
+			i++;
+		else
+			return (0);
+	}
+	return (1);
+}
+
+int	check_map_end(char **file, int start, int end)
+{
+	while (end > start)
+	{
+		if (is_empty(file[end - 1]))
+			end --;
+		else
+			return (end);
+	}
+	return (end);
+}
+
 void	saving_validate_map(char *line, int index, t_cub *cub)
 {
+	int	map_end;
+	
 	if (!check_is_map_begininng(line) && cub->game.map.map_pos == -1)
 		return ;
 	if (cub->game.map.map_pos != -1)
@@ -97,10 +126,15 @@ void	saving_validate_map(char *line, int index, t_cub *cub)
 	if (cub->game.map.map_pos == -1)
 	{
 		cub->game.map.map_pos = index;
+		map_end = check_map_end(cub->game.file.file_2d, index, cub->game.file.nline);
+		printf("map end: %i\nindex: %i\n", map_end, index);
 		cub->game.map.map_2d = create_2darray_dup(cub->game.file.file_2d, index,
-				(cub->game.file.nline - index));
+				(map_end - index));
 	}
 	cub->game.map.nline = get_map_len(cub->game.map.map_2d);
+
+	printf("map height: %i\n", cub->game.map.nline);
+
 	check_map(cub);
 	return ;
 }
