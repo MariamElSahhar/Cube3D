@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:34:41 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/14 10:30:02 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/18 10:38:17 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,18 @@ void	movement(int keycode, t_player *player, t_map *map)
 void	side_movement(int keycode, t_player *player, t_map *map)
 {
 	if (keycode == KEY_D
-	&& !hit_wall(player->pos[0] - SPEED * cos(player->alpha - M_PI / 2),
-	player->pos[1] - SPEED * sin(player->alpha - M_PI / 2), map))
+		&& !hit_wall(player->pos[0] - SPEED * cos(player->alpha - M_PI / 2),
+			player->pos[1] - SPEED * sin(player->alpha - M_PI / 2), map))
 	{
 		player->pos[0] = player->pos[0] - SPEED * cos(player->alpha - M_PI / 2);
 		player->pos[1] = player->pos[1] - SPEED * sin(player->alpha - M_PI / 2);
 	}
 	else if (keycode == KEY_A
-	&& !hit_wall(player->pos[0] + SPEED * cos(player->alpha - M_PI / 2),
-	player->pos[1] + SPEED * sin(player->alpha - M_PI / 2), map))
+		&& !hit_wall(player->pos[0] + SPEED * cos(player->alpha - M_PI / 2),
+			player->pos[1] + SPEED * sin(player->alpha - M_PI / 2), map))
 	{
 		player->pos[0] = player->pos[0] + SPEED * cos(player->alpha - M_PI / 2);
 		player->pos[1] = player->pos[1] + SPEED * sin(player->alpha - M_PI / 2);
-
 	}
 }
 

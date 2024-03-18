@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 20:10:15 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/13 18:04:04 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/18 10:36:30 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	wall_height(double dist, double *wall, double *top, double *bottom)
 		*bottom = DIM_H;
 }
 
-int	ft_getIndex(char *str, char c)
+int	ft_getindex(char *str, char c)
 {
 	int	i;
 

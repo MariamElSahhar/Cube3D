@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:31:43 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/17 19:05:33 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/18 10:41:09 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,22 @@ void	load_textures(t_textures textures[4], t_mlx *mlx, t_cub *data)
 {
 	int	i;
 
+	i = 0;
 	data->game.textures[0].path = ft_strdup(data->game.north);
 	data->game.textures[1].path = ft_strdup(data->game.east);
 	data->game.textures[2].path = ft_strdup(data->game.south);
-	data->game.textures[3].path = ft_strdup(data->game.west);i = 0;
+	data->game.textures[3].path = ft_strdup(data->game.west);
 	while (i < 4)
 	{
 		textures[i].width = TILE;
 		textures[i].height = TILE;
 		textures[i].img = mlx_xpm_file_to_image(mlx->mlx, textures[i].path,
-			&textures[i].width, &textures[i].height);
+				&textures[i].width, &textures[i].height);
 		if (!textures[i].img)
 			print_error("Error allocating memory", data);
 		textures[i].addr = mlx_get_data_addr(textures[i].img,
-			&textures[i].bits_per_pixel, &textures[i].line_length,
-			&textures[i].endian);
+				&textures[i].bits_per_pixel, &textures[i].line_length,
+				&textures[i].endian);
 		if (!textures[i].addr)
 			print_error("Error allocating memory", data);
 		i++;
@@ -70,13 +71,15 @@ void	put_pixel(t_mlx *mlx, int x, int y, int color)
 int	put_texture(t_cub *data, int x, int y, char d)
 {
 	t_textures	*texture;
-	char	*dir;
-	char	rgb[3];
-	int		index;
+	char		*dir;
+	char		rgb[3];
+	int			index;
 
 	dir = "NESW";
-	texture = &data->game.textures[ ft_getIndex(dir, d) ];
-	index = ((x % texture->width) * (texture->bits_per_pixel / 8) + ((y % texture->height) * texture->width * (texture->bits_per_pixel / 8)));
+	texture = &data->game.textures[ft_getindex(dir, d)];
+	index = ((x % texture->width) * (texture->bits_per_pixel / 8)
+			+ ((y % texture->height) * texture->width
+				* (texture->bits_per_pixel / 8)));
 	rgb[0] = texture->addr[index];
 	rgb[1] = texture->addr[index + 1];
 	rgb[2] = texture->addr[index + 2];
@@ -98,7 +101,8 @@ void	render_wall(double x, t_cub *data, t_ray *ray)
 		put_pixel(&data->mlx, x, y++, data->game.ceiling);
 	while (y < bottom)
 	{
-		color = put_texture(data, ray->wall_x, (y - top) * (TILE / wall), ray->dir);
+		color = put_texture(data, ray->wall_x, (y - top)
+				* (TILE / wall), ray->dir);
 		put_pixel(&data->mlx, x, y++, color);
 	}
 	while (y < DIM_H)

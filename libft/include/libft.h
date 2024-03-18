@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
+/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 13:35:04 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/21 21:42:16 by marwamostaf      ###   ########.fr       */
+/*   Updated: 2024/03/18 10:50:13 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
 # endif
+
 int		got_line(char *s);
 char	*get_line(char *s);
 char	*get_next_line(int fd);

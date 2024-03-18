@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/17 19:00:15 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/18 10:36:50 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ void	wall_height(double dist, double *wall, double *top, double *bottom);
 void	render_wall(double x, t_cub *data, t_ray *ray);
 void	render(t_cub *data);
 int		destroy_cub(t_cub *data);
-int		ft_getIndex(char *str, char c);
+int		ft_getindex(char *str, char c);
 void	put_pixel(t_mlx *mlx, int x, int y, int color);
 
 // HOOKS

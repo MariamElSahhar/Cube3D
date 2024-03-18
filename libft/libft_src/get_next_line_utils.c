@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:25:52 by melsahha          #+#    #+#             */
-/*   Updated: 2024/02/09 18:41:03 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/18 10:51:32 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	got_line(char *s)
 	}
 	return (0);
 }
-
 
 char	*get_line(char *s)
 {
