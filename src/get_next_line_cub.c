@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_cub.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
+/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 16:18:24 by marmoham          #+#    #+#             */
-/*   Updated: 2024/02/28 21:32:31 by marwamostaf      ###   ########.fr       */
+/*   Updated: 2024/03/22 13:03:46 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static char	*get_the_line(char *str)
+static char	*get_line(char *str)
 {
 	char	*line;
 	int		i;
@@ -34,7 +34,7 @@ static char	*get_the_line(char *str)
 	return (line);
 }
 
-static char	*get_the_remainder(char *str)
+static char	*get_remainder(char *str)
 {
 	char	*rem;
 	int		i;
