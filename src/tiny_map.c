@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 09:15:18 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/03/18 13:53:41 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/22 12:36:29 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,6 @@ void	draw_tiny_map(t_cub *mlx)
 		y++;
 		y_p += mlx->game.mini_tile;
 	}
-	draw_player_pos(mlx, mlx->player.pos[0] / TILE * mlx->game.mini_tile, mlx->player.pos[1] / TILE * mlx->game.mini_tile, 0xFF9300FF);
+	draw_player_pos(mlx, mlx->player.pos[0] / TILE * mlx->game.mini_tile,
+		mlx->player.pos[1] / TILE * mlx->game.mini_tile, 0xFF9300FF);
 }

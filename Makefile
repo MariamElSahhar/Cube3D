@@ -18,7 +18,7 @@ SRC = $(addprefix $(SRC_DIR), main.c \
 	get_next_line_cub.c get_next_line_cub_utils.c handle_errors.c \
 	map_utils.c map.c map_utils2.c \
 	render.c render_utils.c draw.c hooks.c \
-	tiny_map.c)
+	tiny_map.c utils.c)
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
 
@@ -61,8 +61,9 @@ macre: fclean mac
 
 norm:
 	norminette $(addprefix $(SRC_DIR), *.c) -R CheckDefine
-	norminette $(addprefix $(PRINTF_DIR), *.c) $(addprefix $(PRINTF_DIR), *.h) -R CheckDefine
-	norminette $(addprefix $(LIBFT_DIR), *.c) $(addprefix $(LIBFT_DIR), *.h) -R CheckDefine
+	norminette include/cub3d.h include/ft_printf.h include/libft.h -R CheckDefine
+	norminette $(addprefix $(LIBFT_DIR)libft_src/, *.c) $(addprefix $(LIBFT_DIR)include/, *.h) -R CheckDefine
+	norminette $(addprefix $(LIBFT_DIR)printf_src/, *.c)
 
 .phony: re clean fclean all norm
 

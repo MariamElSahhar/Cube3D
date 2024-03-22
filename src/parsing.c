@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 07:53:07 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/03/22 10:54:16 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/22 12:37:06 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void	is_valide_identifier(char *line, t_cub *cub)
 		return ;
 	tmp = ft_split(line, ' ');
 	len = ft_strlen(tmp[0]);
-	if (len && !is_empty(line) && !is_valide_id(tmp[0], "NO", len) && !is_valide_id(tmp[0], "SO", len)
+	if (len && !is_empty(line) && !is_valide_id(tmp[0], "NO", len)
+		&& !is_valide_id(tmp[0], "SO", len)
 		&& !is_valide_id(tmp[0], "WE", len) && !is_valide_id(tmp[0], "EA", len)
 		&& !is_valide_id(tmp[0], "F", len) && !is_valide_id(tmp[0], "C", len)
 		&& !is_valide_id(tmp[0], "\n", len))
@@ -76,7 +77,6 @@ void	is_valide_identifier(char *line, t_cub *cub)
 		ft_free_array(tmp);
 		print_error("Invalid identifier", cub);
 	}
-	// if (len)
 	ft_free_array(tmp);
 	return ;
 }

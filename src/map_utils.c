@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 22:27:58 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/03/12 18:59:49 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/22 12:36:10 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,19 @@ void	init_map(t_cub *map_data)
 	map_data->game.map.player_dir = 0;
 	map_data->game.map.map_width = 0;
 	return ;
+}
+
+int	is_empty(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (is_whitespace(str[i]) || str[i] == '\n' || str[i] == ' ')
+			i++;
+		else
+			return (0);
+	}
+	return (1);
 }

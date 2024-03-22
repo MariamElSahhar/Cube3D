@@ -6,34 +6,11 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:27:28 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/03/22 10:52:51 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/22 12:40:09 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-char	*copy_and_trim(char *line)
-{
-	char	*dup;
-	char	*trim;
-
-	dup = ft_strdup(line);
-	if (dup[ft_strlen(dup) - 1] == '\n')
-		dup[ft_strlen(dup) - 1] = 0;
-	if (!dup[0])
-	{
-		free (dup);
-		return (NULL);
-	}
-	trim = new_strtrimchar(dup, ' ');
-	free(dup);
-	if (!trim)
-	{
-		free(trim);
-		return (NULL);
-	}
-	return (trim);
-}
 
 bool	check_is_map_begininng(char *line)
 {
@@ -88,21 +65,6 @@ int	get_map_len(char **arrays)
 	return (i);
 }
 
-int	is_empty(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (is_whitespace(str[i]) || str[i] == '\n' || str[i] == ' ')
-			i++;
-		else
-			return (0);
-	}
-	return (1);
-}
-
 int	check_map_end(char **file, int start, int end)
 {
 	while (end > start)
@@ -126,7 +88,8 @@ void	saving_validate_map(char *line, int index, t_cub *cub)
 	if (cub->game.map.map_pos == -1)
 	{
 		cub->game.map.map_pos = index;
-		map_end = check_map_end(cub->game.file.file_2d, index, cub->game.file.nline);
+		map_end = check_map_end(cub->game.file.file_2d,
+				index, cub->game.file.nline);
 		cub->game.map.map_2d = create_2darray_dup(cub->game.file.file_2d, index,
 				(map_end - index));
 	}
