@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tiny_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 09:15:18 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/03/22 12:36:29 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/22 13:22:31 by marmoham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	draw_player_pos(t_cub *mlx, int x_p, int y_p, int color)
 	}
 }
 
-void	draw_tiny_map(t_cub *mlx)
+void	draw_tiny_map2(t_cub *mlx)
 {
 	int		y;
 	int		x;
@@ -75,7 +75,8 @@ void	draw_tiny_map(t_cub *mlx)
 	{
 		x = 0;
 		x_p = 0;
-		while (mlx->game.map.map_2d[y][x] && mlx->game.map.map_2d[y][x] != '\n')
+		while (mlx->game.map.map_2d[y][x]
+			&& mlx->game.map.map_2d[y][x] != '\n')
 		{
 			if (mlx->game.map.map_2d[y][x] == '1')
 				draw_small_win(mlx, x_p, y_p, 0x808080);
@@ -87,6 +88,11 @@ void	draw_tiny_map(t_cub *mlx)
 		y++;
 		y_p += mlx->game.mini_tile;
 	}
+}
+
+void	draw_tiny_map(t_cub *mlx)
+{
+	draw_tiny_map2(mlx);
 	draw_player_pos(mlx, mlx->player.pos[0] / TILE * mlx->game.mini_tile,
 		mlx->player.pos[1] / TILE * mlx->game.mini_tile, 0xFF9300FF);
 }
