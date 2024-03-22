@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 20:10:15 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/22 11:07:14 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/22 12:45:12 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	hit_wall(double x, double y, t_map *map)
 		return (1);
 	if (map->map_2d[y_coor][x_coor] &&
 		(map->map_2d[y_coor][x_coor] == '1' ||
-		map->map_2d[y_coor][x_coor] == ' '))
+		map->map_2d[y_coor][x_coor] == ' ' ||
+		map->map_2d[y_coor][x_coor] == '\n'))
 		return (1);
 	return (0);
 }
