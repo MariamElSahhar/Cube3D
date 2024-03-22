@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:37:09 by melsahha          #+#    #+#             */
-/*   Updated: 2024/03/18 13:51:49 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/22 10:54:40 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,7 @@ int		destroy_cub(t_cub *data);
 int		ft_getindex(char *str, char c);
 void	put_pixel(t_mlx *mlx, int x, int y, int color);
 void	draw_tiny_map(t_cub *mlx);
+int		is_empty(char *str);
 
 // HOOKS
 int		key_down(int keycode, t_cub *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marmoham <marmoham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 08:02:20 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/03/18 14:27:05 by marmoham         ###   ########.fr       */
+/*   Updated: 2024/03/22 10:27:14 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	check_map_space(int y, int x, t_cub *cub)
 	if (x != ft_strlen(cub->game.map.map_2d[y]) - 1)
 		if (cub->game.map.map_2d[y][x + 1] == '0'
 			|| check_is_player(cub->game.map.map_2d[y][x + 1]))
-			print_error("Invalide space", cub);
+			print_error("Invalid space", cub);
 	return ;
 }
 
@@ -42,7 +42,7 @@ void	check_map_edge(char *line, t_cub *map)
 	tmp = copy_and_trim(line);
 	if (!tmp)
 		print_error("Invalid line", map);
-	
+
 	if (line == map->game.map.map_2d[0]
 		|| line == map->game.map.map_2d[map->game.map.nline - 1])
 	{

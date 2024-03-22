@@ -6,7 +6,7 @@
 /*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 07:53:07 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/03/18 14:42:44 by melsahha         ###   ########.fr       */
+/*   Updated: 2024/03/22 10:54:16 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ void	saving_valide_textures(char *line, t_cub *cub)
 	char	**split;
 
 	split = ft_split(line, ' ');
-	if (is_valide_id(split[0], "NO", 2))
+	if (split[0] && is_valide_id(split[0], "NO", 2))
 		cub->game.north = is_valide_texture(split, "NO", cub);
-	else if (is_valide_id(split[0], "SO", 2))
+	else if (split[0] && is_valide_id(split[0], "SO", 2))
 		cub->game.south = is_valide_texture(split, "SO", cub);
-	else if (is_valide_id(split[0], "WE", 2))
+	else if (split[0] && is_valide_id(split[0], "WE", 2))
 		cub->game.west = is_valide_texture(split, "WE", cub);
-	else if (is_valide_id(split[0], "EA", 2))
+	else if (split[0] && is_valide_id(split[0], "EA", 2))
 		cub->game.east = is_valide_texture(split, "EA", cub);
 	ft_free_array(split);
 	return ;
@@ -68,7 +68,7 @@ void	is_valide_identifier(char *line, t_cub *cub)
 		return ;
 	tmp = ft_split(line, ' ');
 	len = ft_strlen(tmp[0]);
-	if (!len && !is_valide_id(tmp[0], "NO", len) && !is_valide_id(tmp[0], "SO", len)
+	if (len && !is_empty(line) && !is_valide_id(tmp[0], "NO", len) && !is_valide_id(tmp[0], "SO", len)
 		&& !is_valide_id(tmp[0], "WE", len) && !is_valide_id(tmp[0], "EA", len)
 		&& !is_valide_id(tmp[0], "F", len) && !is_valide_id(tmp[0], "C", len)
 		&& !is_valide_id(tmp[0], "\n", len))
@@ -76,6 +76,7 @@ void	is_valide_identifier(char *line, t_cub *cub)
 		ft_free_array(tmp);
 		print_error("Invalid identifier", cub);
 	}
+	// if (len)
 	ft_free_array(tmp);
 	return ;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_valid_color.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marwamostafa <marwamostafa@student.42.f    +#+  +:+       +#+        */
+/*   By: melsahha <melsahha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:36:06 by marwamostaf       #+#    #+#             */
-/*   Updated: 2024/02/28 21:33:22 by marwamostaf      ###   ########.fr       */
+/*   Updated: 2024/03/22 10:51:37 by melsahha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	saving_parsing_colors(char *line, t_cub *cub)
 	char	*res;
 
 	res = new_strtrimchar(line, ' ');
+	if (!res || !res[0] || !res[1])
+		return ;
 	if (res[0] == 'F' && res[1] == ' ')
 		cub->game.floor = checking_color(res, "F", cub);
 	else if (res[0] == 'C' && res[1] == ' ')
